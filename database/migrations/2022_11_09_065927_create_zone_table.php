@@ -15,6 +15,8 @@ class CreateZoneTable extends Migration
     {
         Schema::create('zone', function (Blueprint $table) {
             $table->id();
+            $table->text('name')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

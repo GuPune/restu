@@ -18,7 +18,6 @@ class CreateProductResTable extends Migration
             $table->text('code')->nullable();
             $table->text('name_list')->nullable();
             $table->text('images')->nullable();
-            $table->text('name_list')->nullable();
             $table->integer('zone_id')->nullable();
             $table->integer('type_of_food_id')->nullable();
             $table->integer('price_sell')->nullable();

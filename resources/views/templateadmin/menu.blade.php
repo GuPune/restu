@@ -127,8 +127,8 @@
         </a>
         <div class="collapse" id="form-toe">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="/admin/users">โต๊ะอาหาร</a></li>
-              <li class="nav-item"> <a class="nav-link" href="/admin/roles">โซน</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/admin/toe">โต๊ะอาหาร</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/admin/zone">โซนโต๊ะ</a></li>
             </ul>
           </div>
       </li>

@@ -1,0 +1,176 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\CoreFunction\Datatable;
+use App\Models\Toe;
+use Yajra\DataTables\DataTables;
+
+class ToeController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+
+        return view('pages.toe.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+
+
+
+        $addtoe = Toe::create([
+            'number_toe' => $request->number_toe,
+            'number_sit' => $request->number_sit,
+            'status' => 'Y'
+        ]);
+
+        return response()->json([
+            'msg_return' => 'สำเร็จ',
+            'code_return' => 1,
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+
+        return response()->json($id);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+
+        $data = Toe::where('id',$id)->first();
+        return response()->json($data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+
+
+        $updatetor = Toe::where('id',$id)->update([
+            'number_toe' => $request->number_toe,
+            'number_sit' => $request->number_sit
+        ]);
+
+
+
+        return response()->json([
+            'msg_return' => 'สำเร็จ',
+            'code_return' => 1,
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+
+        $updatetor = Toe::where('id',$id)->update([
+            'status' => 'D',
+        ]);
+
+        return response()->json([
+            'msg_return' => 'บันทึกสำเร็จ',
+            'code_return' => 1,
+        ]);
+    }
+
+    public function getDatatable(Request $request)
+    {
+
+
+        $datatoe = Datatable::toedata($request);
+
+
+        return DataTables::of($datatoe)
+            ->setRowClass(function ($datatoe) {
+                return $datatoe->status ? '' : 'alert-danger';
+            })
+            ->make(true);
+
+    }
+
+
+    public function Close(Request $request)
+    {
+$updatemoney = Toe::where('id',$request->id)->update([
+    'status' => 'N'
+]);
+
+        return response()->json([
+            'msg_return' => 'บันทึกสำเร็จ',
+            'code_return' => 1,
+        ]);
+
+    }
+
+    public function Open(Request $request)
+    {
+$updatemoney = Toe::where('id',$request->id)->update([
+    'status' => 'Y'
+]);
+
+        return response()->json([
+            'msg_return' => 'บันทึกสำเร็จ',
+            'code_return' => 1,
+        ]);
+
+    }
+
+
+
+
+
+}
