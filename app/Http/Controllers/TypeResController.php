@@ -3,32 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Typeoffoods;
 use App\CoreFunction\Datatable;
-use App\Models\Toe;
 use Yajra\DataTables\DataTables;
 
-class ToeController extends Controller
+class TypeResController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    function __construct()
-    {
-         $this->middleware('permission:toe-list|toe-create|toe-edit|toe-delete', ['only' => ['index','store']]);
-         $this->middleware('permission:toe-create', ['only' => ['create','store']]);
-         $this->middleware('permission:toe-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:toe-close|toe-open', ['only' => ['close','open']]);
-         $this->middleware('permission:toe-delete', ['only' => ['destroy']]);
-    }
-
     public function index()
     {
         //
-
-        return view('pages.toe.index');
+        return view('pages.typeres.index');
     }
 
     /**
@@ -51,11 +40,8 @@ class ToeController extends Controller
     {
         //
 
-
-
-        $addtoe = Toe::create([
-            'number_toe' => $request->number_toe,
-            'number_sit' => $request->number_sit,
+        $addrestype = Typeoffoods::create([
+            'name' => $request->name,
             'status' => 'Y'
         ]);
 
@@ -74,8 +60,6 @@ class ToeController extends Controller
     public function show($id)
     {
         //
-
-        return response()->json($id);
     }
 
     /**
@@ -88,7 +72,7 @@ class ToeController extends Controller
     {
         //
 
-        $data = Toe::where('id',$id)->first();
+        $data = Typeoffoods::where('id',$id)->first();
         return response()->json($data);
     }
 
@@ -102,11 +86,8 @@ class ToeController extends Controller
     public function update(Request $request, $id)
     {
         //
-
-
-        $updatetor = Toe::where('id',$id)->update([
-            'number_toe' => $request->number_toe,
-            'number_sit' => $request->number_sit
+        $updatetype = Typeoffoods::where('id',$id)->update([
+            'name' => $request->name,
         ]);
 
 
@@ -127,7 +108,7 @@ class ToeController extends Controller
     {
         //
 
-        $updatetor = Toe::where('id',$id)->update([
+        $updatetor = Typeoffoods::where('id',$id)->update([
             'status' => 'D',
         ]);
 
@@ -137,16 +118,17 @@ class ToeController extends Controller
         ]);
     }
 
+
     public function getdatatable(Request $request)
     {
 
 
-        $datatoe = Datatable::toedata($request);
+        $datazone = Datatable::typeresdata($request);
 
 
-        return DataTables::of($datatoe)
-            ->setRowClass(function ($datatoe) {
-                return $datatoe->status ? '' : 'alert-danger';
+        return DataTables::of($datazone)
+            ->setRowClass(function ($datazone) {
+                return $datazone->status ? '' : 'alert-danger';
             })
             ->make(true);
 
@@ -155,7 +137,7 @@ class ToeController extends Controller
 
     public function close(Request $request)
     {
-$updatemoney = Toe::where('id',$request->id)->update([
+$updatemoney = Typeoffoods::where('id',$request->id)->update([
     'status' => 'N'
 ]);
 
@@ -168,7 +150,7 @@ $updatemoney = Toe::where('id',$request->id)->update([
 
     public function open(Request $request)
     {
-$updatemoney = Toe::where('id',$request->id)->update([
+$updatemoney = Typeoffoods::where('id',$request->id)->update([
     'status' => 'Y'
 ]);
 
@@ -178,9 +160,4 @@ $updatemoney = Toe::where('id',$request->id)->update([
         ]);
 
     }
-
-
-
-
-
 }

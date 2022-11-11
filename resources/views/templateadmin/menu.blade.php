@@ -114,7 +114,7 @@
         <div class="collapse" id="form-ord">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/admin/users">อาหาร</a></li>
-              <li class="nav-item"> <a class="nav-link" href="/admin/roles">ประเภทอาหาร</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/admin/typeres">ประเภทอาหาร</a></li>
             </ul>
           </div>
       </li>

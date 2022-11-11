@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ToeController;
 use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\TypeResController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,14 +86,21 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('toe', ToeController::class);
 
-    Route::post('toe/datatables', [\App\Http\Controllers\ToeController::class, 'getDatatable'])->name('toeitem.data');
-    Route::post('toe/close', [\App\Http\Controllers\ToeController::class, 'Close']);
-    Route::post('toe/open', [\App\Http\Controllers\ToeController::class, 'Open']);
+    Route::post('toe/datatables', [\App\Http\Controllers\ToeController::class, 'getdatatable'])->name('toeitem.data');
+    Route::post('toe/close', [\App\Http\Controllers\ToeController::class, 'close']);
+    Route::post('toe/open', [\App\Http\Controllers\ToeController::class, 'open']);
 
     Route::resource('zone', ZoneController::class);
-    Route::post('zone/datatables', [\App\Http\Controllers\ZoneController::class, 'getDatatable'])->name('zoneitem.data');
-    Route::post('zone/close', [\App\Http\Controllers\ZoneController::class, 'Close']);
-    Route::post('zone/open', [\App\Http\Controllers\ZoneController::class, 'Open']);
+    Route::post('zone/datatables', [\App\Http\Controllers\ZoneController::class, 'getdatatable'])->name('zoneitem.data');
+    Route::post('zone/close', [\App\Http\Controllers\ZoneController::class, 'close']);
+    Route::post('zone/open', [\App\Http\Controllers\ZoneController::class, 'open']);
+
+
+    Route::resource('typeres', TypeResController::class);
+    Route::post('typeres/datatables', [\App\Http\Controllers\TypeResController::class, 'getdatatable'])->name('typeitem.data');
+    Route::post('typeres/close', [\App\Http\Controllers\TypeResController::class, 'close']);
+    Route::post('typeres/open', [\App\Http\Controllers\TypeResController::class, 'open']);
+
 });
 
 

@@ -14,6 +14,18 @@ class ZoneController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct()
+    {
+         $this->middleware('permission:zone-list|zone-create|zone-edit|zone-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:zone-create', ['only' => ['create','store']]);
+         $this->middleware('permission:zone-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:zone-close|zone-open', ['only' => ['close','open']]);
+         $this->middleware('permission:zone-delete', ['only' => ['destroy']]);
+    }
+
+
+
     public function index()
     {
         //
@@ -121,7 +133,7 @@ class ZoneController extends Controller
     }
 
 
-    public function getDatatable(Request $request)
+    public function getdatatable(Request $request)
     {
 
 
@@ -137,7 +149,7 @@ class ZoneController extends Controller
     }
 
 
-    public function Close(Request $request)
+    public function close(Request $request)
     {
 $updatemoney = Zone::where('id',$request->id)->update([
     'status' => 'N'
@@ -150,7 +162,7 @@ $updatemoney = Zone::where('id',$request->id)->update([
 
     }
 
-    public function Open(Request $request)
+    public function open(Request $request)
     {
 $updatemoney = Zone::where('id',$request->id)->update([
     'status' => 'Y'
