@@ -15,6 +15,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ToeController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\TypeResController;
+use App\Http\Controllers\RestuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +102,10 @@ Route::prefix('admin')->group(function () {
     Route::post('typeres/close', [\App\Http\Controllers\TypeResController::class, 'close']);
     Route::post('typeres/open', [\App\Http\Controllers\TypeResController::class, 'open']);
 
+    Route::resource('restu', RestuController::class);
+    Route::post('restu/datatables', [\App\Http\Controllers\RestuController::class, 'getdatatable'])->name('restuitem.data');
+    Route::post('restu/close', [\App\Http\Controllers\RestuController::class, 'close']);
+    Route::post('restu/open', [\App\Http\Controllers\RestuController::class, 'open']);
 });
 
 
