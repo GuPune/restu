@@ -11,6 +11,13 @@
     .bt-sec {
         border-radius: inherit;
     }
+
+    .table td img{
+            width: 70px;
+   height: 70px;
+    border-radius: 10%;
+
+    }
     </style>
 
   <div class="row">
@@ -55,6 +62,7 @@
                       <div class="col-sm-9">
                         <input type="text" class="form-control" />
                       </div>
+
                     </div>
                   </div>
 
@@ -78,26 +86,18 @@
 
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-header container-fluid">
-                <div class="row">
-                  <div class="col-md-10">
-                    <h3 class="w-75 p-3">ตั้งค่าสินค้า/บริการ</h3>
-                  </div>
-                  <div class="col-md-2 float-right">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-                        เพิ่มสินค้า
-                      </button>
-                   </div>
-                </div>
-              </div>
+
           <div class="card-body">
             <div>
                 <table class="table table-bordered yajra-datatable" style="text-align: center;">
                     <thead>
                     <tr>
-                        <th>ลำดับ</th>
-                        <th>โซนสินค้า</th>
-                        <th>สถานะ</th>
+                        <th>รูปอาหาร</th>
+                        <th>เลขบาร์โค้ด</th>
+                        <th>รายการ</th>
+                        <th>ประเภท</th>
+                        <th>ราคา</th>
+                        <th>สถานะการขาย</th>
                         <th>จัดการ</th>
                     </tr>
                     </thead>
@@ -116,7 +116,7 @@
 
   <!-- The Modal -->
   <div class="modal" id="myModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
 
         <!-- Modal Header -->
@@ -129,11 +129,83 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">ที่ตั้ง/ที่จัดเก็บสินค้า:</label>
-                <input type="text" class="form-control" id="name" name="name">
-            </div>
+            <form id="add">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-striped" id="ProductDesc">
+                <tbody>
+                    <tr>
+                <td width="35%" height="30">รหัส/เลขบาร์โค้ด</td>
+                <td width="65%">
+                    <div class="input-group">
+                    <input type="text" name="code" id="code" class="form-control" style="width:100px">
 
+                <button type="button" class="btn btn-primary" id="gencode">สร้าง</button>
+            </div>
+            <div class="help-block-code">กรุณากรอก Code</div>
+                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="Ref_type_item_id" value="1">
+             </td>
+                </tr>
+                <tr>
+                <td height="30">ชื่อรายการ</td>
+                <td>
+                    <input type="text" name="name_list" id="name_list" class="form-control">
+                    <div class="help-block-name_list">กรุณากรอกชื่อรายการ</div>
+                </td>
+                </tr>
+                <tr>
+                <td height="30">หมวด<br><small>กำหนดค่าใน เมนู A03</small></td>
+                <td>
+                    <select name="type" class="form-control" id="type">
+
+                @foreach ($type as $key => $types)
+                <option value="{{$types->id}}">{{$types->name}}</option>
+                @endforeach
+            </select>
+        </td>
+                </tr>
+                <tr>
+                <td height="30">พื้นที่จัดวาง (โซน) <br><small>กำหนดค่าใน เมนู A07</small></td>
+                <td>
+                    <select name="zone" class="form-control" id="zone">
+
+                @foreach ($zone as $key => $zones)
+                <option value="{{$zones->id}}">{{$zones->name}}</option>
+                @endforeach
+             </select>
+            </td>
+                </tr>
+
+
+
+                <tr>
+                <td height="30">ราคาขายปลีก</td>
+                <td>
+                    <input name="price_sell" type="text" class="form-control" id="price_sell" value="1" placeholder="บาท" required="required"></td>
+                </tr>
+                <tr>
+                <td height="30">ราคาขายส่ง</td>
+                <td>
+                    <input name="unit_cost" type="text" class="form-control" id="unit_cost" value="1" placeholder="บาท" required="required"></td>
+                </tr>
+                <input name="images" type="hidden" class="form-control" id="images"   required="required">
+
+                <tr>
+                <td height="30">รูป</td>
+                <td><input type="file" name="file-res" id="file-res"></td>
+                </tr>
+                <tr>
+                <td height="30">หมายเหตุท้ายรายการ</td>
+                <td><textarea name="note" id="note" class="form-control"></textarea>
+               </td>
+                </tr>
+                <tr>
+
+                <tr>
+
+
+                </tbody>
+            </table>
+        </form>
         </div>
 
         <!-- Modal footer -->
@@ -239,6 +311,14 @@ input:checked + .slider:before {
 
     </style>
 
+<style type="text/css">
+    .help-block-code,.help-block-name_list,.help-block-price{
+        display: none;
+        color: red;
+        text-align: center;
+    }
+</style>
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
@@ -260,13 +340,16 @@ $.ajaxSetup({
     processing: true,
     serverSide: true,
     ajax: {
-        url:  "{!! route('zoneitem.data') !!}",
+        url:  "{!! route('restuitem.data') !!}",
         method: 'POST',
         data: RefreshTable,
     },
     columns: [
-        {data: 'id'},
+        {data: 'images'},
+        {data: 'code'},
+        {data: 'name_list'},
         {data: 'name'},
+        {data: 'price_sell'},
         {data: 'status'},
         {data: 'action', name: 'action', orderable:false, serachable:false},
 
@@ -276,11 +359,27 @@ $.ajaxSetup({
                 }
     },
     columnDefs: [{
-                targets: [0,2],
+                targets: [0,5],
             },
 
             {
-                    targets: 2,
+                    targets: 0,
+                    orderable: false,
+                    searchable: false,
+                    render: function (data, type, row) {
+
+                        var base_url = window.location.origin;
+var x = base_url + '/public/product/';
+var y = x+data;
+
+
+var result = data ? '<img src="'+ y  +'" alt="'+ row.name +'" class="img-fluid" height="70" width="70"   data-toggle="tooltip" data-placement="top"  title="Tooltip on top" > <br>' : '';
+    return result;
+                    }
+                },
+
+            {
+                    targets: 5,
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row) {
@@ -301,7 +400,7 @@ $.ajaxSetup({
                 },
 
             {
-                    targets: 3,
+                    targets: 6,
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row) {
@@ -354,7 +453,7 @@ function onClickClose(id){
                     data:{
                         '_token': "{{ csrf_token() }}",
                         id:id},
-                    url: '/admin/zone/close',
+                    url: '/admin/restu/close',
                     success: function(datas){
                 //      swal("บันทึกสำเร็จ!", "บันทึกสำเร็จ!", "success");
 
@@ -364,7 +463,8 @@ function onClickClose(id){
 
                 const timeoutId = setTimeout(function(){
                 table.ajax.reload(null, false);
-}, 500);
+              }, 500);
+
 
      }
 
@@ -387,7 +487,7 @@ $.ajaxSetup({
                 data:{
                     '_token': "{{ csrf_token() }}",
                     id:id},
-                url: '/admin/zone/open',
+                url: '/admin/restu/open',
                 success: function(datas){
               //    swal("บันทึกสำเร็จ!", "บันทึกสำเร็จ!", "success");
 
@@ -430,7 +530,7 @@ $.ajaxSetup({
                     data:{
                                 '_token': "{{ csrf_token() }}",
                                 id:id,name:name},
-                    url: "/admin/zone/"  + id,
+                    url: "/admin/restu/"  + id,
                     success: function(datas){
 
 $('#editmyModal').modal('hide');
@@ -446,31 +546,119 @@ const timeoutId = setTimeout(function(){
 
 
 
+$("#file-res").on('change', function(){
+        if ($('input[name ="file-res"]').val() != '') {
+            var _URL = window.URL || window.webkitURL;
+            var file, img;
+            var file_data = $('input[name= "file-res"]').prop('files')[0];
+            var _token = '{{ csrf_token() }}';
+            var form_data = new FormData();
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onload = function() {
+                    form_data.append('file-res', file_data);
+                    form_data.append("_token", _token);
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: '/admin/restu/uploadimage',
+                        dataType: 'json',
+                        type: 'POST',
+                        data: form_data,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function success(resp) {
+
+$('input[name=images]').val(resp.data);
+swal("บันทึกสำเร็จ!", "บันทึกสำเร็จ!", "success");
+
+                        },
+                        error: function error(xhr, textStatus, errorThrown) {
+
+                            console.log(errorThrown);
+                        }
+                    });
+                };
+                img.onerror = function() {
+                    alert( "not a valid file: " + file.type);
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        }
+    })
+
+    function validateForm(){
+
+var code = $('#code').val();
+var name_list = $('#name_list').val();
+
+
+
+
+
+if(code == ''){
+    $('.help-block-code').show();
+}
+if(name_list == ''){
+    $('.help-block-name_list').show();
+}
+
+if(code == ''|| name_list == ''){
+    return false;
+}else{
+    return true;
+}
+
+}
+
 
 $('body').on('click', '.save-add', function (e) {
 
 
-var name = $('#name').val();
+var code = $('#code').val();
+var name_list = $('#name_list').val();
+var type = $('#type').val();
+var zone = $('#zone').val();
+var price_sell = $('#price_sell').val();
+var unit_cost = $('#unit_cost').val();
+var note = $('#note').val();
+var images = $('#images').val();
 
-
-
-$.ajaxSetup({
+let valform = validateForm();
+            if(valform === true){
+            $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+
 
             $.ajax({
                 dataType: 'json',
                 type: "POST",
                 data:{
                             '_token': "{{ csrf_token() }}",
-                            name:name},
-                url: "/admin/zone",
+                            code:code,name_list:name_list,type:type,zone:zone,price_sell:price_sell,unit_cost:unit_cost,note:note,images:images},
+                url: "/admin/restu",
                 success: function(datas){
 
       swal("บันทึกสำเร็จ!", "บันทึกสำเร็จ!", "success");
 
+var code = $('#code').val('');
+var name_list = $('#name_list').val('');
+var type = $('#type').val('1');
+var zone = $('#zone').val('1');
+var price_sell = $('#price_sell').val('');
+var unit_cost = $('#unit_cost').val('');
+var note = $('#note').val('');
+var images = $('#images').val('');
+
+$("#file-res").val('');
 
 
       const timeoutId = setTimeout(function(){
@@ -483,6 +671,14 @@ $('#myModal').modal('hide');
 
 
             })
+
+            }else{
+
+
+            }
+
+
+
 
 });
 
@@ -506,7 +702,7 @@ $.ajaxSetup({
                 data:{
                             '_token': "{{ csrf_token() }}",
                             id:id},
-                url: "/admin/zone/" + id,
+                url: "/admin/restu/" + id,
                 success: function(datas){
 
       swal("ลบสำเร็จ!", "ลบสำเร็จ!", "success");
@@ -545,7 +741,7 @@ $.ajaxSetup({
                 $.ajax({
                     dataType: 'json',
                     type: "GET",
-                    url: "/admin/zone/" + id +"/edit",
+                    url: "/admin/restu/" + id +"/edit",
                     success: function(datas){
 
 var editname = $('#editname').val(datas.name);

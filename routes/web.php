@@ -106,6 +106,8 @@ Route::prefix('admin')->group(function () {
     Route::post('restu/datatables', [\App\Http\Controllers\RestuController::class, 'getdatatable'])->name('restuitem.data');
     Route::post('restu/close', [\App\Http\Controllers\RestuController::class, 'close']);
     Route::post('restu/open', [\App\Http\Controllers\RestuController::class, 'open']);
+
+    Route::post('/restu/uploadimage', [App\Http\Controllers\ProductController::class, 'upload']);
 });
 
 
