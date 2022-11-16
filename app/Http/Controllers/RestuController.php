@@ -46,7 +46,7 @@ $zone = Zone::where('status','Y')->get();
     public function store(Request $request)
     {
         //
-
+\Log::info($request->all());
 
         $resadd = Productres::create([
             'code' => $request->code,
@@ -86,6 +86,8 @@ $zone = Zone::where('status','Y')->get();
     public function edit($id)
     {
         //
+        $data = Productres::where('id',$id)->first();
+        return response()->json($data);
     }
 
     /**
@@ -98,6 +100,28 @@ $zone = Zone::where('status','Y')->get();
     public function update(Request $request, $id)
     {
         //
+
+
+
+
+$updatetor = Productres::where('id',$id)->update([
+    'code' => $request->code,
+    'name_list' => $request->name_list,
+    'images' => $request->images,
+    'zone_id' => $request->zone,
+    'type_of_food_id' => $request->type,
+    'price_sell' => $request->price_sell,
+    'unit_cost' => $request->unit_cost,
+    'note' => $request->note,
+]);
+
+
+
+
+        return response()->json([
+            'msg_return' => 'สำเร็จ',
+            'code_return' => 1,
+        ]);
     }
 
     /**
@@ -109,6 +133,15 @@ $zone = Zone::where('status','Y')->get();
     public function destroy($id)
     {
         //
+
+        $updatetor = Productres::where('id',$id)->update([
+            'status' => 'D',
+        ]);
+
+        return response()->json([
+            'msg_return' => 'บันทึกสำเร็จ',
+            'code_return' => 1,
+        ]);
     }
 
 

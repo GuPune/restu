@@ -60,7 +60,7 @@ class Datatable extends Model
         ->whereIn('product_res.status',['Y','N'])->get();
 
 
-        \Log::info($data);
+
 
    return $data;
     }

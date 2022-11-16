@@ -13,16 +13,24 @@
     }
 
     .table td img{
-            width: 70px;
-   height: 70px;
+            width: 100px;
+   height: 100px;
     border-radius: 10%;
+
+    }
+    #showImageProductEdit{
+        width: 200px;
+   height: 200px;
+
+    }
+    #showImageProduct{
+        width: 200px;
+   height: 200px;
 
     }
     </style>
 
   <div class="row">
-
-
     <div class="col-12 grid-margin">
         <div class="card-header container-fluid card-pr">
             <div class="row">
@@ -133,6 +141,12 @@
             <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-striped" id="ProductDesc">
                 <tbody>
                     <tr>
+                        <td height="30" colspan="2" id="images" align="center">
+                            <img  width="250"
+                            id="showImageProduct"
+                            ></td>
+                    </tr>
+                    <tr>
                 <td width="35%" height="30">รหัส/เลขบาร์โค้ด</td>
                 <td width="65%">
                     <div class="input-group">
@@ -153,7 +167,7 @@
                 </td>
                 </tr>
                 <tr>
-                <td height="30">หมวด<br><small>กำหนดค่าใน เมนู A03</small></td>
+                <td height="30">หมวด<br><small>กำหนดค่าใน เมนู ประเภทอาหาร</small></td>
                 <td>
                     <select name="type" class="form-control" id="type">
 
@@ -164,7 +178,7 @@
         </td>
                 </tr>
                 <tr>
-                <td height="30">พื้นที่จัดวาง (โซน) <br><small>กำหนดค่าใน เมนู A07</small></td>
+                <td height="30">พื้นที่จัดวาง (โซน) <br><small>กำหนดค่าใน โซน</small></td>
                 <td>
                     <select name="zone" class="form-control" id="zone">
 
@@ -220,12 +234,12 @@
 
 
   <div class="modal" id="editmyModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
 
         <!-- Modal Header -->
         <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">แก้ไข้รายการ โซนสินค้า</h4>
+            <h4 class="modal-title" id="exampleModalLabel">เพิ่มรายการ โซนสินค้า</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
             </button>
@@ -233,12 +247,92 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-            <div class="form-group">
-                <input type="hidden" class="form-control" id="editid" name="editid">
-                <label for="recipient-name" class="col-form-label">ที่ตั้ง/ที่จัดเก็บสินค้า:</label>
-                <input type="text" class="form-control" id="editname" name="editname">
-            </div>
+            <form id="add">
+                <input name="editid" type="hidden" class="form-control" id="editid"></td>
+                <input name="editimages" type="hidden" class="form-control" id="editimages"   required="required">
 
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-striped" id="ProductDesc">
+                <tbody>
+                    <tr>
+                        <td height="30" colspan="2" id="images" align="center">
+                            <img
+                            id="showImageProductEdit"
+                            ></td>
+                    </tr>
+                    <tr>
+                <td width="35%" height="30">รหัส/เลขบาร์โค้ด</td>
+                <td width="65%">
+                    <div class="input-group">
+                    <input type="text" name="editcode" id="editcode" class="form-control" style="width:100px">
+
+                <button type="button" class="btn btn-primary" id="gencode">สร้าง</button>
+            </div>
+            <div class="help-block-code">กรุณากรอก Code</div>
+                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="Ref_type_item_id" value="1">
+             </td>
+                </tr>
+                <tr>
+                <td height="30">ชื่อรายการ</td>
+                <td>
+                    <input type="text" name="editname_list" id="editname_list" class="form-control">
+                    <div class="help-block-name_list">กรุณากรอกชื่อรายการ</div>
+                </td>
+                </tr>
+                <tr>
+                <td height="30">หมวด<br><small>กำหนดค่าใน เมนู ประเภทอาหาร</small></td>
+                <td>
+                    <select name="type" class="form-control" id="edittype" name="edittype">
+
+                @foreach ($type as $key => $types)
+                <option value="{{$types->id}}">{{$types->name}}</option>
+                @endforeach
+            </select>
+        </td>
+                </tr>
+                <tr>
+                <td height="30">พื้นที่จัดวาง (โซน) <br><small>กำหนดค่าใน โซน</small></td>
+                <td>
+                    <select name="editzone" class="form-control" id="editzone">
+
+                @foreach ($zone as $key => $zones)
+                <option value="{{$zones->id}}">{{$zones->name}}</option>
+                @endforeach
+             </select>
+            </td>
+                </tr>
+
+
+
+                <tr>
+                <td height="30">ราคาขายปลีก</td>
+                <td>
+                    <input name="editprice_sell" type="text" class="form-control" id="editprice_sell" value="1" placeholder="บาท" required="required"></td>
+                </tr>
+                <tr>
+                <td height="30">ราคาขายส่ง</td>
+                <td>
+                    <input name="editunit_cost" type="text" class="form-control" id="editunit_cost" value="1" placeholder="บาท" required="required"></td>
+                </tr>
+                <input name="editimages" type="hidden" class="form-control" id="editimages"   required="required">
+
+                <tr>
+                <td height="30">รูป</td>
+                <td><input type="file" name="file-res-edit" id="file-res-edit"></td>
+                </tr>
+                <tr>
+                <td height="30">หมายเหตุท้ายรายการ</td>
+                <td><textarea name="editnote" id="editnote" class="form-control"></textarea>
+               </td>
+                </tr>
+                <tr>
+
+                <tr>
+
+
+                </tbody>
+            </table>
+        </form>
         </div>
 
         <!-- Modal footer -->
@@ -250,6 +344,9 @@
       </div>
     </div>
   </div>
+
+
+
 
 <style>
     .switch {
@@ -327,7 +424,7 @@ input:checked + .slider:before {
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
   <script>
 
-
+var $link = "<?php echo url('/public/product/'); ?>";
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -510,13 +607,25 @@ $.ajaxSetup({
 
  }
 
+ $('body').on('click', '.bt-sec', function (e) {
+
+    $('#showImageProduct').attr("src", $link +'/'+ 'no_photo.jpg');
+ });
 
 
  $('body').on('click', '.save-update', function (e) {
 
 
-    var name = $('#editname').val();
+
     var id = $('#editid').val();
+    var code = $('#editcode').val();
+    var name_list = $('#editname_list').val();
+    var price_sell = $('#editprice_sell').val();
+    var unit_cost = $('#editunit_cost').val();
+    var note = $('#editnote').val();
+    var images = $('#editimages').val();
+    var type = $('#edittype').val();
+    var zone = $('#editzone').val();
 
     $.ajaxSetup({
                     headers: {
@@ -529,16 +638,18 @@ $.ajaxSetup({
                     type: "PUT",
                     data:{
                                 '_token': "{{ csrf_token() }}",
-                                id:id,name:name},
+                                id:id,code:code,name_list:name_list,price_sell:price_sell,unit_cost:unit_cost,note:note,images:images,type:type,zone:zone},
                     url: "/admin/restu/"  + id,
                     success: function(datas){
 
 $('#editmyModal').modal('hide');
-
+swal("แก้ไขสำเร็จ!", "แก้ไขสำเร็จ!", "success");
 
 const timeoutId = setTimeout(function(){
                 table.ajax.reload(null, false);
 }, 500);
+
+
                     }
                 })
 
@@ -574,6 +685,54 @@ $("#file-res").on('change', function(){
                         success: function success(resp) {
 
 $('input[name=images]').val(resp.data);
+$('#showImageProduct').attr("src", $link +'/'+ resp.data);
+swal("บันทึกสำเร็จ!", "บันทึกสำเร็จ!", "success");
+
+                        },
+                        error: function error(xhr, textStatus, errorThrown) {
+
+                            console.log(errorThrown);
+                        }
+                    });
+                };
+                img.onerror = function() {
+                    alert( "not a valid file: " + file.type);
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        }
+    })
+
+
+    $("#file-res-edit").on('change', function(){
+        if ($('input[name ="file-res-edit"]').val() != '') {
+            var _URL = window.URL || window.webkitURL;
+            var file, img;
+            var file_data = $('input[name= "file-res-edit"]').prop('files')[0];
+            var _token = '{{ csrf_token() }}';
+            var form_data = new FormData();
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onload = function() {
+                    form_data.append('file-res-edit', file_data);
+                    form_data.append("_token", _token);
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: '/admin/restu/uploadimage',
+                        dataType: 'json',
+                        type: 'POST',
+                        data: form_data,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function success(resp) {
+
+$('input[name=editimages]').val(resp.data);
+$('#showImageProductEdit').attr("src", $link +'/'+ resp.data);
 swal("บันทึกสำเร็จ!", "บันทึกสำเร็จ!", "success");
 
                         },
@@ -653,12 +812,13 @@ var code = $('#code').val('');
 var name_list = $('#name_list').val('');
 var type = $('#type').val('1');
 var zone = $('#zone').val('1');
-var price_sell = $('#price_sell').val('');
-var unit_cost = $('#unit_cost').val('');
+var price_sell = $('#price_sell').val('1');
+var unit_cost = $('#unit_cost').val('1');
 var note = $('#note').val('');
 var images = $('#images').val('');
 
 $("#file-res").val('');
+$('#showImageProduct').attr("src", $link +'/'+ 'no_photo.jpg');
 
 
       const timeoutId = setTimeout(function(){
@@ -743,9 +903,17 @@ $.ajaxSetup({
                     type: "GET",
                     url: "/admin/restu/" + id +"/edit",
                     success: function(datas){
-
-var editname = $('#editname').val(datas.name);
+console.log(datas);
 var id = $('#editid').val(datas.id);
+var name_list = $('#editname_list').val(datas.name_list);
+var price_sell = $('#editprice_sell').val(datas.price_sell);
+var unit_cost = $('#editunit_cost').val(datas.unit_cost);
+var code = $('#editcode').val(datas.code);
+var note = $('#editnote').val(datas.note);
+$("#edittype").val(datas.type_of_food_id);
+$("#editzone").val(datas.zone_id);
+$("#editimages").val(datas.images);
+$('#showImageProductEdit').attr("src", $link +'/'+ datas.images);
 
                         $("#editmyModal").modal()
                     }
