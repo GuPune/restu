@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Toe;
 
 class Zone extends Model
 {
@@ -18,4 +19,12 @@ class Zone extends Model
 
 
     ];
+
+
+
+public function toe() {
+    return $this->hasMany(Toe::class);
+}
+
+
 }

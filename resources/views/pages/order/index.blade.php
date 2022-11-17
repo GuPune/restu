@@ -5,82 +5,64 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-<div class="row">
-    <div class="col-sm-12">
-      <h3 class="mb-0 font-weight-bold">โซน 1 </h3>
-    </div>
-</div>
-  <div class="row pt-2 pb-4">
-    <div class="col-sm-3 col-lg-2" style="float:left;" name="product" id="77">
-        <div class="card" style="background-color: #05EDF8;">
-            <div class="card-body">
-                <div class="text-muted text-right mb-2">
-                    <i class="fa fa-home fa-3x"></i>
-                </div>
-              <h1 class="card-title">โต๊ะ 5</h1>
-              <p class="card-text">จำนวนที่นั้ง 4 </p>
-            </div>
-            <div class="card-footer bg-transparent">สถานะ : ว่าง</div>
-          </div>
-    </div>
-
-    <div class="col-sm-3 col-lg-2" style="float:left;" name="product" id="77">
-        <div class="card" style="background-color: #d005f8;">
-            <div class="card-body">
-                <div class="text-muted text-right mb-2">
-                    <i class="fa fa-home fa-3x"></i>
-                </div>
-              <h1 class="card-title">โต๊ะ 5</h1>
-              <p class="card-text">จำนวนที่นั้ง 4 </p>
-            </div>
-            <div class="card-footer bg-transparent">สถานะ : เช็คบิล</div>
-          </div>
-    </div>
-
-    <div class="col-sm-3 col-lg-2" style="float:left;" name="product" id="77">
-        <div class="card" style="background-color: #f82105;">
-            <div class="card-body">
-                <div class="text-muted text-right mb-2">
-                    <i class="fa fa-home fa-3x"></i>
-                </div>
-              <h1 class="card-title">โต๊ะ 5</h1>
-              <p class="card-text">จำนวนที่นั้ง 4 </p>
-            </div>
-            <div class="card-footer bg-transparent">สถานะ : ไม่ว่าง</div>
-          </div>
-    </div>
-
-
-
-
-
-</div>
-
+@foreach ($item as $key => $node)
 
 <div class="row">
     <div class="col-sm-12">
-      <h3 class="mb-0 font-weight-bold">โซน 2 </h3>
+      <h3 class="mb-0 font-weight-bold">{{$node->name}}</h3>
     </div>
 </div>
   <div class="row pt-2 pb-4">
+    @foreach ($node->toe as $index => $toes)
     <div class="col-sm-3 col-lg-2" style="float:left;" name="product" id="77">
-        <div class="card" style="background-color: #f82105;">
+
+        <div class="card"
+        @if ($toes->orderstatus == 'idle')
+        style="background-color: #22F805;"
+            @elseif($toes->orderstatus == 'notidle')
+        style="background-color: #F81F05;"
+        @elseif($toes->orderstatus == 'call')
+        style="background-color: #F81F05;"
+        @elseif($toes->orderstatus == 'request')
+        style="background-color: #F8C105;"
+        @else
+        style="background-color: #A005F8;"
+        @endif
+        >
             <div class="card-body">
                 <div class="text-muted text-right mb-2">
                     <i class="fa fa-home fa-3x"></i>
                 </div>
-              <h1 class="card-title">โต๊ะ VIP</h1>
-              <p class="card-text">จำนวนที่นั้ง 14 </p>
+              <h1 class="card-title">{{$toes->number_toe}}</h1>
+              <p class="card-text">จำนวนที่นั้ง {{$toes->number_sit}} </p>
             </div>
-            <div class="card-footer bg-transparent">สถานะ : ไม่ว่าง</div>
+            <div class="card-footer bg-transparent">
+
+                @if ($toes->orderstatus == 'idle')
+                สถานะ : ว่าง
+                    @elseif($toes->orderstatus == 'notidle')
+                    สถานะ : ไม่ว่าง
+                @elseif($toes->orderstatus == 'call')
+                สถานะ : เรียกพนักงาน
+                @elseif($toes->orderstatus == 'request')
+                สถานะ : ร้องขอ
+                @else
+                สถานะ : เช็คบิล
+                @endif
+
+            </div>
           </div>
     </div>
-
+    @endforeach
 
 
 
 
 </div>
+
+
+
+@endforeach
 
 
 

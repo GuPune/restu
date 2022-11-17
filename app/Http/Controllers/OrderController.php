@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Toe;
+use App\Models\Zone;
 use Illuminate\Http\Request;
+
 
 class OrderController extends Controller
 {
@@ -14,7 +17,13 @@ class OrderController extends Controller
     public function index()
     {
         //
-        return view('pages.order.index');
+
+
+        $indentity = Zone::with('toe')->where('status','Y')->get();
+
+
+        return view("pages.order.index")->with('item',$indentity);
+
     }
 
     /**
@@ -81,5 +90,21 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function test()
+    {
+        //
+        $data = Zone::where('status','Y')->get();
+
+        $datas = [];
+
+        foreach ($data as $key => $datay) {
+            $toe = Toe::where('zone_id',$datay['id'])->get();
+            $datas['data'][$key]['zone'] = $datay['name'];
+            $datas['data'][$key]['toe'] = $toe;
+        }
+
+        return response()->json($datas);
     }
 }
