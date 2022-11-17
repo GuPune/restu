@@ -21,7 +21,10 @@ class Datatable extends Model
     public static function toedata($request = null)
     {
 
-        $data = Toe::whereIn('status', ['Y','N'])->get();
+
+        $data =  Toe::select('toe.id','toe.number_toe','toe.number_sit','toe.zone_id','zone.name')
+        ->leftJoin('zone', 'toe.zone_id', '=', 'zone.id')->where('zone.status','Y')
+        ->whereIn('toe.status',['Y','N'])->get();
 
         return $data;
 
@@ -54,11 +57,23 @@ class Datatable extends Model
 
         // return $data;
 
+        \Log::info($request->all());
+
 
         $data =  Productres::select('product_res.id','product_res.code','product_res.name_list','product_res.images','product_res.price_sell','product_res.status','type_of_food.name')
         ->leftJoin('type_of_food', 'product_res.type_of_food_id', '=', 'type_of_food.id')
-        ->whereIn('product_res.status',['Y','N'])->get();
+        ->whereIn('product_res.status',['Y','N']);
 
+        if($request->serachname_list){
+            $data->where('product_res.name_list',$request->serachname_list);
+       }
+       if($request->serachcode){
+           $data->where('product_res.code',$request->serachcode);
+       }
+       if($request->searchtype){
+        $data->where('product_res.type_of_food_id',$request->searchtype);
+       }
+       $data->get();
 
 
 

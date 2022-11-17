@@ -16,5 +16,6 @@ class Zone extends Model
         'name',
         'status',
 
+
     ];
 }

@@ -53,7 +53,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">ประเภทอาหาร</label>
                       <div class="col-sm-9">
-                        <select class="form-control">
+                        <select class="form-control" name="searchtype" id="searchtype">
                             @foreach($type as $key => $types)
                             <option value="{{$types->id}}">
                                - {{$types->name}}</option>
@@ -68,7 +68,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">รหัสสินค้า</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" />
+                        <input type="text" class="form-control" name="serachcode" id="serachcode" placeholder="รหัสสินค้า"/>
                       </div>
 
                     </div>
@@ -80,7 +80,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">ชื่ออาหาร</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" />
+                      <input type="text" class="form-control" name="serachname_list" id="serachname_list"  placeholder="ชื่อสินค้า"/>
                     </div>
                   </div>
                 </div>
@@ -194,12 +194,12 @@
                 <tr>
                 <td height="30">ราคาขายปลีก</td>
                 <td>
-                    <input name="price_sell" type="text" class="form-control" id="price_sell" value="1" placeholder="บาท" required="required"></td>
+                    <input name="price_sell" type="number" class="form-control" id="price_sell" value="1" min="1" placeholder="บาท" required="required" onkeypress="return onlyNumberKey(event)"></td>
                 </tr>
                 <tr>
                 <td height="30">ราคาขายส่ง</td>
                 <td>
-                    <input name="unit_cost" type="text" class="form-control" id="unit_cost" value="1" placeholder="บาท" required="required"></td>
+                    <input name="unit_cost" type="number" class="form-control" id="unit_cost" value="1" min="1" placeholder="บาท" required="required" onkeypress="return onlyNumberKey(event)"></td>
                 </tr>
                 <input name="images" type="hidden" class="form-control" id="images"   required="required">
 
@@ -307,12 +307,12 @@
                 <tr>
                 <td height="30">ราคาขายปลีก</td>
                 <td>
-                    <input name="editprice_sell" type="text" class="form-control" id="editprice_sell" value="1" placeholder="บาท" required="required"></td>
+                    <input name="editprice_sell" type="number" min="1" class="form-control" id="editprice_sell" value="1" placeholder="บาท" required="required" onkeypress="return onlyNumberKey(event)"></td>
                 </tr>
                 <tr>
                 <td height="30">ราคาขายส่ง</td>
                 <td>
-                    <input name="editunit_cost" type="text" class="form-control" id="editunit_cost" value="1" placeholder="บาท" required="required"></td>
+                    <input name="editunit_cost" type="number" min="1" class="form-control" id="editunit_cost" value="1" placeholder="บาท" required="required" onkeypress="return onlyNumberKey(event)"></td>
                 </tr>
                 <input name="editimages" type="hidden" class="form-control" id="editimages"   required="required">
 
@@ -424,6 +424,15 @@ input:checked + .slider:before {
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
   <script>
 
+function onlyNumberKey(evt) {
+
+              // Only ASCII character in that range allowed
+              var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+              if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                  return false;
+              return true;
+          }
+
 var $link = "<?php echo url('/public/product/'); ?>";
 $.ajaxSetup({
   headers: {
@@ -431,11 +440,28 @@ $.ajaxSetup({
   }
 });
 
+
         var searchData = {};
 
         var table = $('.yajra-datatable').DataTable({
     processing: true,
     serverSide: true,
+    "info":           "Showing _START_ to _END_ of _TOTAL_ entries",
+    "infoEmpty":      "Showing 0 to 0 of 0 entries",
+        "searching": false,
+        "oLanguage": {
+        "sLengthMenu": "แสดง _MENU_ เรดคอร์ด",
+        "sZeroRecords": "ไม่มีข้อมูลในตาราง",
+      "sSearch": "ค้นหา :",
+      "sEmptyTable": "ไม่มีข้อมูลในตาราง",
+      "sLoadingRecords": "Please wait - loading...",
+      "sInfo": "แสดง _START_ ถึง _END_ จาก _TOTAL_ เรดคอร์ด",
+      "oPaginate": {
+        "sNext": "ถัดไป",
+        "sPrevious": "ก่อนหน้า"
+      }
+    },
+
     ajax: {
         url:  "{!! route('restuitem.data') !!}",
         method: 'POST',
@@ -520,6 +546,12 @@ function RefreshTable(data) {
 
 
     data._token = "{{ csrf_token() }}";
+
+            data.serachname_list = $('input[name=serachname_list]').val();
+            data.serachcode = $('input[name=serachcode]').val();
+            data.searchtype = $('select[name=searchtype]').val();
+
+console.log(data.searchtype);
             return data;
 
 }

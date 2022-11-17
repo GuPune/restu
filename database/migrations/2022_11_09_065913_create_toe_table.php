@@ -18,6 +18,7 @@ class CreateToeTable extends Migration
             $table->text('number_toe')->nullable();
             $table->text('number_sit')->nullable();
             $table->string('status')->nullable();
+            $table->string('zone_id')->nullable();
             $table->timestamps();
         });
     }

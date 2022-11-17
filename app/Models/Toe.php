@@ -15,7 +15,7 @@ class Toe extends Model
         'id',
         'number_toe',
         'number_sit',
+        'zone_id',
         'status',
-
     ];
 }

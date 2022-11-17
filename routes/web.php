@@ -10,6 +10,7 @@ use App\Http\Controllers\MultiController;
 use App\Http\Controllers\FrontNewController;
 use App\Http\Controllers\FrontProductController;
 use App\Http\Controllers\CaptchaServiceController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ToeController;
@@ -108,6 +109,11 @@ Route::prefix('admin')->group(function () {
     Route::post('restu/open', [\App\Http\Controllers\RestuController::class, 'open']);
 
     Route::post('/restu/uploadimage', [App\Http\Controllers\ProductController::class, 'upload']);
+
+
+    Route::resource('order', OrderController::class);
+
+
 });
 
 

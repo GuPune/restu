@@ -46,7 +46,7 @@ $zone = Zone::where('status','Y')->get();
     public function store(Request $request)
     {
         //
-\Log::info($request->all());
+
 
         $resadd = Productres::create([
             'code' => $request->code,

@@ -2,140 +2,87 @@
 
 @section('content')
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-
-
-  <div class="row">
-
-    <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-header container-fluid">
-                <div class="row">
-                  <div class="col-md-10">
-                    <h3 class="w-75 p-3">รายการโต๊ะนั่ง</h3>
-                  </div>
-                  <div class="col-md-2 float-right">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-                        เพิ่มรายการโต๊ะนั่ง
-                      </button>
-                   </div>
+<div class="row">
+    <div class="col-sm-12">
+      <h3 class="mb-0 font-weight-bold">โซน 1 </h3>
+    </div>
+</div>
+  <div class="row pt-2 pb-4">
+    <div class="col-sm-3 col-lg-2" style="float:left;" name="product" id="77">
+        <div class="card" style="background-color: #05EDF8;">
+            <div class="card-body">
+                <div class="text-muted text-right mb-2">
+                    <i class="fa fa-home fa-3x"></i>
                 </div>
-              </div>
-          <div class="card-body">
-            <div>
-                <table class="table table-bordered yajra-datatable" style="text-align: center;">
-                    <thead>
-                    <tr>
-                        <th>ลำดับ</th>
-                        <th>โต๊ะ</th>
-                        <th>จำนวนที่นั้ง</th>
-                        <th>โซน</th>
-                        <th>สถานะ</th>
-                        <th>จัดการ</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-
+              <h1 class="card-title">โต๊ะ 5</h1>
+              <p class="card-text">จำนวนที่นั้ง 4 </p>
             </div>
+            <div class="card-footer bg-transparent">สถานะ : ว่าง</div>
           </div>
-        </div>
-      </div>
-  </div>
-
-
-
-
-  <!-- The Modal -->
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">เพิ่มหมวดหมู่</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">ชื่อโต๊:</label>
-                <input type="text" class="form-control" id="number_toe" name="number_toe">
-            </div>
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">จำนวนที่นั้ง:</label>
-                <input type="text" class="form-control" id="number_sit" name="number_sit">
-            </div>
-            <div class="form-group">
-                <label for="inputState">โซน:</label>
-                <select id="zone_id" name="zone_id" class="form-control">
-                    @foreach ($zone as $key => $zones)
-                    <option value="{{$zones->id}}">{{$zones->name}}</option>
-                    @endforeach
-                </select>
-              </div>
-
-
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-            <button type="button" class="btn btn-primary save-add" id="save_group">บันทึก</button>
-            </div>
-
-      </div>
     </div>
-  </div>
 
-
-  <div class="modal" id="editmyModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">แก้ไขหมวดหมู่</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
+    <div class="col-sm-3 col-lg-2" style="float:left;" name="product" id="77">
+        <div class="card" style="background-color: #d005f8;">
+            <div class="card-body">
+                <div class="text-muted text-right mb-2">
+                    <i class="fa fa-home fa-3x"></i>
+                </div>
+              <h1 class="card-title">โต๊ะ 5</h1>
+              <p class="card-text">จำนวนที่นั้ง 4 </p>
             </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-            <div class="form-group">
-                <input type="hidden" class="form-control" id="editid" name="editid">
-                <label for="recipient-name" class="col-form-label">ชื่อโต๊:</label>
-                <input type="text" class="form-control" id="editnumber_toe" name="editnumber_toe">
-            </div>
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">จำนวนที่นั้ง:</label>
-                <input type="text" class="form-control" id="editnumber_sit" name="editnumber_sit">
-            </div>
-            <div class="form-group">
-                <label for="inputState">โซน:</label>
-                <select id="editzone_id" name="editzone_id" class="form-control">
-                    @foreach ($zone as $key => $zones)
-                    <option value="{{$zones->id}}">{{$zones->name}}</option>
-                    @endforeach
-                </select>
-              </div>
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-            <button type="button" class="btn btn-primary save-update" id="save_group">บันทึก</button>
-            </div>
-
-      </div>
+            <div class="card-footer bg-transparent">สถานะ : เช็คบิล</div>
+          </div>
     </div>
-  </div>
+
+    <div class="col-sm-3 col-lg-2" style="float:left;" name="product" id="77">
+        <div class="card" style="background-color: #f82105;">
+            <div class="card-body">
+                <div class="text-muted text-right mb-2">
+                    <i class="fa fa-home fa-3x"></i>
+                </div>
+              <h1 class="card-title">โต๊ะ 5</h1>
+              <p class="card-text">จำนวนที่นั้ง 4 </p>
+            </div>
+            <div class="card-footer bg-transparent">สถานะ : ไม่ว่าง</div>
+          </div>
+    </div>
+
+
+
+
+
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+      <h3 class="mb-0 font-weight-bold">โซน 2 </h3>
+    </div>
+</div>
+  <div class="row pt-2 pb-4">
+    <div class="col-sm-3 col-lg-2" style="float:left;" name="product" id="77">
+        <div class="card" style="background-color: #f82105;">
+            <div class="card-body">
+                <div class="text-muted text-right mb-2">
+                    <i class="fa fa-home fa-3x"></i>
+                </div>
+              <h1 class="card-title">โต๊ะ VIP</h1>
+              <p class="card-text">จำนวนที่นั้ง 14 </p>
+            </div>
+            <div class="card-footer bg-transparent">สถานะ : ไม่ว่าง</div>
+          </div>
+    </div>
+
+
+
+
+
+</div>
+
+
 
 <style>
     .switch {

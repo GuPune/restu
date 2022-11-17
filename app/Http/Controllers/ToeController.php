@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\CoreFunction\Datatable;
 use App\Models\Toe;
+use App\Models\Zone;
 use Yajra\DataTables\DataTables;
 
 class ToeController extends Controller
@@ -28,7 +29,9 @@ class ToeController extends Controller
     {
         //
 
-        return view('pages.toe.index');
+        $zonetype = Zone::where('status','Y')->get();
+
+        return view('pages.toe.index')->with('zone',$zonetype);
     }
 
     /**
@@ -56,6 +59,7 @@ class ToeController extends Controller
         $addtoe = Toe::create([
             'number_toe' => $request->number_toe,
             'number_sit' => $request->number_sit,
+            'zone_id' => $request->zone_id,
             'status' => 'Y'
         ]);
 
@@ -106,7 +110,8 @@ class ToeController extends Controller
 
         $updatetor = Toe::where('id',$id)->update([
             'number_toe' => $request->number_toe,
-            'number_sit' => $request->number_sit
+            'number_sit' => $request->number_sit,
+            'zone_id' => $request->zone_id
         ]);
 
 
@@ -140,9 +145,7 @@ class ToeController extends Controller
     public function getdatatable(Request $request)
     {
 
-
         $datatoe = Datatable::toedata($request);
-
 
         return DataTables::of($datatoe)
             ->setRowClass(function ($datatoe) {

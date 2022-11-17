@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use App\CoreFunction\Datatable;
+use App\Models\Toe;
 use Yajra\DataTables\DataTables;
+
 
 class ZoneController extends Controller
 {
@@ -122,7 +124,11 @@ class ZoneController extends Controller
     {
         //
 
-        $updatetor = Zone::where('id',$id)->update([
+        $updatezone = Zone::where('id',$id)->update([
+            'status' => 'D',
+        ]);
+
+        $updatetor = Toe::where('zone_id',$id)->update([
             'status' => 'D',
         ]);
 
@@ -167,6 +173,7 @@ $updatemoney = Zone::where('id',$request->id)->update([
 $updatemoney = Zone::where('id',$request->id)->update([
     'status' => 'Y'
 ]);
+
 
         return response()->json([
             'msg_return' => 'บันทึกสำเร็จ',
