@@ -11,6 +11,7 @@ use App\Http\Controllers\FrontNewController;
 use App\Http\Controllers\FrontProductController;
 use App\Http\Controllers\CaptchaServiceController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderlistController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ToeController;
@@ -112,6 +113,8 @@ Route::prefix('admin')->group(function () {
 
 
     Route::resource('order', OrderController::class);
+
+    Route::resource('orderlist', OrderlistController::class);
 
 
 });

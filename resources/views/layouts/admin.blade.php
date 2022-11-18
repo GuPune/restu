@@ -86,6 +86,7 @@
       <!-- page-body-wrapper ends -->
     </div>
 
+    <script src="{{ mix('/js/app.js') }}"></script>
 
     <script src="{{ asset('cms/vendors/js/vendor.bundle.base.js') }}"></script>
 

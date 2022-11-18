@@ -26,4 +26,8 @@ Route::group(['middleware' => ['api']], function ($router) {
 
     Route::get('/test', 'App\Http\Controllers\OrderController@test');
 
+    Route::get('/product', 'App\Http\Controllers\API\ProductController@index');
+
+
+
     });
