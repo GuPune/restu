@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{this.orders}}
         <div id="v12listsale_tran" class="myBox"><table id="example2" style=" font-size:12px; " class="table table-striped">
             <tbody>
             <tr v-for="(item, index) in this.orders">
@@ -22,7 +21,7 @@
             <div align="right" style=" font-weight:bold; font-size:14px">
                 {{item.name_list}} </div>
             <div align="right">
-            50.00 <span name="changeprice" data="11"> <input name="price" type="hidden" value="50.00"></span>
+            {{item.price_sell}} <span name="changeprice" data="11"> <input name="price" type="hidden" value="50.00"></span>
             x
             <input name="amountproduct" type="number" :value="item.quantity" data="11" dataid="4728" style="text-align:center ; width: 70px " tabindex="1" disabled>
             <input name="totalproduct" type="text" readonly="" style="text-align:right; width:70px" :value="item.totalPrice">
