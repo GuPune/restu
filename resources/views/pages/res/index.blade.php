@@ -947,7 +947,7 @@ $("#editzone").val(datas.zone_id);
 $("#editimages").val(datas.images);
 $('#showImageProductEdit').attr("src", $link +'/'+ datas.images);
 
-                        $("#editmyModal").modal()
+                        $("#editmyModal").modal('show');
                     }
                 })
 

@@ -24,7 +24,6 @@ const ApiService = {
         throw new Error(`[RWV] ApiService ${error}`);
       });
     },
-
     post(resource, params) {
         console.log('resource',params);
       return Vue.axios.post(`${resource}`, params);

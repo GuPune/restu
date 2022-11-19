@@ -444,7 +444,7 @@ var number_sit = $('#editnumber_sit').val(datas.number_sit);
 var id = $('#editid').val(datas.id);
 var zone = $('#editzone_id').val(datas.zone_id);
 
-                        $("#editmyModal").modal()
+$("#editmyModal").modal('show');
                     }
                 })
 

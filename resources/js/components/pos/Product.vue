@@ -1,14 +1,17 @@
 <template>
 
+
 <div class="row">
 
-    <div class="col-sm-3" v-for="i in items" id="3" note="" serial="0" align="center" style="font-size:10px">
+    <div class="col-sm-3" v-for="i in this.product" id="3" note="" serial="0" align="center" style="font-size:10px"  @click="Sendorder(i)">
     <div class="card" style="background-color: ; cursor:pointer; height:180px;padding:10px">
     <div style="font-size:0.9rem">
     <img  :src="Checkimage(i.images)"width="80" height="80"><br> <strong>{{i.name_list}}</strong><br>{{i.price_sell}}
     </div>
     </div>
     </div>
+
+
 
 </div>
 
@@ -21,8 +24,8 @@
 
 
 <script>
-
-import { FETCH_PRODUCT } from "@store/actions.type";
+import { mapGetters } from "vuex";
+import { FETCH_PRODUCT,ADD_PRODUCT } from "@store/actions.type";
 import { IMAGE_URL } from "../environment/environment";
 
   export default {
@@ -31,6 +34,12 @@ import { IMAGE_URL } from "../environment/environment";
         items: [],
       }
     },
+
+    computed: {
+   ...mapGetters(["product"]),
+
+        },
+
   mounted() {
   //  let a = this.$store.dispatch(FETCH_PRODUCT);
 
@@ -42,12 +51,20 @@ this.Loadcategory()
 
   async Loadcategory() {
          let data = await this.$store.dispatch(FETCH_PRODUCT);
-this.items = data;
+      //  this.items = data;
+        console.log(this.product);
+
     },
     Checkimage(image){
                 let public_images = IMAGE_URL+''+image;
                 return public_images;
         },
+
+        async Sendorder(data){
+            let add_producttocart = await this.$store.dispatch(ADD_PRODUCT,data);
+
+
+        }
 
 
 

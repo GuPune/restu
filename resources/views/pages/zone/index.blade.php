@@ -484,7 +484,8 @@ $.ajaxSetup({
 var editname = $('#editname').val(datas.name);
 var id = $('#editid').val(datas.id);
 
-                        $("#editmyModal").modal()
+
+                        $("#editmyModal").modal('show');
                     }
                 })
 
