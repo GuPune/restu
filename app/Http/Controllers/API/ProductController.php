@@ -81,10 +81,28 @@ return response()->json('success');
 
     public function transaction_orders(Request $request)
     {
-        \Log::info($request->all());
+      //  \Log::info($request->all());
 
-       // $order = Order::where()
+         $order = Order::where('toe_id',$request->toe_id)->get();
 $datas = [];
+                foreach ($order as $index => $orders) {
+
+                    $getproduct = Productres::where('id',$orders->res_id)->first();
+                        $datas[$index]['code'] = $getproduct->code;
+                        $datas[$index]['name_list'] = $getproduct->name_list;
+                        $datas[$index]['images'] = $getproduct->images;
+                        $datas[$index]['zone_id'] = $getproduct->zone_id;
+                        $datas[$index]['type_of_food_id'] = $getproduct->type_of_food_id;
+                        $datas[$index]['price_sell'] = $getproduct->price_sell;
+                        $datas[$index]['unit_cost'] = $getproduct->unit_cost;
+                        $datas[$index]['status'] = $getproduct->status;
+                        $datas[$index]['id'] = $orders->id;
+                        $datas[$index]['res_id'] = $orders->res_id;
+                        $datas[$index]['toe_id'] = $orders->toe_id;
+                        $datas[$index]['quantity'] = $orders->quantity;
+                        $datas[$index]['orders_price'] = $orders->orders_price;
+                        $datas[$index]['total_price'] = $orders->total_price;
+                }
 
 
 
