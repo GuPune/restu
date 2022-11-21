@@ -29,6 +29,6 @@ Route::group(['middleware' => ['api']], function ($router) {
     Route::get('/product', 'App\Http\Controllers\API\ProductController@index');
     Route::get('/typeres', 'App\Http\Controllers\API\ProductController@typeres');
     Route::post('/typeresfitter', 'App\Http\Controllers\API\ProductController@fitter');
-
-
+    Route::post('/transaction_temp', 'App\Http\Controllers\API\ProductController@orderssave');
+    Route::post('/transaction_orders', 'App\Http\Controllers\API\ProductController@transaction_orders');
     });

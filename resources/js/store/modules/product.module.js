@@ -1,10 +1,10 @@
 
 import { ProductService } from "@services/product.service";
 import {
-    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT
+    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER
 } from "@store/actions.type";
 import {
-    SET_PRODUCT,SET_ORDERS
+    SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS
 } from "@store/mutations.type";
 
 
@@ -48,9 +48,26 @@ const actions = {
 
     async [ADD_PRODUCT](context,payload) {
 
- context.commit(SET_ORDERS,payload);
+        const { data } = await ProductService.save(payload);
+        console.log(data);
+
+        if(data == "success"){
+            context.commit(SET_ORDERS,payload);
+        }else {
+            alert('ok');
+
+        }
 
     },
+
+    async [UPDATE_ORDER](context,payload) {
+       context.commit(SET_UPDATEORDERS,payload);
+           },
+    async [FETCH_ORDER](context,payload) {
+        const { data } = await ProductService.getorder(payload);
+    },
+
+
 
 };
 
@@ -80,6 +97,27 @@ const mutations = {
 
 
       }
+
+
+    },
+    [SET_UPDATEORDERS](state, item) {
+        let found = state.orders.find(product => product.id == item.id);
+        if (found) {
+            found.quantity ++;
+            found.totalPrice = found.quantity * found.price_sell;
+          } else {
+
+
+
+
+          }
+
+
+
+
+
+
+
 
 
     },

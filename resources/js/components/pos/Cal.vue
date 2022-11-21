@@ -2,6 +2,7 @@
     <div>
         <div id="v12listsale_tran" class="myBox"><table id="example2" style=" font-size:12px; " class="table table-striped">
             <tbody>
+
             <tr v-for="(item, index) in this.orders">
             <td width="36" style=" font-weight:bold; font-size:14px">
             <div>{{index+1}} </div>
@@ -11,7 +12,7 @@
             <div class="dropdown">
             <button class="btn btn-success dropdown-toggle" style="width:60px; height:15px; font-size: 12px; padding:2px;  " type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             ส่วนลด </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2" >
             <button class="dropdown-item" type="button" data-toggle="modal" style=" cursor:pointer" data-target="#modaldiscount" data-title="ลดราคา (บาท)" data-name="น้ำพริกชอุ่ม (50.00)" data-iddiscount="2" data-id="4728" data-txtdiscount="0">บาท (฿)</button>
             <button class="dropdown-item" type="button" data-toggle="modal" style=" cursor:pointer" data-target="#modaldiscount" data-title="ลดราคา (%)" data-name="น้ำพริกชอุ่ม (50.00)" data-iddiscount="1" data-id="4728" data-txtdiscount="0">%</button>
             </div>
@@ -20,12 +21,21 @@
             <td width="583">
             <div align="right" style=" font-weight:bold; font-size:14px">
                 {{item.name_list}} </div>
-            <div align="right">
-            {{item.price_sell}} <span name="changeprice" data="11"> <input name="price" type="hidden" value="50.00"></span>
-            x
-            <input name="amountproduct" type="number" :value="item.quantity" data="11" dataid="4728" style="text-align:center ; width: 70px " tabindex="1" disabled>
-            <input name="totalproduct" type="text" readonly="" style="text-align:right; width:70px" :value="item.totalPrice">
-            <input name="pricehidden_novat" type="hidden" value="0"> </div></td>
+            <div>
+                <td>
+                    {{item.price_sell}} x
+                </td>
+                <td>
+                    <vue-numeric-input  :min="1" :step="1" :value="item.quantity" @change="onChange($event,item.id)"  size="small" :disabled="disabled == 1" controls-type="updown" width="100px"></vue-numeric-input>
+                </td>
+                <td>
+                    <input name="totalproduct" type="text" readonly="" style="text-align:right; width:50px" :value="item.totalPrice">
+                </td>
+
+             </div>
+             </td>
+
+
             </tr>
 
             </tbody>
@@ -56,7 +66,8 @@
             </tr>
             <tr>
             <td height="40"><strong>ส่วนลด</strong></td>
-            <td><input name="txtdiscount" type="number" id="txtdiscount" style="width:150px" autofocus="" class="form-control"> </td>
+
+            <td><input name="txtdiscount" type="number" id="txtdiscount" style="width:150px" autofocus="" class="form-control"  :min="1" > </td>
             </tr>
             <tr>
             <td height="40">&nbsp;</td>
@@ -79,10 +90,18 @@
 
 <script>
 import { mapGetters,mapState } from "vuex";
+import { UPDATE_ORDER } from "@store/actions.type";
+
 export default {
     data() {
       return {
+        value: 1,
+        disabled: 0,
+form:{
+    id:null,
+    quantity:null,
 
+}
       }
     },
     computed: {
@@ -91,6 +110,21 @@ export default {
         },
     mounted() {
 
-        }
+        },
+        methods: {
+
+           async onChange(event,id){
+
+
+
+
+            this.form.id = id;
+            this.form.quantity = event;
+            // return 50;
+
+            let add_producttocart = await this.$store.dispatch(UPDATE_ORDER,this.form);
+            }
+
+        },
 }
 </script>

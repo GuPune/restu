@@ -25,13 +25,16 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { FETCH_PRODUCT,ADD_PRODUCT } from "@store/actions.type";
+import { FETCH_PRODUCT,ADD_PRODUCT,FETCH_ORDER } from "@store/actions.type";
 import { IMAGE_URL } from "../environment/environment";
 
   export default {
     data() {
       return {
         items: [],
+        form:{
+        toe_id:1
+        },
       }
     },
 
@@ -44,16 +47,20 @@ import { IMAGE_URL } from "../environment/environment";
   //  let a = this.$store.dispatch(FETCH_PRODUCT);
 
 //    let a = this.$store.dispatch(FETCH_CATEGORY_SHELL);
-this.Loadcategory()
+this.Loadcategory();
+this.Loadorder();
+
      },
 
   methods: {
 
   async Loadcategory() {
          let data = await this.$store.dispatch(FETCH_PRODUCT);
-      //  this.items = data;
-        console.log(this.product);
+    },
 
+    async Loadorder() {
+
+         let ord = await this.$store.dispatch(FETCH_ORDER,this.form);
     },
     Checkimage(image){
                 let public_images = IMAGE_URL+''+image;
@@ -62,8 +69,6 @@ this.Loadcategory()
 
         async Sendorder(data){
             let add_producttocart = await this.$store.dispatch(ADD_PRODUCT,data);
-
-
         }
 
 
