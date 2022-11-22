@@ -4,7 +4,7 @@ import {
     FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER
 } from "@store/actions.type";
 import {
-    SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS
+    SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE
 } from "@store/mutations.type";
 
 
@@ -36,7 +36,7 @@ const actions = {
     },
     async [FETCH_TYPEPRODUCT](context) {
         const { data } = await ProductService.gettyperes();
-        console.log(data);
+
        //  context.commit(SET_PRODUCT, data.data);
         return data;
     },
@@ -61,10 +61,12 @@ const actions = {
     },
 
     async [UPDATE_ORDER](context,payload) {
+        const { data } = await ProductService.updateorder(payload);
        context.commit(SET_UPDATEORDERS,payload);
            },
     async [FETCH_ORDER](context,payload) {
         const { data } = await ProductService.getorder(payload);
+        context.commit(SET_ORDERS_TOE, data);
     },
 
 
@@ -79,19 +81,11 @@ const mutations = {
 
       //  let found = state.orders.find(product => product.id == item.id);
       let found = state.orders.find(product => product.id == item.id);
-
-
-
       if (found) {
-
         found.quantity ++;
         found.totalPrice = found.quantity * found.price_sell;
-
       } else {
-
           state.orders.push(item);
-
-
           Vue.set(item, 'quantity', 1);
           Vue.set(item, 'totalPrice', item.price_sell);
 
@@ -101,24 +95,22 @@ const mutations = {
 
     },
     [SET_UPDATEORDERS](state, item) {
+
         let found = state.orders.find(product => product.id == item.id);
         if (found) {
-            found.quantity ++;
+            found.quantity == item.quantity;
             found.totalPrice = found.quantity * found.price_sell;
           } else {
 
 
 
-
           }
 
+    },
+    [SET_ORDERS_TOE](state, item) {
 
-
-
-
-
-
-
+        state.orders = item;
+        console.log(state.orders)
 
     },
 };

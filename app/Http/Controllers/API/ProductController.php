@@ -84,9 +84,8 @@ return response()->json('success');
       //  \Log::info($request->all());
 
          $order = Order::where('toe_id',$request->toe_id)->get();
-$datas = [];
+         $datas = [];
                 foreach ($order as $index => $orders) {
-
                     $getproduct = Productres::where('id',$orders->res_id)->first();
                         $datas[$index]['code'] = $getproduct->code;
                         $datas[$index]['name_list'] = $getproduct->name_list;
@@ -101,12 +100,23 @@ $datas = [];
                         $datas[$index]['toe_id'] = $orders->toe_id;
                         $datas[$index]['quantity'] = $orders->quantity;
                         $datas[$index]['orders_price'] = $orders->orders_price;
-                        $datas[$index]['total_price'] = $orders->total_price;
+                        $datas[$index]['totalPrice'] = $orders->total_price;
                 }
-
-
 
        return response()->json($datas);
     }
+
+    public function transaction_ordersupdate(Request $request)
+    {
+      //  \Log::info($request->all());
+
+
+         $datas = [];
+
+\Log::info($request->all());
+       return response()->json($datas);
+    }
+
+
 
 }

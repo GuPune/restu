@@ -18,22 +18,29 @@
             </div>
             </div>
             </td>
-            <td width="583">
+
+
+             <td width="583">
             <div align="right" style=" font-weight:bold; font-size:14px">
                 {{item.name_list}} </div>
-            <div>
-                <td>
-                    {{item.price_sell}} x
-                </td>
-                <td>
-                    <vue-numeric-input  :min="1" :step="1" :value="item.quantity" @change="onChange($event,item.id)"  size="small" :disabled="disabled == 1" controls-type="updown" width="100px"></vue-numeric-input>
-                </td>
-                <td>
-                    <input name="totalproduct" type="text" readonly="" style="text-align:right; width:50px" :value="item.totalPrice">
-                </td>
+            <div align="center">
+             {{item.price_sell}} <span name="changeprice" data="11"> <input name="price" type="hidden" value="50.00"></span>
+            x
 
-             </div>
-             </td>
+
+            <span onclick="updateTotal('585')">
+                    <i class="fa fa-plus" aria-hidden="true" style="width: 19px;"></i>
+                </span>
+            <input name="amountproduct" type="text" size="3"  :value="item.quantity" data="2" dataid="4718" style="text-align:center ; width: 70px;position: relative;padding-right: 20px; " tabindex="6"  @change="onChange($event,item.id)" min="0">
+            <span onclick="updateTotal('585')">
+                    <i class="fa fa-minus" aria-hidden="true" style="width: 19px;"></i>
+                </span>
+
+
+            <input name="totalproduct" type="text" readonly="" style="text-align:right; width:50px" :value="item.totalPrice">
+
+        </div>
+    </td>
 
 
             </tr>
@@ -87,7 +94,24 @@
 </div>
 </template>
 
+<style scoped>
 
+.ctrl {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+}
+.ifs{
+  cursor: default;
+  /*when hover it default pointer*/
+  color: transparent;
+  /*make blinking cursor disappear*/
+  /*but it will make to text disappear*/
+  text-shadow: 0px 0px black;
+  /*when it disappear add text shadow to black*/
+}
+</style>
 <script>
 import { mapGetters,mapState } from "vuex";
 import { UPDATE_ORDER } from "@store/actions.type";
@@ -113,16 +137,22 @@ form:{
         },
         methods: {
 
+        restrictChars ($event) {
+   //console.log($event.keyCode); //keyCodes value
+   let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
+   if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) { // 46 is dot
+      $event.preventDefault();
+   }
+},
+
            async onChange(event,id){
-
-
-
 
             this.form.id = id;
             this.form.quantity = event;
             // return 50;
+            console.log('onchange',event.target.value);
 
-            let add_producttocart = await this.$store.dispatch(UPDATE_ORDER,this.form);
+       //     let add_producttocart = await this.$store.dispatch(UPDATE_ORDER,this.form);
             }
 
         },
