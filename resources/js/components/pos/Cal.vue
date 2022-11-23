@@ -7,7 +7,7 @@
             <td width="36" style=" font-weight:bold; font-size:14px">
             <div>{{index+1}} </div>
             <div>
-            <button class="btn btn-danger" style="width:30px; height:15px; font-size: 12px; padding:2px;cursor:pointer;  " type="button" name="dellist" id="4728"> ลบ </button> </div> </td>
+            <button class="btn btn-danger" style="width:30px; height:15px; font-size: 12px; padding:2px;cursor:pointer;  " type="button" name="dellist" @click="Del(item.order_id,index)"> ลบ </button> </div> </td>
             <td width="158"> <span style=" font-weight:bold; font-size:14px">{{item.code}}</span><br>
             <div class="dropdown">
             <button class="btn btn-success dropdown-toggle" style="width:60px; height:15px; font-size: 12px; padding:2px;  " type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -27,14 +27,11 @@
              {{item.price_sell}} <span name="changeprice" data="11"> <input name="price" type="hidden" value="50.00"></span>
             x
 
-
-            <span onclick="updateTotal('585')">
+            <!-- <span @change="onChange($event,item.id)">
                     <i class="fa fa-plus" aria-hidden="true" style="width: 19px;"></i>
-                </span>
-            <input name="amountproduct" type="text" size="3"  :value="item.quantity" data="2" dataid="4718" style="text-align:center ; width: 70px;position: relative;padding-right: 20px; " tabindex="6"  @change="onChange($event,item.id)" min="0">
-            <span onclick="updateTotal('585')">
-                    <i class="fa fa-minus" aria-hidden="true" style="width: 19px;"></i>
-                </span>
+            </span> -->
+            <input name="amountproduct" type="number" size="3"  :value="item.quantity" data="2" dataid="4718" style="text-align:center ; width: 70px;position: relative;padding-right: 20px; " tabindex="6"  @change="onChange($event,item.id,item.order_id)" min="0" @keypress="(e) => onKeypress(e, 'max')">
+
 
 
             <input name="totalproduct" type="text" readonly="" style="text-align:right; width:50px" :value="item.totalPrice">
@@ -94,27 +91,10 @@
 </div>
 </template>
 
-<style scoped>
 
-.ctrl {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
-}
-.ifs{
-  cursor: default;
-  /*when hover it default pointer*/
-  color: transparent;
-  /*make blinking cursor disappear*/
-  /*but it will make to text disappear*/
-  text-shadow: 0px 0px black;
-  /*when it disappear add text shadow to black*/
-}
-</style>
 <script>
 import { mapGetters,mapState } from "vuex";
-import { UPDATE_ORDER } from "@store/actions.type";
+import { UPDATE_ORDER,DELTLE_ORDER,FETCH_ORDER } from "@store/actions.type";
 
 export default {
     data() {
@@ -124,7 +104,8 @@ export default {
 form:{
     id:null,
     quantity:null,
-
+    toe_id:1,
+    order_id:null
 }
       }
     },
@@ -144,15 +125,30 @@ form:{
       $event.preventDefault();
    }
 },
+async Del(id,key){
 
-           async onChange(event,id){
 
-            this.form.id = id;
-            this.form.quantity = event;
-            // return 50;
-            console.log('onchange',event.target.value);
+    this.form.order_id = id;
+    this.form.key = key;
 
-       //     let add_producttocart = await this.$store.dispatch(UPDATE_ORDER,this.form);
+        let del_orders = await this.$store.dispatch(DELTLE_ORDER,this.form);
+
+        let orders = await this.$store.dispatch(FETCH_ORDER,this.form);
+
+},
+
+onKeypress(evt,id){
+    evt.preventDefault();
+},
+
+           async onChange(event,id,order_id){
+
+           this.form.id = id;
+           this.form.quantity = event.target.value;
+           this.form.order_id = order_id;
+
+
+      let update_orders = await this.$store.dispatch(UPDATE_ORDER,this.form);
             }
 
         },

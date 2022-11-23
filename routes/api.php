@@ -32,5 +32,7 @@ Route::group(['middleware' => ['api']], function ($router) {
     Route::post('/transaction_temp', 'App\Http\Controllers\API\ProductController@orderssave');
     Route::post('/transaction_orders', 'App\Http\Controllers\API\ProductController@transaction_orders');
     Route::post('/transaction_tempupdate', 'App\Http\Controllers\API\ProductController@transaction_ordersupdate');
+    Route::post('/transaction_tempdelete', 'App\Http\Controllers\API\ProductController@transaction_ordersdelete');
+
 
     });

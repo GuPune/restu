@@ -17,8 +17,6 @@ class ProductController extends Controller
     {
 
         $data = Productres::where('status','Y')->get();
-
-
         return response()->json($data);
 
     }
@@ -46,20 +44,22 @@ class ProductController extends Controller
     {
 
 
-
-
-
-
 $checkorder = Order::where('status','Y')->where('toe_id',1)->where('res_id',$request->id)->first();
 
-
 if($checkorder){
+    $totalprice = ($checkorder->quantity + 1) * ($checkorder->orders_price);
 
     $updatetor = Order::where('res_id',$request->id)->where('status','Y')->where('toe_id',1)->update([
         "res_id" => $request->id,
         "toe_id" => 1,
         "status" => 'Y',
+        "total_price" => $totalprice,
         "quantity" => $checkorder->quantity + 1,
+    ]);
+
+    return response()->json([
+        'data' => 'success',
+        'datas' => $checkorder->id,
     ]);
 
 
@@ -73,8 +73,13 @@ if($checkorder){
         "status" => 'Y',
     ]);
 
+    return response()->json([
+        'data' => 'success',
+        'datas' => $addorder->id,
+    ]);
+
 }
-return response()->json('success');
+
 
     }
 
@@ -95,7 +100,8 @@ return response()->json('success');
                         $datas[$index]['price_sell'] = $getproduct->price_sell;
                         $datas[$index]['unit_cost'] = $getproduct->unit_cost;
                         $datas[$index]['status'] = $getproduct->status;
-                        $datas[$index]['id'] = $orders->id;
+                        $datas[$index]['id'] = $getproduct->id;
+                        $datas[$index]['order_id'] = $orders->id;
                         $datas[$index]['res_id'] = $orders->res_id;
                         $datas[$index]['toe_id'] = $orders->toe_id;
                         $datas[$index]['quantity'] = $orders->quantity;
@@ -108,13 +114,29 @@ return response()->json('success');
 
     public function transaction_ordersupdate(Request $request)
     {
-      //  \Log::info($request->all());
 
 
-         $datas = [];
+        $datas = [];
+$getres = Order::where('id',$request->order_id)->first();
 
-\Log::info($request->all());
+     $getproduct = Productres::where('id',$getres->res_id)->first();
+    $total = $getproduct->price_sell * $request->quantity;
+
+
+$updatedata = Order::where('id',$request->order_id)->update([
+    'quantity'=> $request->quantity,
+    'total_price'=> $total,
+]);
+
        return response()->json($datas);
+    }
+
+    public function transaction_ordersdelete(Request $request)
+    {
+
+
+        $delorder = Order::where('id',$request->order_id)->delete();
+        return response()->json('delete');
     }
 
 

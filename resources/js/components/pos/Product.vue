@@ -68,6 +68,8 @@ this.Loadorder();
         },
 
         async Sendorder(data){
+            Vue.set(data, 'res_id', data.id);
+
             let add_producttocart = await this.$store.dispatch(ADD_PRODUCT,data);
         }
 

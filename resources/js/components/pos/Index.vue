@@ -43,31 +43,7 @@
     </div>
 
 <div class="col-sm-12 col-lg-5" id="div2" style="padding-top:5px;margin-bottom:10px;background-color:#FFFFFF ">
-<div style="border:#666666 1px solid ; padding:10px">
-<div class="row">
-<div class="col-lg-6">
-<div style="bottom: 40px;">
-<small style="font-size: 0.9rem;"><strong>ส่วนลดท้ายบิล</strong></small>
-<br>
-<select class="form-control-sm" id="discount_id" name="discount_id" style="width:110px; height:25px; font-size: 0.9rem; padding:2px;">
-<option value="2">ส่วนลด (บาท)</option>
-<option value="1">ส่วนลด %</option>
-</select><input id="inputdiscount" name="inputdiscount" type="number" size="15" class="form-control-sm" style="width:80px; height:25px; font-size: 0.9rem; padding:2px;  text-align:right " placeholder="0.00">
-</div>
-</div>
-<div align="right" class="col-lg-6">
-<strong> <span id="totalammount">0</span> รายการ <span id="totalnumbershow">0</span> ชิ้น คะแนนสะสม <span id="totalscoreshow">0</span> </strong>
-<div align="right" style="text-align: right"> <span>
-<s id="txtbalance" style="font-size: 2.0rem; color:#999999"></s>
-</span>
-</div>
-<div align="right" id="showbalance" style="font-size: 3.2rem; text-align: right">0.00</div> </div>
-</div>
-<div class="bg-primary" align="center">
-<button type="button" class="form-control  btn btn-success" name="checkbill" style="font-size: 1.5rem; width:100% ">เซ็คบิล [F8]</button>
-<button type="button" class="form-control  btn btn-primary" name="txtpayment" style="font-size: 1.5rem; width:100% " disabled="">ชำระเงิน [F9]</button>
-</div>
-</div>
+<Bill/>
 <div>
     <Cal/>
 </div>
@@ -86,10 +62,11 @@ import { mapGetters,mapState } from "vuex";
 import Product from "../pos/Product.vue";
 import Cal from "../pos/Cal.vue";
 import SumP from "../pos/SumPos.vue";
+import Bill from "../pos/Bill.vue";
 import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER } from "@store/actions.type";
 export default {
     components: {
-        Product,Cal,SumP
+        Product,Cal,SumP,Bill
         },
         data() {
       return {

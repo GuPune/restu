@@ -4,4 +4,7 @@ export const FETCH_PRODUCT_FITTER = "fetch_product_fitter";
 export const ADD_PRODUCT = "add_product";
 export const UPDATE_ORDER = "update_order";
 export const FETCH_ORDER = "fetch_order";
+export const DELTLE_ORDER = "delete_order";
+export const FETCH_DISCOUNT = "fetch_discount";
+
 

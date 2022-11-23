@@ -19,5 +19,11 @@ export const ProductService = {
     updateorder(params) {
         return ApiService.post("transaction_tempupdate",params);
     },
+    delorder(params) {
+        console.log('delete',params);
+        return ApiService.post("transaction_tempdelete",params);
+    },
+
+
 
 };
