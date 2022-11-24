@@ -2,7 +2,6 @@
 
 
 <div class="row">
-
     <div class="col-sm-3" v-for="i in this.product" id="3" note="" serial="0" align="center" style="font-size:10px"  @click="Sendorder(i)">
     <div class="card" style="background-color: ; cursor:pointer; height:180px;padding:10px">
     <div style="font-size:0.9rem">
@@ -10,9 +9,6 @@
     </div>
     </div>
     </div>
-
-
-
 </div>
 
 
@@ -33,13 +29,13 @@ import { IMAGE_URL } from "../environment/environment";
       return {
         items: [],
         form:{
-        toe_id:1
+        toe_id:null
         },
       }
     },
 
     computed: {
-   ...mapGetters(["product"]),
+   ...mapGetters(["product","toe_id"]),
 
         },
 
@@ -60,6 +56,7 @@ this.Loadorder();
 
     async Loadorder() {
 
+        this.form.toe_id = this.toe_id;
          let ord = await this.$store.dispatch(FETCH_ORDER,this.form);
     },
     Checkimage(image){
@@ -69,8 +66,11 @@ this.Loadorder();
 
         async Sendorder(data){
             Vue.set(data, 'res_id', data.id);
+             Vue.set(data, 'toe_id', this.toe_id);
 
-            let add_producttocart = await this.$store.dispatch(ADD_PRODUCT,data);
+
+
+           let add_producttocart = await this.$store.dispatch(ADD_PRODUCT,data);
         }
 
 

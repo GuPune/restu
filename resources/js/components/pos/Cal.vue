@@ -110,7 +110,7 @@ form:{
       }
     },
     computed: {
-   ...mapGetters(["orders"]),
+   ...mapGetters(["orders","toe_id"]),
 
         },
     mounted() {
@@ -130,10 +130,11 @@ async Del(id,key){
 
     this.form.order_id = id;
     this.form.key = key;
+    this.form.toe_id = this.toe_id;
 
-        let del_orders = await this.$store.dispatch(DELTLE_ORDER,this.form);
 
-        let orders = await this.$store.dispatch(FETCH_ORDER,this.form);
+   let del_orders = await this.$store.dispatch(DELTLE_ORDER,this.form);
+   let orders = await this.$store.dispatch(FETCH_ORDER,this.form);
 
 },
 

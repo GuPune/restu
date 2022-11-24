@@ -5,11 +5,15 @@ export const ProductService = {
       return ApiService.get("product");
     },
     getorder(params) {
+        console.log('getorder',params);
         return ApiService.post("transaction_orders",params);
       },
     gettyperes() {
         return ApiService.get("typeres");
       },
+      gettoe() {
+        return ApiService.get("toe");
+    },
     gettyperesfitter(params) {
         return ApiService.post("typeresfitter",params);
     },
@@ -20,7 +24,6 @@ export const ProductService = {
         return ApiService.post("transaction_tempupdate",params);
     },
     delorder(params) {
-        console.log('delete',params);
         return ApiService.post("transaction_tempdelete",params);
     },
 

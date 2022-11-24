@@ -1,16 +1,17 @@
 
 import { ProductService } from "@services/product.service";
 import {
-    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT
+    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE
 } from "@store/actions.type";
 import {
-    SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT
+    SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT,SET_TOE_ID
 } from "@store/mutations.type";
 
 
 
 const state = {
     product: [],
+    toe_id: 0,
     typeres:[],
     orders:[],
     orders_total:[],
@@ -38,9 +39,10 @@ const getters = {
     },
     total(state) {
         return state.total;
-    }
-
-
+    },
+    toe_id(state) {
+        return state.toe_id;
+    },
 };
 
 
@@ -62,6 +64,11 @@ const actions = {
        context.commit(SET_PRODUCT, data);
         return data;
     },
+    async [FETCH_TOE](context) {
+        const { data } = await ProductService.gettoe();
+        return data;
+    },
+
 
     async [ADD_PRODUCT](context,payload) {
 
@@ -71,6 +78,7 @@ const actions = {
             Vue.set(payload, 'order_id', data.datas);
             context.commit(SET_ORDERS,payload);
             context.commit(SET_ORDERS_TOTAL);
+          //  context.commit(SET_TOE_ID);
         }else {
             alert('ok');
 
@@ -87,8 +95,8 @@ const actions = {
 
         const { data } = await ProductService.getorder(payload);
         context.commit(SET_ORDERS_TOE, data);
-
         context.commit(SET_ORDERS_TOTAL);
+        context.commit(SET_TOE_ID,payload);
     },
 
     async [DELTLE_ORDER](context,payload) {
@@ -145,7 +153,7 @@ const mutations = {
     },
     [SET_ORDERS_TOE](state, item) {
         state.orders = item;
-        console.log('SET_ORDERS_TOE',state.orders)
+
     },
     [SET_ORDERS_TOTAL](state, item) {
         state.total.list = 0;
@@ -165,6 +173,12 @@ const mutations = {
        let i = state.orders.map(item => item.id).indexOf(item.key) // find index of your object
        state.orders.splice(i, 1) // remove it from array
     },
+    [SET_TOE_ID](state,item) {
+      //  console.log('SET_TOE_ID',item.toe_id);
+        state.toe_id = item.toe_id;
+     },
+
+
     [SET_DISCOUNT](state,item) {
 
 
@@ -179,7 +193,7 @@ const mutations = {
         });
         state.total.pricediscount = state.total.pricetotal - state.discount;
 
-        console.log('SET_DISCOUNT',state.total);
+
         if(0 > state.total.pricediscount){
 
             state.total.pricediscount = 0;

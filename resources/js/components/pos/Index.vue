@@ -12,11 +12,9 @@
 <button class="dropdown-item" data="sort" type="button" value="4">เรียงตามกำหนดเอง (เมนู A10) </button>
 </div>
 </i>
-<select name="Table_id" class="classname" id="Table_id" style="width:100px; height:25px; font-size: 0.9rem; padding:2px;">
-<option value="77" style="text-align:right">1 4 ที่นั่ง</option>
-<option value="78" style="text-align:right">2 4 ที่นั่ง</option>
- <option value="79" style="text-align:right">VIP 10 ที่นั่ง</option>
- <option value="80" selected="" style="text-align:right">9 10 ที่นั่ง</option>
+<select name="Table_id" class="classname" id="Table_id" style="width:100px; height:25px; font-size: 0.9rem; padding:2px;"  @change="onChangeToeId()" v-model="toe_id">
+<option value="0" style="text-align:right">- เลือกโต๊ะ -</option>
+<option :value="toealls.id" style="text-align:right" v-for="(toealls, key) in toeall" :key="toealls.id">{{toealls.number_toe}} {{toealls.number_sit}} ที่นั่ง</option>
  </select>
 ;<input name="ref_retail_id" id="ref_retail_id" type="hidden" value="1">
 <select name="Groups_id" class="classname" id="Groups_id" style="width:110px; height:25px; font-size: 0.9rem; padding:2px;" @change="ChangeTyperes($event)">
@@ -63,7 +61,7 @@ import Product from "../pos/Product.vue";
 import Cal from "../pos/Cal.vue";
 import SumP from "../pos/SumPos.vue";
 import Bill from "../pos/Bill.vue";
-import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER } from "@store/actions.type";
+import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,FETCH_ORDER,FETCH_TOE } from "@store/actions.type";
 export default {
     components: {
         Product,Cal,SumP,Bill
@@ -73,12 +71,17 @@ export default {
         form:{
             id:null
         },
+        toe_id:0,
         typerest: "0",
+        toeall:"0"
       }
     },
         async created(){
 let typeres = await this.$store.dispatch(FETCH_TYPEPRODUCT);
+let toe = await this.$store.dispatch(FETCH_TOE);
+
 this.typerest = typeres;
+this.toeall = toe;
 
         },
     mounted() {
@@ -90,7 +93,15 @@ this.typerest = typeres;
 this.form.id = event.target.value;
                 let typeres = await this.$store.dispatch(FETCH_PRODUCT_FITTER,this.form);
 
+            },
+
+            async onChangeToeId(){
+            this.form.toe_id = this.toe_id;
+
+                let orders = await this.$store.dispatch(FETCH_ORDER,this.form);
+
             }
+
         }
 
 

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Productres;
+use App\Models\Toe;
 use App\Models\Typeoffoods;
 use Illuminate\Http\Request;
+
 
 
 class ProductController extends Controller
@@ -27,6 +29,13 @@ class ProductController extends Controller
         return response()->json($data);
     }
 
+    public function gettoe(Request $request)
+    {
+        $data = Toe::where('status','Y')->get();
+        return response()->json($data);
+
+    }
+
     public function fitter(Request $request)
     {
 
@@ -40,6 +49,7 @@ class ProductController extends Controller
 
     }
 
+
     public function orderssave(Request $request)
     {
 
@@ -49,9 +59,9 @@ $checkorder = Order::where('status','Y')->where('toe_id',1)->where('res_id',$req
 if($checkorder){
     $totalprice = ($checkorder->quantity + 1) * ($checkorder->orders_price);
 
-    $updatetor = Order::where('res_id',$request->id)->where('status','Y')->where('toe_id',1)->update([
+    $updatetor = Order::where('res_id',$request->id)->where('status','Y')->where('toe_id',$request->toe_id)->update([
         "res_id" => $request->id,
-        "toe_id" => 1,
+        "toe_id" => $request->toe_id,
         "status" => 'Y',
         "total_price" => $totalprice,
         "quantity" => $checkorder->quantity + 1,
@@ -66,7 +76,7 @@ if($checkorder){
 }else {
     $addorder = Order::create([
         "res_id" => $request->id,
-        "toe_id" => 1,
+        "toe_id" => $request->toe_id,
         "quantity" => 1,
         "orders_price" => $request->price_sell,
         "total_price" => $request->price_sell,
@@ -86,9 +96,9 @@ if($checkorder){
 
     public function transaction_orders(Request $request)
     {
-      //  \Log::info($request->all());
 
-         $order = Order::where('toe_id',$request->toe_id)->get();
+
+         $order = Order::where('toe_id',$request->toe_id)->where('status','Y')->get();
          $datas = [];
                 foreach ($order as $index => $orders) {
                     $getproduct = Productres::where('id',$orders->res_id)->first();
@@ -134,8 +144,7 @@ $updatedata = Order::where('id',$request->order_id)->update([
     public function transaction_ordersdelete(Request $request)
     {
 
-
-        $delorder = Order::where('id',$request->order_id)->delete();
+      $delorder = Order::where('id',$request->order_id)->where('toe_id',$request->toe_id)->delete();
         return response()->json('delete');
     }
 
