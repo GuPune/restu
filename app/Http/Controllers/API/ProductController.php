@@ -54,7 +54,7 @@ class ProductController extends Controller
     {
 
 
-$checkorder = Order::where('status','Y')->where('toe_id',1)->where('res_id',$request->id)->first();
+$checkorder = Order::where('status','Y')->where('toe_id',$request->toe_id)->where('res_id',$request->id)->first();
 
 if($checkorder){
     $totalprice = ($checkorder->quantity + 1) * ($checkorder->orders_price);
