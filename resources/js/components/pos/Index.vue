@@ -5,11 +5,11 @@
 <button class="classname" style="width:30px; height:25px; font-size: 0.9rem; padding :2px;  " type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></button>
 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-<button class="dropdown-item" data="sort" type="button" value="0">เรียงตามค่าเริ่มต้น</button>
+<!-- <button class="dropdown-item" data="sort" type="button" value="0">เรียงตามค่าเริ่มต้น</button>
 <button class="dropdown-item" data="sort" type="button" value="1">เรียงตามสินค้าขายดี</button>
 <button class="dropdown-item" data="sort" type="button" value="2">เรียงตามชื่อสินค้า</button>
 <button class="dropdown-item" data="sort" type="button" value="3">เรียงตามบาร์โค้ด</button>
-<button class="dropdown-item" data="sort" type="button" value="4">เรียงตามกำหนดเอง (เมนู A10) </button>
+<button class="dropdown-item" data="sort" type="button" value="4">เรียงตามกำหนดเอง (เมนู A10) </button> -->
 </div>
 </i>
 <select name="Table_id" class="classname" id="Table_id" style="width:100px; height:25px; font-size: 0.9rem; padding:2px;"  @change="onChangeToeId()" v-model="toe_id">

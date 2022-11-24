@@ -2,7 +2,6 @@
     <div>
         <div id="v12listsale_tran" class="myBox"><table id="example2" style=" font-size:12px; " class="table table-striped">
             <tbody>
-
             <tr v-for="(item, index) in this.orders">
             <td width="36" style=" font-weight:bold; font-size:14px">
             <div>{{index+1}} </div>

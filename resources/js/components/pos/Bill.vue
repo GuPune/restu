@@ -27,10 +27,128 @@
 </div>
 <div class="bg-primary" align="center">
 <button type="button" class="form-control  btn btn-success" name="checkbill" style="font-size: 1.5rem; width:100% ">เซ็คบิล [F8]</button>
-<button type="button" class="form-control  btn btn-primary" name="txtpayment" style="font-size: 1.5rem; width:100% " disabled="">ชำระเงิน [F9]</button>
+<button type="button" class="form-control  btn btn-primary" name="txtpayment" style="font-size: 1.5rem; width:100% " @click="scrollToTop()">ชำระเงิน [F9]</button>
+</div>
+<div v-if="myModel">
+    <transition name="model modal-open">
+          <div class="modal-mask modal fad xtdas">
+            <div class="modal-wrapper">
+            <div class="modal-dialog modal-xl">
+
+                <div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">ชำระเงิน</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true"></span>
+</button>
+</div>
+<div class="modal-body" id="resultdetail">
+<form name="bill"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody><tr>
+<td width="27%" height="50" class="bg-success p-1 px-2 font-1xl">ลูกค้า</td>
+<td width="26%" align="left" style="padding-left:15px">ทั่วไป</td>
+<td width="15%" align="left" class="bg-success p-1 px-2 font-1xl">การชำระ</td>
+<td width="32%" align="left"><span style="padding-left:15px">
+<select name="Ref_type_payment_id" class="bg-warning p-1 px-2 font-1xl" id="Ref_type_payment_id" style=" width:150px;">
+<option value="1" style="text-align:right" selected="">เงินสด</option>
+</select>
+</span></td>
+</tr>
+<tr>
+<td height="50" class="bg-success p-1 px-2 font-1xl">รายการสินค้า</td>
+<td align="left" style="padding-left:15px">{{this.total.list}} รายการ </td>
+
+<td align="left"><span style="padding-left:15px">
+- </span></td>
+</tr>
+<tr>
+<td height="50" class="bg-success p-1 px-2 font-1xl">จำนวนเงินที่ต้องชำระ</td>
+<td colspan="3" style="padding-left:15px"><h4>{{this.total.pricediscount}} บาท </h4>
+<div align="right"></div></td>
+</tr>
+
+<tr>
+<td height="50" class="bg-success p-1 px-2 font-1xl">จำนวนเงินที่รับ
+</td>
+<td colspan="3" style="padding-left:15px">
+    <input name="payment" type="number" id="payment" data="number" class="h2" style="text-align:right; width:150px"  @keyup="calculate" v-model="paymoney" min="0" @change="CheckMoney()">
+   <button type="button" style="background-color: #CCCCCC" name="del" @click="clear()">ลบ</button> </td>
+</tr>
+<tr>
+<td height="50" class="bg-success p-1 px-2 font-1xl">เงินทอน</td>
+<td style="padding-left:15px"><input name="valchange" type="number" class="h2" id="valchange" readonly="" style="width:150px; text-align:right; font-weight:bold" placeholder="ทอนเงิน" data="number" v-model="paychange" ></td>
+<td><div align="right"></div></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td colspan="4" height="60"><div align="center">
+<button type="button" class="btn btn-primary" id="bill" name="bill">บันทึกการชำระเงิน/พิมพ์ใบเสร็จ [Enter]</button>
+</div></td>
+</tr>
+</tbody></table>
+</form>
+
+</div>
+<div class="modal-footer">
 </div>
 </div>
+
+            </div>
+            </div>
+          </div>
+      </transition>
+</div>
+</div>
+
 </template>
+
+<style>
+
+
+   .modal-mask {
+     position: fixed;
+     z-index: 1050;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, .5);
+     display: grid;
+     overflow  : scroll;
+     transition: opacity .3s ease;
+   }
+
+   .modal-open {
+    overflow: hidden;
+}
+
+    .modal-mask .modal-wrapper {
+     display: -ms-flexbox;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+   }
+
+    .imgtax{
+    width: 70%;
+    height: auto;
+  }
+
+  .xtdas {
+    overflow: auto;
+}
+
+.modal-open {
+   overflow: hidden;
+}
+
+
+
+
+  </style>
+
 
 
 <script>
@@ -41,6 +159,9 @@ export default {
       return {
         discount:null,
         typediscount:1,
+        paymoney:0,
+        paychange:0,
+        myModel:false,
 
 form:{
     toe_id:1,
@@ -65,9 +186,39 @@ this.form.discount = parseInt(this.discount);
 let a = this.$store.dispatch(FETCH_DISCOUNT,this.form);
         },
 
+        CheckMoney(){
+            this.paychange = this.paymoney - this.total.pricediscount;
+        },
+        clear(){
+
+        this.paymoney = 0;
+        this.paychange = 0;
+
+        },
+        onKeyMoney(evt,id){
+            evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+    //    return true;
+    //    console.log(this.paymoney);
+    //onPressPeriod();
+      }
+        },
+
         onKeypress(evt,id){
     evt.preventDefault();
 },
+calculate: function () {
+    this.paychange = this.paymoney - this.total.pricediscount;
+    },
+scrollToTop() {
+
+      this.myModel = true;
+
+  },
+
 
         },
 }
