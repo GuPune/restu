@@ -22,7 +22,7 @@ class Datatable extends Model
     {
 
 
-        $data =  Toe::select('toe.id','toe.number_toe','toe.number_sit','toe.zone_id','toe.qr_code','zone.name','toe.status')
+        $data =  Toe::select('toe.id','toe.number_toe','toe.number_sit','toe.zone_id','toe.qr_code','zone.name','toe.status','toe.images_qrcode')
         ->leftJoin('zone', 'toe.zone_id', '=', 'zone.id')->where('zone.status','Y')
         ->whereIn('toe.status',['Y','N'])->get();
 

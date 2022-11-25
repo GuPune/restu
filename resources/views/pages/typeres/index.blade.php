@@ -297,9 +297,6 @@ table.ajax.reload(null, false);
 }
 
 function Modalclose(id) {
-
-
-
     $('#myModal').modal('hide');
 
   //  $('#myModal').modal('hide');

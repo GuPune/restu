@@ -22,7 +22,7 @@
                     <li class="list-group-item">Vestibulum at eros</li>
                   </ul>
                 <div class="card-body" style="text-align: center;">
-                    {!! QrCode::size(300)->generate('https://techvblogs.com/blog/generate-qr-code-laravel-8') !!}
+                    <img src="/public/product/no_photo.jpg" alt="รูปภาพประจำสินค้า" class="img-fluid rounded mx-auto d-block profile-image" id="ShowImageQrcode" width="300" height="150">
                 </div>
             </div>
         </div>
@@ -232,15 +232,31 @@ input:checked + .slider:before {
   <script>
 
 function printableDiv(printableAreaDivId) {
+    console.log(printableAreaDivId);
+         var $link = "<?php echo url('/public/qrcode/'); ?>";
+    var x = $('#ShowImageQrcode').attr("src", $link +'/1669396157.svg');
+
+
+
+//    setTimeout(function() {
+
+//     printqr()}, 1000);
+
+}
+
+function printqr() {
+
+
      var i = 'printableArea';
      var printContents = document.getElementById(i).innerHTML;
      var originalContents = document.body.innerHTML;
 
      document.body.innerHTML = printContents;
 
-     window.print();
+    window.print();
 
      document.body.innerHTML = originalContents;
+
 }
 
 
@@ -315,11 +331,14 @@ $.ajaxSetup({
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row) {
+
+                        var images_qrcode = row.images_qrcode;
+                        console.log('images_qrcode',row)
                         var dataName = row.name_en;
                         var dataid = row.id;
                         var btnEdit = '<button type="button" class="btn btn-outline-warning btn-sm btn-show-modal" data-toggle="modal" data-id="'+dataid+'"  class="btn-modal">แก้ไข</button>';
                         var btnDel = '<button type="button" class="btn btn-outline-warning btn-sm save-delete" data-toggle="modal" data-id="'+dataid+'"   class="btn-modal">ลบ</button>';
-                        var btnPrint = '<button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-id="'+dataid+'"  onclick="printableDiv('+dataid+')"  class="btn-modal">พิมพ์</button>';
+                        var btnPrint = '<button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-id="'+dataid+'"  onclick="printableDiv('+images_qrcode+')"  class="btn-modal">พิมพ์</button>';
 
 
                          return btnEdit + btnDel + btnPrint;
@@ -508,7 +527,8 @@ $.ajaxSetup({
                 table.ajax.reload(null, false);
 }, 500);
 
-$('#myModal').modal('hide');
+
+hideModal();
 
                 }
 
@@ -516,6 +536,12 @@ $('#myModal').modal('hide');
             })
 
 });
+
+function hideModal() {
+    $("#myModal").removeClass("in");
+  $(".modal-backdrop").remove();
+  $("#myModal").hide();
+}
 
 
 $('body').on('click', '.save-delete', function (e) {

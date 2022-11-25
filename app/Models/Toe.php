@@ -19,6 +19,7 @@ class Toe extends Model
         'zone_id',
         'status',
         'qr_code',
+        'images_qrcode',
         'orderstatus',
     ];
 

@@ -57,25 +57,21 @@ class ToeController extends Controller
     public function store(Request $request)
     {
         //
-
         $randomString = Str::random(30);
+        $data['qrcode'] = QrCode::generate('Welcome to Makitweb');
 
-        $image = QrCode::format('png')
-        ->merge(public_path('/qrcode/1644463030.png'), 0.5, true)
-        ->size(500)
-        ->errorCorrection('H')
-        ->generate('A simple example of QR code!');
+        // Store QR code for download
+        $output_file = '/public/qrcode/' . time() . '.svg';
+        QrCode::generate('http://restu.test/app/order/list/'.$randomString, public_path($output_file) );
 
+        $save = env('APP_URL'). $output_file;
 
-
-
-
-\Log::info($path);
         $addtoe = Toe::create([
             'number_toe' => $request->number_toe,
             'number_sit' => $request->number_sit,
             'zone_id' => $request->zone_id,
             'qr_code' => $randomString,
+            'images_qrcode' => $save,
             'status' => 'Y'
         ]);
 
