@@ -232,7 +232,9 @@ input:checked + .slider:before {
   <script>
 
 function printableDiv(printableAreaDivId) {
-    console.log(printableAreaDivId);
+    let dataId = $(this).attr("data-id");
+  console.log(printableAreaDivId);
+
          var $link = "<?php echo url('/public/qrcode/'); ?>";
     var x = $('#ShowImageQrcode').attr("src", $link +'/1669396157.svg');
 
@@ -243,6 +245,19 @@ function printableDiv(printableAreaDivId) {
 //     printqr()}, 1000);
 
 }
+
+$('body').on('click', '.save-print', function (e) {
+
+
+    var $img = $(this).attr("data-image");
+   // var $link = "<?php echo url('/public/qrcode/'); ?>";
+    var x = $('#ShowImageQrcode').attr("src", $img);
+
+       setTimeout(function() {
+
+    printqr()}, 1000);
+});
+
 
 function printqr() {
 
@@ -333,12 +348,12 @@ $.ajaxSetup({
                     render: function (data, type, row) {
 
                         var images_qrcode = row.images_qrcode;
-                        console.log('images_qrcode',row)
+                        console.log('images_qrcode',row.images_qrcode)
                         var dataName = row.name_en;
                         var dataid = row.id;
                         var btnEdit = '<button type="button" class="btn btn-outline-warning btn-sm btn-show-modal" data-toggle="modal" data-id="'+dataid+'"  class="btn-modal">แก้ไข</button>';
                         var btnDel = '<button type="button" class="btn btn-outline-warning btn-sm save-delete" data-toggle="modal" data-id="'+dataid+'"   class="btn-modal">ลบ</button>';
-                        var btnPrint = '<button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-id="'+dataid+'"  onclick="printableDiv('+images_qrcode+')"  class="btn-modal">พิมพ์</button>';
+                        var btnPrint = '<button type="button" class="btn btn-outline-warning btn-sm save-print" data-toggle="modal" data-id="'+dataid+'"  data-image="'+images_qrcode+'"  class="btn-modal">พิมพ์</button>';
 
 
                          return btnEdit + btnDel + btnPrint;
@@ -368,9 +383,9 @@ function generateQRCode() {
 
         let qrcodeContainer = "aaaaaa";
         qrcodeContainer.innerHTML = "";
-        console.log(qrcodeContainer)
+
        let aaa = new QRCode(qrcodeContainer, website);
-       console.log(aaa)
+
     }
     return 1;
     }
