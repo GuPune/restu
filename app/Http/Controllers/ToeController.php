@@ -7,6 +7,10 @@ use App\CoreFunction\Datatable;
 use App\Models\Toe;
 use App\Models\Zone;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Generator;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 class ToeController extends Controller
 {
@@ -54,12 +58,24 @@ class ToeController extends Controller
     {
         //
 
+        $randomString = Str::random(30);
+
+        $image = QrCode::format('png')
+        ->merge(public_path('/qrcode/1644463030.png'), 0.5, true)
+        ->size(500)
+        ->errorCorrection('H')
+        ->generate('A simple example of QR code!');
 
 
+
+
+
+\Log::info($path);
         $addtoe = Toe::create([
             'number_toe' => $request->number_toe,
             'number_sit' => $request->number_sit,
             'zone_id' => $request->zone_id,
+            'qr_code' => $randomString,
             'status' => 'Y'
         ]);
 
@@ -106,6 +122,7 @@ class ToeController extends Controller
     public function update(Request $request, $id)
     {
         //
+
 
 
         $updatetor = Toe::where('id',$id)->update([

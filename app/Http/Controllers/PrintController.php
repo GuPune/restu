@@ -4,18 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ListresController extends Controller
+class PrintController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         //
 
-        return view("pages.frontlist.indexlist");
+        return view('print');
     }
 
     /**

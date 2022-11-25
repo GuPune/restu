@@ -88,7 +88,7 @@ class TypeResController extends Controller
     {
         //
 
-        \Log::info($request->all());
+
         $updatetype = Typeoffoods::where('id',$id)->update([
             'name' => $request->name,
             'images' => $request->images,

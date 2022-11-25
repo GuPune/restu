@@ -19,6 +19,8 @@ use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\TypeResController;
 use App\Http\Controllers\RestuController;
 use App\Http\Controllers\ListresController;
+use App\Http\Controllers\PrintController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -120,6 +122,7 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('orderlist', OrderlistController::class);
 
+    Route::get('/print', [PrintController::class, 'index']);
 
 });
 

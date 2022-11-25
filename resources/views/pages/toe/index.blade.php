@@ -8,6 +8,26 @@
 
   <div class="row">
 
+
+    <div id="printableArea" hidden>
+        <div class="container mt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Simple QR Code</h2>
+                </div>
+                <ul class="list-group list-group-flush" style="
+                text-align: center;">
+                    <li class="list-group-item">ร้านอาหาร xxxxxxxx</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                  </ul>
+                <div class="card-body" style="text-align: center;">
+                    {!! QrCode::size(300)->generate('https://techvblogs.com/blog/generate-qr-code-laravel-8') !!}
+                </div>
+            </div>
+        </div>
+     </div>
+
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header container-fluid">
@@ -31,6 +51,7 @@
                         <th>โต๊ะ</th>
                         <th>จำนวนที่นั้ง</th>
                         <th>โซน</th>
+                        <th>โค๊ด</th>
                         <th>สถานะ</th>
                         <th>จัดการ</th>
                     </tr>
@@ -135,6 +156,7 @@
 
       </div>
     </div>
+
   </div>
 
 <style>
@@ -199,11 +221,27 @@ input:checked + .slider:before {
 
 
 
+
+
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
   <script>
+
+function printableDiv(printableAreaDivId) {
+     var i = 'printableArea';
+     var printContents = document.getElementById(i).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
 
 
 $.ajaxSetup({
@@ -213,7 +251,6 @@ $.ajaxSetup({
 });
 
         var searchData = {};
-
         var table = $('.yajra-datatable').DataTable({
     processing: true,
     serverSide: true,
@@ -227,6 +264,7 @@ $.ajaxSetup({
         {data: 'number_toe'},
         {data: 'number_sit'},
         {data: 'name'},
+        {data: 'qr_code'},
         {data: 'status'},
         {data: 'action', name: 'action', orderable:false, serachable:false},
 
@@ -236,11 +274,23 @@ $.ajaxSetup({
                 }
     },
     columnDefs: [{
-                targets: [0,5],
+                targets: [0,6],
             },
 
             {
                     targets: 4,
+                    orderable: false,
+                    searchable: false,
+                    render: function (data, type, row) {
+
+                    //  var a =  generateQRCode();
+
+                         return 1;
+                    }
+                },
+
+            {
+                    targets: 5,
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row) {
@@ -261,7 +311,7 @@ $.ajaxSetup({
                 },
 
             {
-                    targets: 5,
+                    targets: 6,
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row) {
@@ -269,14 +319,17 @@ $.ajaxSetup({
                         var dataid = row.id;
                         var btnEdit = '<button type="button" class="btn btn-outline-warning btn-sm btn-show-modal" data-toggle="modal" data-id="'+dataid+'"  class="btn-modal">แก้ไข</button>';
                         var btnDel = '<button type="button" class="btn btn-outline-warning btn-sm save-delete" data-toggle="modal" data-id="'+dataid+'"   class="btn-modal">ลบ</button>';
+                        var btnPrint = '<button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-id="'+dataid+'"  onclick="printableDiv('+dataid+')"  class="btn-modal">พิมพ์</button>';
 
-                         return btnEdit + btnDel;
+
+                         return btnEdit + btnDel + btnPrint;
                     }
                 },
         ]
 
 
 });
+
 
 
 function RefreshTable(data) {
@@ -286,6 +339,22 @@ function RefreshTable(data) {
             return data;
 
 }
+
+
+function generateQRCode() {
+
+    let website = 'QA';
+
+    if (website) {
+
+        let qrcodeContainer = "aaaaaa";
+        qrcodeContainer.innerHTML = "";
+        console.log(qrcodeContainer)
+       let aaa = new QRCode(qrcodeContainer, website);
+       console.log(aaa)
+    }
+    return 1;
+    }
 
 function reloadData() {
 

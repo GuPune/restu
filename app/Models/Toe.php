@@ -18,6 +18,7 @@ class Toe extends Model
         'number_sit',
         'zone_id',
         'status',
+        'qr_code',
         'orderstatus',
     ];
 
