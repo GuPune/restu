@@ -42,6 +42,7 @@ class TypeResController extends Controller
 
         $addrestype = Typeoffoods::create([
             'name' => $request->name,
+            'images' => $request->images,
             'status' => 'Y'
         ]);
 
@@ -86,8 +87,11 @@ class TypeResController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        \Log::info($request->all());
         $updatetype = Typeoffoods::where('id',$id)->update([
             'name' => $request->name,
+            'images' => $request->images,
         ]);
 
 

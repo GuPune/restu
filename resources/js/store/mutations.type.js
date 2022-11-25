@@ -6,5 +6,6 @@ export const SET_ORDERS_TOTAL = "set_orders_total";
 export const SET_ORDERS_DELETE = "set_orders_delete";
 export const SET_DISCOUNT = "set_discount";
 export const SET_TOE_ID = "set_toe_id";
+export const SET_TYPE_LIST = "set_types_list";
 
 

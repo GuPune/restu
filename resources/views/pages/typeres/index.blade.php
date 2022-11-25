@@ -16,7 +16,7 @@
                     <h3 class="w-75 p-3">ตั้งค่าประเภทอาหาร</h3>
                   </div>
                   <div class="col-md-2 float-right">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn btn-success" onclick="Showmodal();">
                         เพิ่มประเภทอาหาร
                       </button>
                    </div>
@@ -54,7 +54,7 @@
         <!-- Modal Header -->
         <div class="modal-header">
             <h4 class="modal-title" id="exampleModalLabel">เพิ่มรายการ ประเภทอาหาร</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="Modalclose('i');">
             <span aria-hidden="true">×</span>
             </button>
             </div>
@@ -64,6 +64,15 @@
             <div class="form-group">
                 <label for="recipient-name" class="col-form-label">ชื่อประเภทอาหาร:</label>
                 <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <input type="hidden" class="form-control" name="icon" id="icon" placeholder="icon"   required>
+
+            <div class="row">
+                <div class="form-group" style="padding-left:15px;">
+                    <label for="filemagazine"><B>รูปประเภทอาหาร</B></label><br>
+                    <input type="file" name="images_type_res" id="images_type_res" ><br>
+                    <img src="/public/product/no_photo.jpg" alt="รูปภาพประจำสินค้า" class="img-fluid rounded mx-auto d-block profile-image" id="showImage" width="300" height="150">
+                </div>
             </div>
 
         </div>
@@ -86,24 +95,35 @@
         <!-- Modal Header -->
         <div class="modal-header">
             <h4 class="modal-title" id="exampleModalLabel">แก้ไข้รายการ โซนสินค้า</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="Modalclose('e');">
+                <input type="hidden" class="form-control" name="editimages" id="editimages" placeholder="icon" required >
             <span aria-hidden="true">×</span>
-            </button>
+            </button> --}}
             </div>
 
         <!-- Modal body -->
         <div class="modal-body">
-            <div class="form-group">
+            <div class="form-group"
+            >
                 <input type="hidden" class="form-control" id="editid" name="editid">
                 <label for="recipient-name" class="col-form-label">ชื่อประเภทอาหาร:</label>
                 <input type="text" class="form-control" id="editname" name="editname">
+                <input type="hidden" class="form-control" name="eimages" id="eimages">
+            </div>
+
+            <div class="row">
+                <div class="form-group" style="padding-left:15px;">
+                    <label for="filemagazine"><B>รูปประเภทอาหาร</B></label><br>
+                    <input type="file" name="edit_images_type_res" id="edit_images_type_res" ><br>
+                    <img src="/public/product/no_photo.jpg" alt="รูปภาพประจำสินค้า" class="img-fluid rounded mx-auto d-block profile-image" id="EditshowImage" width="300" height="150">
+                </div>
             </div>
 
         </div>
 
         <!-- Modal footer -->
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+            {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button> --}}
             <button type="button" class="btn btn-primary save-update" id="save_group">บันทึก</button>
             </div>
 
@@ -179,7 +199,7 @@ input:checked + .slider:before {
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
   <script>
 
-
+var $link = "<?php echo url('/public/product/'); ?>";
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -251,6 +271,12 @@ $.ajaxSetup({
 });
 
 
+function Showmodal() {
+
+
+    $("#myModal").modal("show");
+   // alert('ok');
+}
 
 function RefreshTable(data) {
 
@@ -268,6 +294,30 @@ table.ajax.reload(null, false);
 function fitter() {
 
 table.ajax.reload(null, false);
+}
+
+function Modalclose(id) {
+
+
+
+    $('#myModal').modal('hide');
+
+  //  $('#myModal').modal('hide');
+}
+
+
+
+
+function hideModal() {
+//   $("#myModal").removeClass("in");
+//   $(".modal-backdrop").remove();
+//   $('body').removeClass('modal-open');
+//   $('body').css('padding-right', '');
+//   $("#myModal").hide();
+    var name = $('#name').val('');
+    $("#images_type_res").val('');
+    $('#showImage').attr("src", $link +'/'+ 'no_photo.jpg');
+  $('#myModal').modal('hide');
 }
 
 
@@ -350,6 +400,7 @@ $.ajaxSetup({
 
     var name = $('#editname').val();
     var id = $('#editid').val();
+    var images = $('#eimages').val();
 
     $.ajaxSetup({
                     headers: {
@@ -362,7 +413,7 @@ $.ajaxSetup({
                     type: "PUT",
                     data:{
                                 '_token': "{{ csrf_token() }}",
-                                id:id,name:name},
+                                id:id,name:name,images:images},
                     url: "/admin/typeres/"  + id,
                     success: function(datas){
 
@@ -384,6 +435,7 @@ $('body').on('click', '.save-add', function (e) {
 
 
 var name = $('#name').val();
+var images = $('#icon').val();
 
 
 
@@ -398,7 +450,7 @@ $.ajaxSetup({
                 type: "POST",
                 data:{
                             '_token': "{{ csrf_token() }}",
-                            name:name},
+                            name:name,images:images},
                 url: "/admin/typeres",
                 success: function(datas){
 
@@ -410,7 +462,11 @@ $.ajaxSetup({
                 table.ajax.reload(null, false);
 }, 500);
 
-$('#myModal').modal('hide');
+//     $("#myModal").removeClass("in");
+//   $(".modal-backdrop").remove();
+//   $("#myModal").hide();
+
+  hideModal();
 
                 }
 
@@ -441,11 +497,7 @@ $.ajaxSetup({
                             id:id},
                 url: "/admin/typeres/" + id,
                 success: function(datas){
-
       swal("ลบสำเร็จ!", "ลบสำเร็จ!", "success");
-
-
-
       const timeoutId = setTimeout(function(){
                 table.ajax.reload(null, false);
 }, 500);
@@ -480,15 +532,116 @@ $.ajaxSetup({
                     type: "GET",
                     url: "/admin/typeres/" + id +"/edit",
                     success: function(datas){
-
+                        $("#editmyModal").modal('show');
 var editname = $('#editname').val(datas.name);
 var id = $('#editid').val(datas.id);
+var editimages = $('#eimages').val(datas.images);
 
-$("#editmyModal").modal('show');
+$('#EditshowImage').attr("src", $link +'/'+ datas.images);
+console.log($link +'/'+ datas.images);
+
                     }
                 })
 
 });
+
+
+$("#edit_images_type_res").on('change', function(){
+        if ($('input[name ="edit_images_type_res"]').val() != '') {
+            var _URL = window.URL || window.webkitURL;
+            var file, img;
+            var file_data = $('input[name= "edit_images_type_res"]').prop('files')[0];
+            var _token = '{{ csrf_token() }}';
+            var form_data = new FormData();
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onload = function() {
+                    form_data.append('edit_images_type_res', file_data);
+                    form_data.append("_token", _token);
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: '/admin/restu/uploadimage',
+                        dataType: 'json',
+                        type: 'POST',
+                        data: form_data,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function success(resp) {
+
+                            $('input[name=eimages]').val(resp.data);
+                                $('#EditshowImage').attr("src", $link +'/'+ resp.data);
+
+                            //    swal("บันทึกสำเร็จ!", "บันทึกสำเร็จ!", "success");
+
+                        },
+                        error: function error(xhr, textStatus, errorThrown) {
+
+                            console.log(errorThrown);
+                        }
+                    });
+                };
+                img.onerror = function() {
+                    alert( "not a valid file: " + file.type);
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        }
+    })
+
+
+
+$("#images_type_res").on('change', function(){
+        if ($('input[name ="images_type_res"]').val() != '') {
+            var _URL = window.URL || window.webkitURL;
+            var file, img;
+            var file_data = $('input[name= "images_type_res"]').prop('files')[0];
+            var _token = '{{ csrf_token() }}';
+            var form_data = new FormData();
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onload = function() {
+                    form_data.append('images_type_res', file_data);
+                    form_data.append("_token", _token);
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: '/admin/restu/uploadimage',
+                        dataType: 'json',
+                        type: 'POST',
+                        data: form_data,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function success(resp) {
+
+                            $('input[name=icon]').val(resp.data);
+                                $('#showImage').attr("src", $link +'/'+ resp.data);
+
+                            //    swal("บันทึกสำเร็จ!", "บันทึกสำเร็จ!", "success");
+
+                        },
+                        error: function error(xhr, textStatus, errorThrown) {
+
+                            console.log(errorThrown);
+                        }
+                    });
+                };
+                img.onerror = function() {
+                    alert( "not a valid file: " + file.type);
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        }
+    })
+
 
 
 

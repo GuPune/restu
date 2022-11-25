@@ -15,6 +15,7 @@ class Typeoffoods extends Model
         'id',
         'name',
         'status',
+        'images',
 
     ];
 }

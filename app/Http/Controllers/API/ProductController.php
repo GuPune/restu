@@ -148,6 +148,19 @@ $updatedata = Order::where('id',$request->order_id)->update([
         return response()->json('delete');
     }
 
+    public function fronttyperes(Request $request)
+    {
+
+
+        \Log::info('fronttyperes');
+        $data = Typeoffoods::where('status','Y')->get();
+        return response()->json($data);
+
+    }
+
+
+
+
 
 
 }

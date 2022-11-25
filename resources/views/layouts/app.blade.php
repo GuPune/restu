@@ -102,15 +102,7 @@ $(document).ready(function(){
 
   <!-- Page Content  -->
   <div id="content">
-    <!-- <div class="p-2 bg-white shadow fixed-top">
-      <div class="row">
-        <div class="col-2 text-center text-dino"></div>
-        <div class="col-8 text-center">
-          <h5 class="mt-2 text-dino">DINO DELIVERY</h5>
-        </div>
-        <div class="col-2" style="font-size:7vw;"></div>
-      </div>
-    </div> -->
+
     <div class="px-3" style="margin-top:1rem;">
       <div class="row mb-3">
         <div class="col-12 px-3"> <a href="https://dinovery.app/app/index.php/Home/restaurant_list">           <div class="card shadow" style="background-color:#000;">
@@ -121,37 +113,6 @@ $(document).ready(function(){
           </div>
           </a> </div>
       </div>
-      <!-- <hr class="style-two">
-      <h5><i class="fa fa-shopping-basket" aria-hidden="true"></i> เนื้อสัตว์ ผักและผลไม้</h5> -->
-      <!-- <div class="row mb-3">
-
-				<div class="col-4 pl-2 pr-2"> <a href="https://dinovery.app/app/index.php/Home/restaurant_detail/2597">
-          <div class="card shadow">
-            <div class="card-body text-center"> <img src="https://dinovery.app/app/assets/img/kkfresh.jpg" width="100%"/> </div>
-          </div>
-          </a> </div>
-
-					<div class="col-4 pl-2 pr-2"> <a href="https://dinovery.app/app/index.php/Home/restaurant_detail/2869">
-	          <div class="card shadow">
-	            <div class="card-body text-center"> <img src="https://dinovery.app/app/assets/img/beef.jpg" width="100%"/> </div>
-	          </div>
-	          </a> </div>
-
-
-					<div class="col-4 pl-2 pr-2"> <a href="https://dinovery.app/app/index.php/Home/restaurant_detail/3057" >
-						<div class="card shadow">
-							<div class="card-body text-center"> <img src="https://dinovery.app/app/assets/img/pork.jpg" width="100%"/> </div>
-						</div>
-						</a> </div>
-
-      </div> -->
-			<!-- <div class="row mb-3">
-				<div class="col-4 pl-2 pr-2"> <a href="https://dinovery.app/app/index.php/Home/restaurant_detail/3057" >
-					<div class="card shadow">
-						<div class="card-body text-center"> <img src="https://dinovery.app/app/assets/img/pork.jpg" width="100%"/> </div>
-					</div>
-					</a> </div>
-			</div> -->
 
 			<hr class="style-two">
 <h5><i class="fa fa-shopping-cart" aria-hidden="true"></i> สะดวกซื้อและซุปเปอร์มาร์เก็ต</h5>
@@ -238,38 +199,7 @@ $(document).ready(function(){
           </div>
           </a> </div>
       </div>
-      <!--<div class="row mb-3">
-                <div class="col-6 pl-3 pr-2">
-                  <a href="https://dinovery.app/app/index.php/Home/send">
-                    <div class="card shadow">
-                      <div class="card-body text-center">
-                        <h1><i class="fas fa-box text-dino"></i></h1>
-                        <h5 style="font-size:5vw;">ส่งพัสดุ</h5>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-6 pl-2 pr-3">
-                  <div class="card shadow">
-                    <div class="card-body text-center">
-                      <h1><i class="fas fa-receipt text-dino"></i></h1>
-                      <h5 style="font-size:5vw;">จ่ายบิล</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>-->
-      <!--<div class="row mb-3">
-                <div class="col-12 px-3">
-                  <a href="https://dinovery.app/app/index.php/Home/restaurant_list">
-                  <div class="card shadow">
-                    <div class="card-body text-center">
-                      <h1><i class="fas fa-utensils text-dino"></i> <i class="fas fa-wine-glass-alt text-dino"></i></h1>
-                      <h5 style="font-size:5vw;">อาหารและเครื่องดื่ม</h5>
-                    </div>
-                  </div>
-                  </a>
-                </div>
-              </div>-->
+
     </div>
 		<div style="height:90px;"></div>
 		<div class="p-2 shadow fixed-bottom" style="background-color:#ec7d23;">
@@ -293,22 +223,6 @@ $(document).ready(function(){
 </div>
 <div class="overlay"></div>
 
-<!--<div class="fixed-bottom" style="z-index:888;">
-      <div class="bg-white p-3 shadow">
-        <div class="">
-          <a href="https://dinovery.app/app/index.php/Home/cart" class="btn btn-success btn-block">
-          <div class="row py-1 px-2">
-            <div class="col-8 text-left">
-              ดูตะกร้า 1 รายการ
-            </div>
-            <div class="col-4 text-right">
-              <div class="">60 บาท</div>
-            </div>
-          </div>
-          </a>
-        </div>
-      </div>
-    </div>-->
 
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>

@@ -200,12 +200,19 @@ class ProductController extends Controller
         if ($files = $request->file('file-res-edit')) {
             $destinationPath = 'public/product/'; // upload path
             $profileImage = date('YmdHis').$random. "." . $files->getClientOriginalExtension();
-
             $files->move($destinationPath, $profileImage);
         }
 
-
-
+        if ($files = $request->file('images_type_res')) {
+            $destinationPath = 'public/product/'; // upload path
+            $profileImage = date('YmdHis').$random. "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $profileImage);
+        }
+        if ($files = $request->file('edit_images_type_res')) {
+            $destinationPath = 'public/product/'; // upload path
+            $profileImage = date('YmdHis').$random. "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $profileImage);
+        }
 
 
 

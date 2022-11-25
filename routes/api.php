@@ -36,4 +36,6 @@ Route::group(['middleware' => ['api']], function ($router) {
     Route::post('/transaction_tempdelete', 'App\Http\Controllers\API\ProductController@transaction_ordersdelete');
 
 
+    Route::get('/fronttypelist', 'App\Http\Controllers\API\ProductController@fronttyperes');
+
     });

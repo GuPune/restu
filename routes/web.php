@@ -18,7 +18,7 @@ use App\Http\Controllers\ToeController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\TypeResController;
 use App\Http\Controllers\RestuController;
-
+use App\Http\Controllers\ListresController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +34,10 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/app/order/list/{id}', [ListresController::class, 'index']);
+
 
 
 // Route::get('/lang/{locale}', [FrontNewController::class, 'lang'])->name('new.lang');
