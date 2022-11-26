@@ -1,6 +1,8 @@
 <template>
 
 <div>
+
+
     <div class="wrapper w3-animate-top">
   <!-- Sidebar  -->
   <nav id="sidebar">
@@ -95,11 +97,12 @@
 
 
 <script>
+import Navbar from "../Navbar.vue";
 import { mapGetters,mapState } from "vuex";
 import { FETCH_TYPERES } from "@store/actions.type";
 export default {
     components: {
-
+ Navbar: () => import('../Navbar.vue')
         },
         data() {
       return {
@@ -114,6 +117,8 @@ export default {
     async created(){
 let typeres = await this.$store.dispatch(FETCH_TYPERES);
 this.typerest = typeres;
+
+
 
 
         },

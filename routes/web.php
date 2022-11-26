@@ -33,10 +33,15 @@ use App\Http\Controllers\PrintController;
 */
 
 Auth::routes();
-Route::get('/', function () {
+
+
+
+// Route::view('/','welcome');
+// Route::view('/{any}','welcome');
+
+Route::get('/{any?}', function() {
     return view('welcome');
 });
-
 
 Route::get('/app/order/list/{id}', [ListresController::class, 'index']);
 

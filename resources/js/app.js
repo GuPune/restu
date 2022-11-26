@@ -15,6 +15,9 @@
  import ApiService from "@services/api.service";
  import VueSweetalert2 from 'vue-sweetalert2';
 import VueNumericInput from 'vue-numeric-input';
+import App from './App.vue';
+import VueRouter from 'vue-router';
+import router from './Router/index';
 
 
 
@@ -28,6 +31,7 @@ import VueNumericInput from 'vue-numeric-input';
  // Optionally install the BootstrapVue icon components plugin
  Vue.use(IconsPlugin)
  Vue.use(VueNumericInput)
+ Vue.use(VueRouter)
 
 
  ApiService.init();
@@ -52,6 +56,7 @@ import VueNumericInput from 'vue-numeric-input';
 
  Vue.component('pos', require('./components/pos/Index.vue').default)
  Vue.component('res', require('./components/listres/Index.vue').default)
+ Vue.component('app', require('./components/App.vue').default)
  /**
   * Next, we will create a fresh Vue application instance and attach it to
   * the page. Then, you may begin adding components to this application
@@ -63,6 +68,15 @@ import VueNumericInput from 'vue-numeric-input';
  const app = new Vue({
      el: '#app',
      store,
+     router,
+     components: { App }
  });
+
+
+ require('./bootstrap');
+
+
+
+
 
 
