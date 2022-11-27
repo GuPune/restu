@@ -42,7 +42,7 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "listres"
-  }, [_c("h2", [_vm._v("\n    listres\n  ")])]);
+  }, [_c("h2", [_vm._v("\n    listresxxxxxxxxxxxxxxxxxx\n  ")])]);
 }];
 render._withStripped = true;
 

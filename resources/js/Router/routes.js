@@ -2,13 +2,12 @@ const routes = [
     {
       path: '/app/order/list/:id',
       component: () => import('../pages/Home.vue'),
-      name: 'home',
+      name: '/',
       children : [
-        { path: '/app/order/list/rest/:id',
+        { path: '/detail/:id',
         component: () => import('../pages/ResList.vue'),
         name: 'listres' },
     ]
-
     },
     {
       path: '/about',

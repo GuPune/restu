@@ -50,6 +50,7 @@
 
        <Navbar />
  <router-view></router-view>
+
 		<div style="height:90px;"></div>
 <Menu/>
   </div>
