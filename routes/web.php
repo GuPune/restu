@@ -36,12 +36,9 @@ Auth::routes();
 
 
 
-// Route::view('/','welcome');
-// Route::view('/{any}','welcome');
-
-Route::get('/{any?}', function() {
-    return view('welcome');
-});
+// Route::view('/{id}','welcome');
+// Route::view('/{any}/{id}','welcome');
+// Route::view('/{any}/{id}','welcome');
 
 Route::get('/app/order/list/{id}', [ListresController::class, 'index']);
 

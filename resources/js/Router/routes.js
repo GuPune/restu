@@ -1,8 +1,14 @@
 const routes = [
     {
-      path: '',
+      path: '/app/order/list/:id',
       component: () => import('../pages/Home.vue'),
-      name: 'home'
+      name: 'home',
+      children : [
+        { path: '/app/order/list/rest/:id',
+        component: () => import('../pages/ResList.vue'),
+        name: 'listres' },
+    ]
+
     },
     {
       path: '/about',
@@ -26,4 +32,9 @@ const routes = [
       },
   ]
 
+
+
   export default routes;
+
+
+

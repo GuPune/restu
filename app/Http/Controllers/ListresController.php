@@ -15,7 +15,13 @@ class ListresController extends Controller
     {
         //
 
-        return view("pages.frontlist.indexlist");
+        \Log::info($request->all());
+
+
+
+      //  return view("pages.frontlist.indexlist");
+      return view("welcome");
+
     }
 
     /**

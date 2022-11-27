@@ -29,13 +29,17 @@
 			<div class="row mb-3">
 
 				<div class="col-4 pl-2 pr-2" v-for="i in this.typerest">
-                    <a href="https://dinovery.app/app/index.php/Home/restaurant_detail/2553">
+                     <router-link :to="{ name: 'listres', params: { id: i.id }}">
 					<div class="card shadow">
 						<div class="card-body text-center">
                              <img  :src="checkImage(i.images)" width="100%"/>
                              </div>
+                                 <h5 class="card-title" style="text-align: center;">{{i.name}}</h5>
+
 					</div>
-					</a>
+
+
+                     </router-link>
                     </div>
       </div>
 
@@ -91,21 +95,27 @@ export default {
     }
   },
     async created(){
-let typeres = await this.$store.dispatch(FETCH_TYPERES);
-this.typerest = typeres;
+
+
 
 
 
 
         },
-    mounted() {
+   async mounted() {
+
+        let typeres = await this.$store.dispatch(FETCH_TYPERES);
+this.typerest = typeres;
+
+      console.log(this.$route.params.id);
 
         },
         methods: {
 
             checkImage(image){
 
-                let a = 'http://restau.test/public/product/'+image;
+                let a = 'http://restu.test/public/product/'+image;
+
 return a;
             }
 

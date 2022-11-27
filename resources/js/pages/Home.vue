@@ -13,6 +13,21 @@ export default {
   name: 'home',
   computed: {
 
-  }
+  },
+      async created(){
+
+
+
+
+
+
+        },
+    mounted() {
+
+
+
+        },
 }
 </script>
+
+
