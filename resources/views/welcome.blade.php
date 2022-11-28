@@ -42,15 +42,6 @@
              white-space: nowrap;
           }
         </style>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162912447-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-162912447-1');
-    </script> --}}
 
     </head>
 <body>
@@ -58,10 +49,10 @@
         <app></app>
     </div>
 
-    <script src="{{ mix('js/app.js') }}"></script>
+
 </body>
 </html>
-
+<script src="{{ mix('js/app.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <!-- Bootstrap JS -->
 <script src="https://dinovery.app/app/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>

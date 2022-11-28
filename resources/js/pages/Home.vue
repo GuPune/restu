@@ -1,20 +1,62 @@
 <template>
-  <div class="home">
-    <img class="logo" width="100" src="logo.png" alt="">
-    <h1>
+    <div>
+        <hr class="style-two">
+<h5>
+    <i class="fa fa-shopping-cart" aria-hidden="true">
 
-    </h1>
-    <button class="btn">INCREMENT</button>
-  </div>
+    </i> ประเภทอาหาร {{this.currentRouteName}}  {{this.form.token}}</h5>
+        <div class="row mb-3">
+				<div class="col-4 pl-2 pr-2" v-for="i in this.typerest">
+
+                     <router-link :to="{ name: 'listres', params: { token:i.token,id: i.id }}">
+					<div class="card shadow">
+						<div class="card-body text-center">
+                             <img  :src="checkImage(i.images)" width="100%"/>
+                             </div>
+                                 <h5 class="card-title" style="text-align: center;">{{i.name}}</h5>
+
+					</div>
+
+
+                     </router-link>
+                    </div>
+      </div>
+    </div>
 </template>
 <script>
-import { mapState } from 'vuex';
-export default {
-  name: 'home',
-  computed: {
+import { mapGetters,mapState } from "vuex";
+import { FETCH_TYPERES,FETCH_TOE_FRONT } from "@store/actions.type";
 
+export default {
+    name: 'home',
+    components: {
+
+        },
+    data() {
+      return {
+        form:{
+            token:null,
+        },
+        toe_id:0,
+        typerest: "0",
+        toeall:"0",
+        x:1,
+
+      }
+    },
+
+
+  computed: {
+    currentRouteName() {
+      return this.$route.name;
+    }
   },
-      async created(){
+  async created(){
+        this.form.token = this.$route.params.token;
+        // let toe = await this.$store.dispatch(FETCH_TOE_FRONT,this.form);
+        let typeres = await this.$store.dispatch(FETCH_TYPERES,this.form);
+        this.typerest = typeres;
+
 
 
 
@@ -24,9 +66,17 @@ export default {
         },
     mounted() {
 
-
-
         },
+        methods: {
+
+checkImage(image){
+
+    let a = 'http://restau.test/public/product/'+image;
+
+return a;
+}
+
+}
 }
 </script>
 

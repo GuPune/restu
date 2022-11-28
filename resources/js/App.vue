@@ -3,9 +3,12 @@
 <div>
 
 
+
+
     <div class="wrapper w3-animate-top">
+
   <!-- Sidebar  -->
-  <nav id="sidebar">
+  <!-- <nav id="sidebar">
     <div id="dismiss"> <i class="fas  fa-arrow-left"></i> </div>
     <div class="sidebar-header">
       <h5 >Main Menu</h5 >
@@ -16,32 +19,16 @@
       <li> <a href="https://dinovery.app/app/index.php/Home/order_location"><i class="fas fa-map-marker-alt text-dino mr-1"></i> ที่อยู่ของฉัน</a> </li>
       <li> <a href="https://dinovery.app/app/index.php/Auth/logout"><i class="fas fa-sign-out-alt text-dino mr-1"></i> ออกจากระบบ</a> </li>
     </ul>
-  </nav>
+  </nav> -->
+
+
+
 
   <!-- Page Content  -->
-  <div id="content" v-if="currentRouteName === 'home'">
+  <div id="content" v-if="currentRouteName === '/'">
 
-    <div class="px-3" style="margin-top:1rem;">
+    <div class="px-3" style="margin-top:6rem;">
 <Banner/>
-
-			<hr class="style-two">
-<h5><i class="fa fa-shopping-cart" aria-hidden="true"></i> ประเภทอาหาร {{this.currentRouteName}}</h5>
-			<div class="row mb-3">
-
-				<div class="col-4 pl-2 pr-2" v-for="i in this.typerest">
-                     <router-link :to="{ name: 'listres', params: { id: i.id }}">
-					<div class="card shadow">
-						<div class="card-body text-center">
-                             <img  :src="checkImage(i.images)" width="100%"/>
-                             </div>
-                                 <h5 class="card-title" style="text-align: center;">{{i.name}}</h5>
-
-					</div>
-
-
-                     </router-link>
-                    </div>
-      </div>
 
 
 
@@ -49,13 +36,24 @@
     </div>
 
        <Navbar />
- <router-view></router-view>
+
+       <div class="px-3" style="margin-top:1rem;">
+
+
+
+
+        <router-view></router-view>
+
+
+    </div>
+
 
 		<div style="height:90px;"></div>
 <Menu/>
   </div>
 
     <div v-else>
+        <Navbar />
  <router-view></router-view>
  <Menu/>
   </div>
@@ -65,14 +63,44 @@
 
 </div>
 </template>
+<style>
+body {margin:0;}
 
+.navbar {
+    background-color: rgb(236, 125, 35);
+  position:fixed;
+  z-index:1; /*Add this*/
+  width:100%;
+  height:50px;
+  text-align:center;
+  vertical-align:middle;
+
+  top:0px;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+</style>
 
 <script>
 import Banner from "@components/Banner";
 import Navbar from "@components/Navbar";
 import Menu from "@components/Menu";
 import { mapGetters,mapState } from "vuex";
-import { FETCH_TYPERES } from "@store/actions.type";
+import { FETCH_TYPERES,FETCH_TOE_FRONT } from "@store/actions.type";
 export default {
     name: 'app',
     components: {
@@ -82,11 +110,13 @@ export default {
         data() {
       return {
         form:{
-            id:null
+            token:null,
         },
         toe_id:0,
         typerest: "0",
-        toeall:"0"
+        toeall:"0",
+        x:1,
+
       }
     },
     mounted() {},
@@ -96,6 +126,13 @@ export default {
     }
   },
     async created(){
+    //     this.form.token = this.$route.params.token;
+    //     console.log('this.form.token',this.form.token)
+    //     console.log(this.$route.query)
+    //     let toe = await this.$store.dispatch(FETCH_TOE_FRONT,this.form);
+    // let typeres = await this.$store.dispatch(FETCH_TYPERES,this.form);
+    // this.typerest = typeres;
+
 
 
 
@@ -105,24 +142,17 @@ export default {
         },
    async mounted() {
 
-        let typeres = await this.$store.dispatch(FETCH_TYPERES);
-this.typerest = typeres;
 
-      console.log(this.$route.params.id);
 
         },
         methods: {
 
             checkImage(image){
 
-                let a = 'http://restu.test/public/product/'+image;
+                let a = 'http://restau.test/public/product/'+image;
 
 return a;
             }
-
-
-
-
 
         }
 

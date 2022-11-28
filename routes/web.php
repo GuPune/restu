@@ -40,7 +40,7 @@ Auth::routes();
 // Route::view('/{any}/{id}','welcome');
 // Route::view('/{any}/{id}','welcome');
 
-Route::get('/app/order/list/{id}', [ListresController::class, 'index']);
+Route::get('/app/order/list/{token}', [ListresController::class, 'index']);
 
 
 

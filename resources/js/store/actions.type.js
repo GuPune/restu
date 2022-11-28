@@ -9,4 +9,9 @@ export const FETCH_DISCOUNT = "fetch_discount";
 export const FETCH_TOE = "fetch_toe";
 
 export const FETCH_TYPERES = "fetch_typeres";
+export const FETCH_RES = "fetch_res";
+export const FETCH_TOE_FRONT = "fetch_res_front";
+
+
+
 

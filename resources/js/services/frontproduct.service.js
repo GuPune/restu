@@ -1,11 +1,14 @@
 import ApiService from "@services/api.service";
 
 export const FrontProductService = {
-    gettypelist() {
-      return ApiService.get("fronttypelist");
+    gettypelist(param) {
+      return ApiService.post("fronttypelist",param);
     },
-
-
-
+    getres(param) {
+        return ApiService.post("frontres",param);
+      },
+      gettoe(param) {
+        return ApiService.post("restoe",param);
+},
 
 };

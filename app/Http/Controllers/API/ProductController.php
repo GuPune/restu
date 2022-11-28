@@ -152,15 +152,35 @@ $updatedata = Order::where('id',$request->order_id)->update([
     {
 
 
-        \Log::info('fronttyperes');
-        $data = Typeoffoods::where('status','Y')->get();
-        return response()->json($data);
+        $datas = [];
+
+        $typefood = Typeoffoods::where('status','Y')->get();
+
+        foreach ($typefood as $index => $typefoods) {
+            $datas[$index]['id'] = $typefoods->id;
+            $datas[$index]['name'] = $typefoods->name;
+            $datas[$index]['status'] = $typefoods->status;
+            $datas[$index]['images'] = $typefoods->images;
+            $datas[$index]['token'] = $request->token;
+                }
+
+        return response()->json($datas);
 
     }
 
+    public function frontres(Request $request)
+    {
+        $getres = Productres::where('type_of_food_id',$request->typeres)->where('status','Y')->get();
+        return response()->json($getres);
+    }
 
+    public function restoe(Request $request)
+    {
 
+        $gettoe = Toe::where('qr_code',$request->token)->where('status','Y')->first();
 
+        return response()->json($gettoe);
 
+    }
 
 }
