@@ -11,6 +11,7 @@ export const FETCH_TOE = "fetch_toe";
 export const FETCH_TYPERES = "fetch_typeres";
 export const FETCH_RES = "fetch_res";
 export const FETCH_TOE_FRONT = "fetch_res_front";
+export const FETCH_RES_CART = "fetch_res_cart";
 
 
 

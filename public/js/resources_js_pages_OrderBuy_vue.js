@@ -42,7 +42,27 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "orderbuy"
-  }, [_c("h2", [_vm._v("\n    Order Buy\n  ")])]);
+  }, [_c("hr", {
+    staticClass: "style-two"
+  }), _vm._v(" "), _c("h5", [_c("i", {
+    staticClass: "fa fa-shopping-cart",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v(" ประเภทอาหาร")]), _vm._v(" "), _c("div", {
+    staticClass: "row mb-3"
+  }, [_c("div", {
+    staticClass: "col-4 pl-2 pr-2"
+  }, [_vm._v("\n\n                   >\n\t\t\t\t\t"), _c("div", {
+    staticClass: "card shadow"
+  }, [_c("div", {
+    staticClass: "card-body text-center"
+  }), _vm._v(" "), _c("h5", {
+    staticClass: "card-title",
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("xxxxxxxxxxxxxx")])])])])]);
 }];
 render._withStripped = true;
 

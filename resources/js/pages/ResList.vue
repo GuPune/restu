@@ -51,7 +51,7 @@
                 </div>
                   <div class="text-center">
 
-                    <input class="btn btn-warning btn-block btn-lg" name="button" type="submit" value="เพิ่มไปยังตะกร้า" @click="Addcart()" >
+                    <input class="btn btn-warning btn-block btn-lg" name="button"  value="เพิ่มไปยังตะกร้า" @click="Addcart()" >
                   </div>
                 </div>
               </div>
@@ -118,7 +118,7 @@
 <script>
 
 import { mapGetters,mapState } from "vuex";
-import { FETCH_RES } from "@store/actions.type";
+import { FETCH_RES,FETCH_RES_CART } from "@store/actions.type";
 export default {
   name: 'listres',
     data: () => ({
@@ -153,12 +153,14 @@ this.res = befres;
 
                 this.myModel = false;
 
+            this.formadd.id = this.id;
             this.formadd.name_list = this.name;
             this.formadd.price_sell = this.price;
             this.formadd.qty = this.qty;
             this.formadd.note = this.note;
             this.formadd.token = this.$route.params.token;
-            console.log('add',this.formadd);
+
+            let befres =  this.$store.dispatch(FETCH_RES_CART,this.formadd);
             },
 
 
@@ -167,6 +169,7 @@ this.res = befres;
 
             this.myModel = true;
             this.qty = 1;
+            this.id = i.id;
             this.note = null;
             this.name = i.name_list;
             this.price = i.price_sell;

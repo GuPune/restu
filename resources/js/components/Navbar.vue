@@ -8,7 +8,7 @@
         <i class="fa fa-qrcode fa-2x" aria-hidden="true"></i> โต๊ะ {{this.toe.number_toe}}
     </div>
     <div class="col-3 text-center text-white" style="padding-top:1%;">
-        <i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>
+        <i class="fa fa-cart-plus fa-2x" aria-hidden="true">{{this.cartTotal}}</i>
     </div>
   </div>
 </div>
@@ -33,7 +33,7 @@ export default {
       }
     },
   computed: {
-   ...mapGetters(["toe"]),
+   ...mapGetters(["toe","cartTotal"]),
 
 
         },

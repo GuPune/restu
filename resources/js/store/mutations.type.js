@@ -8,5 +8,5 @@ export const SET_DISCOUNT = "set_discount";
 export const SET_TOE_ID = "set_toe_id";
 export const SET_TYPE_LIST = "set_types_list";
 export const SET_TOE_FRONT = "set_toe_front";
-
+export const SET_ADD_REST = "set_add_rest";
 
