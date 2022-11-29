@@ -10,7 +10,7 @@
         <div class="row mb-3">
 				<div class="col-4 pl-2 pr-2" >
 
-                   >
+
 					<div class="card shadow">
 						<div class="card-body text-center">
 

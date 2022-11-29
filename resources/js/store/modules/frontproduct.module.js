@@ -77,8 +77,12 @@ const mutations = {
     [SET_GET_CART](state) {
 
         this.cart = JSON.parse(localStorage.getItem("cart"));
-        state.cartTotal = this.cart.length;
+        if(!this.cart){
+            this.cart = [];
 
+        }
+        state.cartTotal = this.cart.length;
+        state.cart = this.cart;
 
     },
     [SET_ADD_REST](state,item){

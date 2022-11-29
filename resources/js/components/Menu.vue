@@ -57,6 +57,7 @@ export default {
     },
    async mounted() {
     this.form.token = this.$route.params.token;
+
      },
 }
 </script>

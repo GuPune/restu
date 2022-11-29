@@ -53,7 +53,7 @@ var staticRenderFns = [function () {
     staticClass: "row mb-3"
   }, [_c("div", {
     staticClass: "col-4 pl-2 pr-2"
-  }, [_vm._v("\n\n                   >\n\t\t\t\t\t"), _c("div", {
+  }, [_c("div", {
     staticClass: "card shadow"
   }, [_c("div", {
     staticClass: "card-body text-center"

@@ -18,8 +18,13 @@
         {{-- <link rel="stylesheet" href="https://dinovery.app/app/assets/css/custom.css?v1">
         <link rel="stylesheet" href="https://dinovery.app/app/assets/css/sidebar.css?v1"> --}}
 
-        <link rel="stylesheet" href="https://restu.idtest.work/css/sidebar.css">
-        <link rel="stylesheet" href="https://restu.idtest.work/css/custom.css">
+        {{-- <link rel="stylesheet" href="https://restu.idtest.work/css/sidebar.css">
+        <link rel="stylesheet" href="https://restu.idtest.work/css/custom.css"> --}}
+
+
+        <link rel="stylesheet" href="http://restau.test/css/sidebar.css">
+        <link rel="stylesheet" href="http://restau.test/css/custom.css">
+
         <!-- Scrollbar Custom CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css?v1">
         <!-- Font Awesome All -->
@@ -30,7 +35,7 @@
 
             <!-- jQuery -->
             {{-- <script src="https://dinovery.app/app/assets/js/jquery-3.4.1.min.js"></script> --}}
-            <script src="https://restu.idtest.work/js/jquery-3.4.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
         <style media="screen">
@@ -62,7 +67,11 @@
 <script src="{{ mix('js/app.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <!-- Bootstrap JS -->
-<script src="https://dinovery.app/app/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+{{-- <script src="http://restau.test/js/bootstrap.min.js"></script> --}}
+{{-- <script src="https://dinovery.app/app/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script> --}}
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <!-- jQuery Custom Scroller CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 

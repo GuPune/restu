@@ -2,7 +2,7 @@
   <div class="listres">
 
 
-    <div class="bg-white p-3 mb-1" data-toggle="modal" data-target="#exampleModal31126" @click="scrollToTop(i)" v-for="i in this.res">
+    <div class="bg-white p-3 mb-1" data-toggle="modal" data-target="#exampleModal31126" @click="scrollToTops(i)" v-for="i in this.res">
             <div class="row" style="">
               <div class="col-3">
                                   <!-- <img src="https://image.makewebeasy.net/noimage.png" width="100%"/> -->
@@ -126,12 +126,13 @@ export default {
 form:{
     typeres:null
 },
-formadd:null,
+formadd:{},
 res:null,
 name:null,
 price:null,
 qty:1,
-note:null
+note:null,
+id:null
         }),
 
         async created(){
@@ -150,7 +151,7 @@ this.res = befres;
             Addcart(){
 
                 this.myModel = false;
-
+                console.log('i',this.id);
             this.formadd.id = this.id;
             this.formadd.name_list = this.name;
             this.formadd.price_sell = this.price;
@@ -158,11 +159,11 @@ this.res = befres;
             this.formadd.note = this.note;
             this.formadd.token = this.$route.params.token;
             this.formadd.total_res = null;
-            let befres =  this.$store.dispatch(FETCH_RES_CART,this.formadd);
+          let befres =  this.$store.dispatch(FETCH_RES_CART,this.formadd);
             },
 
 
-        scrollToTop(i) {
+        scrollToTops(i) {
 
 
             this.myModel = true;
