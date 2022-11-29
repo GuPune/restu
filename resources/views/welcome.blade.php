@@ -11,10 +11,15 @@
 
 
         <!-- Bootstrap CSS CDN -->
-        <link rel="stylesheet" href="https://dinovery.app/app/assets/vendor/bootstrap/dist/css/bootstrap.min.css?v1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        {{-- <link rel="stylesheet" href="https://dinovery.app/app/assets/vendor/bootstrap/dist/css/bootstrap.min.css?v1"> --}}
         <!-- Our Custom CSS -->
-        <link rel="stylesheet" href="https://dinovery.app/app/assets/css/custom.css?v1">
-        <link rel="stylesheet" href="https://dinovery.app/app/assets/css/sidebar.css?v1">
+        {{-- <link rel="stylesheet" href="https://dinovery.app/app/assets/css/custom.css?v1">
+        <link rel="stylesheet" href="https://dinovery.app/app/assets/css/sidebar.css?v1"> --}}
+
+        <link rel="stylesheet" href="http://restau.test/css/sidebar.css">
+        <link rel="stylesheet" href="http://restau.test/css/custom.css">
         <!-- Scrollbar Custom CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css?v1">
         <!-- Font Awesome All -->

@@ -126,9 +126,7 @@ export default {
 form:{
     typeres:null
 },
-formadd:{
-
-},
+formadd:null,
 res:null,
 name:null,
 price:null,
@@ -159,7 +157,7 @@ this.res = befres;
             this.formadd.qty = this.qty;
             this.formadd.note = this.note;
             this.formadd.token = this.$route.params.token;
-
+            this.formadd.total_res = null;
             let befres =  this.$store.dispatch(FETCH_RES_CART,this.formadd);
             },
 

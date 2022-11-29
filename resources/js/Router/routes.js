@@ -29,6 +29,11 @@ const routes = [
         component: () => import('../pages/Pay.vue'),
         name: 'paymoney'
       },
+      {
+        path: '/checkout/:token',
+        component: () => import('../pages/CheckOut.vue'),
+        name: 'checkout'
+      },
   ]
 
 

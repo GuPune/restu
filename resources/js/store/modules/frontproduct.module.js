@@ -1,10 +1,10 @@
 
 import { FrontProductService } from "@services/frontproduct.service";
 import {
-    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART
+    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART
 } from "@store/actions.type";
 import {
-    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST
+    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART
 } from "@store/mutations.type";
 
 
@@ -13,7 +13,7 @@ const state = {
     ordertype: [],
     res:[],
     toe:null,
-    cartTotal: 1,
+    cartTotal: 0,
     cart: [],
 };
 const getters = {
@@ -52,11 +52,14 @@ const actions = {
     },
     async [FETCH_RES_CART](context,payload) {
       //  const { data } = await FrontProductService.gettoe(payload);
-
-
         context.commit(SET_ADD_REST,payload);
       //  return data;
     },
+    async [GET_CART](context) {
+        //  const { data } = await FrontProductService.gettoe(payload);
+          context.commit(SET_GET_CART);
+        //  return data;
+      },
 
 
 
@@ -71,31 +74,49 @@ const mutations = {
         console.log('state.toe',data);
 
     },
+    [SET_GET_CART](state) {
+
+        this.cart = JSON.parse(localStorage.getItem("cart"));
+        state.cartTotal = this.cart.length;
 
 
+    },
     [SET_ADD_REST](state,item){
 
       console.log('item',item);
-        let found = state.cart.find(product => product.id == item.id);
+    let found = state.cart.find(product => product.id == item.id);
+     //   state.cart.push(item);
+
+     console.log('found',found);
+  //  let a = localStorage.setItem("cart", JSON.stringify(state.cart));
 
 
-        if (found) {
-            console.log('found.qty',found.qty);
-            console.log('item.qty',item.qty);
-         var bbbb = parseInt(found.qty) + parseInt(item.qty);
-     // Vue.set(item, 'qty', bbbb);
 
-console.log('bbbb',bbbb);
-        } else {
-         state.cart.push(item);
 
-            // Vue.set(item, 'quantity', 1);
-let total = item.price_sell * item.qty;
-console.log('total',total);
-         //   Vue.set(item, 'totalPrice', item.price_sell);
-            // state.cartTotal++;
-        }
-    let a = localStorage.setItem("cart", JSON.stringify(state.cart));
+
+
+
+if (found) {
+    var bbbb = parseInt(found.qty) + parseInt(item.qty);
+    var total = bbbb * parseInt(item.price_sell);
+    found.qty = bbbb;
+    found.total_res = total;
+    console.log('found total',total);
+    console.log('found if',found);
+   } else {
+    var obj = {};
+    obj["id"] = item.id;
+    obj["name_list"] = item.name_list;
+    obj["price_sell"] = item.price_sell;
+    obj["qty"] = item.qty;
+    obj["note"] = item.note;
+    obj["total_res"] = parseInt(item.qty) * parseInt(item.price_sell);
+    state.cart.push(obj);
+   }
+   let a = localStorage.setItem("cart", JSON.stringify(state.cart));
+
+   this.cart = JSON.parse(localStorage.getItem("cart"));
+   state.cartTotal = this.cart.length;
 
     },
 

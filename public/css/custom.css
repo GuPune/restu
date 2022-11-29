@@ -1,0 +1,36 @@
+.text-dino{
+    color: #FF8C00 !important;
+  }
+
+  .btn-dino{
+    color:#fff;
+    background-color: #FF8C00;
+    border-color:#FF8C00;
+  }
+
+  .nav{
+    background: white;
+  }
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background: white;
+    color: black;
+    border-bottom: 1px solid #FF8C00;
+  }
+
+  .modal-dialog-end{
+    display: flex;
+    align-items: flex-end;
+    min-height: calc(100% - 1rem);
+  }
+
+  .input-border-bottom{
+    border-width: 0 0 1px 0;
+  }
+
+  div.order-line{
+    height:30px;
+    border-left:5px dotted grey;
+    margin-left:16%;
+    margin-top:1rem;
+    margin-bottom:1rem;
+  }

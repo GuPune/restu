@@ -8,7 +8,9 @@
         <i class="fa fa-qrcode fa-2x" aria-hidden="true"></i> โต๊ะ {{this.toe.number_toe}}
     </div>
     <div class="col-3 text-center text-white" style="padding-top:1%;">
+        <router-link :to="{ name: 'checkout' , params: { token: this.form.token }}">
         <i class="fa fa-cart-plus fa-2x" aria-hidden="true">{{this.cartTotal}}</i>
+    </router-link>
     </div>
   </div>
 </div>
@@ -16,7 +18,7 @@
 
 <script>
 
-import { FETCH_TOE_FRONT } from "@store/actions.type";
+import { FETCH_TOE_FRONT,GET_CART } from "@store/actions.type";
 import { mapGetters,mapState } from "vuex";
 export default {
   name: 'navbar',
@@ -35,21 +37,14 @@ export default {
   computed: {
    ...mapGetters(["toe","cartTotal"]),
 
-
+        // cartTotal () {
+        // return this.$store.state.Cart.cartTotal
+        // }
         },
 
         async created(){
 
-
-       // this.form.token = this.$route.params.token;
-      //  let toe = await this.$store.dispatch(FETCH_TOE_FRONT,this.form);
-
-
-
-
-
-
-
+            let cart = await this.$store.dispatch(GET_CART);
 
         },
 

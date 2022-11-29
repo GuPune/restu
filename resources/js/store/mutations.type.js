@@ -9,4 +9,4 @@ export const SET_TOE_ID = "set_toe_id";
 export const SET_TYPE_LIST = "set_types_list";
 export const SET_TOE_FRONT = "set_toe_front";
 export const SET_ADD_REST = "set_add_rest";
-
+export const SET_GET_CART = "set_get_cart";
