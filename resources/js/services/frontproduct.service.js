@@ -13,6 +13,8 @@ export const FrontProductService = {
     checkout(param) {
         return ApiService.post("checkout",param);
     },
-
+    checktoken(param) {
+        return ApiService.post("ordernumber",param);
+    },
 
 };

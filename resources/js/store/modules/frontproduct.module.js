@@ -17,7 +17,7 @@ const state = {
     cartALLPrice: null,
     cart: [],
     formcheckout: {
-
+        token:null
     },
 };
 const getters = {
@@ -76,6 +76,13 @@ console.log('token checkout',payload);
        // state.cart.push(this.formcheckout);
        // console.log('checkout',state.cart);
       const { data } = await FrontProductService.checkout(state.cart);
+     // this.formcheckout.token= payload;
+
+      var check = {};
+      check["token"] = payload;
+      check["order_number"] = data;
+      const { order } = await FrontProductService.checktoken(check);
+
      //    context.commit(SET_CHECKOUT);
         //  return data;
       },

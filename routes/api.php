@@ -40,4 +40,6 @@ Route::group(['middleware' => ['api']], function ($router) {
     Route::post('/frontres', 'App\Http\Controllers\API\ProductController@frontres');
     Route::post('/restoe', 'App\Http\Controllers\API\ProductController@restoe');
     Route::post('/checkout', 'App\Http\Controllers\API\ProductController@checkout');
+    Route::post('/ordernumber', 'App\Http\Controllers\API\ProductController@ordernumber');
+
     });

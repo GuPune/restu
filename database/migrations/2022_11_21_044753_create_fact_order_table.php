@@ -22,6 +22,7 @@ class CreateFactOrderTable extends Migration
             $table->integer('total_price')->nullable();
             $table->integer('quantity')->nullable();
             $table->string('status')->nullable();
+            $table->string('order_number')->nullable();
             $table->timestamps();
         });
     }

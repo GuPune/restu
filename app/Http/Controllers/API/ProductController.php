@@ -189,25 +189,51 @@ $updatedata = Order::where('id',$request->order_id)->update([
 
 
 
+$cart = $request->all();
 
+$max_id = Order::max('id')+1;
+$cart_number = "ORDER".date('dmY').str_pad($max_id, 6, "0", STR_PAD_LEFT);
+foreach ($cart as $index => $check) {
+    $checkout = Order::create([
+    "res_id" => $check['id'],
+    "status" => 'Y',
+    "order_number" => $cart_number,
+    "orders_price" => $check['price_sell'],
+    "total_price" => $check['total_res'],
+    "quantity" => $check['qty'],
+]);
 
-
-foreach ($request->all() as $index => $check) {
-//     $checkout = Order::create([
-//     "res_id" => $check->id,
-//     "status" => 'Y',
-//     "orders_price" => $check->price_sell,
-//     "total_price" => $check->total_res,
-//     "quantity" => $check->qty,
-// ]);
-\Log::info($check['id']);
         }
 
 
 
-        return response()->json($request->all());
+        return response()->json($cart_number);
 
     }
+
+    public function ordernumber(Request $request)
+    {
+
+
+
+$toe = Toe::where('qr_code',$request->token)->first();
+
+            $order = Order::where('order_number',$request->order_number)->get();
+            foreach ($order as $key => $orders) {
+                $updatetor = Order::where('id',$orders->id)->update([
+                    "status" => 'S',
+                    "toe_id" => $toe->id,
+                ]);
+
+
+
+    }
+
+    return response()->json('success');
+
+    }
+
+
 
 
 

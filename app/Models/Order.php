@@ -19,6 +19,7 @@ class Order extends Model
         'status',
         'orders_price',
         'total_price',
+        'order_number',
         'quantity'
     ];
 }
