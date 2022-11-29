@@ -183,4 +183,14 @@ $updatedata = Order::where('id',$request->order_id)->update([
 
     }
 
+    public function checkout(Request $request)
+    {
+
+\Log::info($request->all());
+        return response()->json($request->all());
+
+    }
+
+
+
 }

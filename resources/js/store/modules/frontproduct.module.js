@@ -1,10 +1,10 @@
 
 import { FrontProductService } from "@services/frontproduct.service";
 import {
-    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART
+    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART
 } from "@store/actions.type";
 import {
-    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART
+    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT
 } from "@store/mutations.type";
 
 
@@ -14,7 +14,11 @@ const state = {
     res:[],
     toe:null,
     cartTotal: 0,
+    cartALLPrice: null,
     cart: [],
+    formcheckout: {
+
+    },
 };
 const getters = {
     ordertype(state) {
@@ -31,6 +35,9 @@ const getters = {
     },
     cartTotal(state){
         return state.cartTotal;
+    },
+    cartALLPrice(state){
+        return state.cartALLPrice;
     }
 
 };
@@ -61,6 +68,23 @@ const actions = {
         //  return data;
       },
 
+    async [CHECKOUT](context,payload) {
+console.log('token checkout',payload);
+      //  this.formcheckout = state.cart;
+
+      //  this.formcheckout["token"] = payload;
+       // state.cart.push(this.formcheckout);
+       // console.log('checkout',state.cart);
+      const { data } = await FrontProductService.checkout(state.cart);
+     //    context.commit(SET_CHECKOUT);
+        //  return data;
+      },
+    async [UPDATE_CART](context,payload) {
+
+          context.commit(SET_UPDATE_CART,payload);
+          //  return data;
+    },
+
 
 
 };
@@ -74,23 +98,63 @@ const mutations = {
         console.log('state.toe',data);
 
     },
-    [SET_GET_CART](state) {
+    [SET_CHECKOUT](state) {
+        state.cartALLPrice = 0;
+        state.cartTotal = 0;
+        state.cart = [];
+    },
 
+    [SET_GET_CART](state) {
         this.cart = JSON.parse(localStorage.getItem("cart"));
         if(!this.cart){
             this.cart = [];
-
         }
+        state.cartALLPrice = 0;
         state.cartTotal = this.cart.length;
         state.cart = this.cart;
 
+        for(let i = 0; i < state.cart.length; i++){
+            console.log(i);
+            state.cartALLPrice += state.cart[i].total_res;
+          }
+
+
+        //   state.cart.forEach(function(item) {
+        //     sum += item.total_res;
+        //     console.log(sum);
+        //  });
+        console.log(state.cartALLPrice);
+      //  state.cartALLPrice = 0;
+
+
+    },
+
+    [SET_UPDATE_CART](state,item){
+
+        let found = state.cart.find(product => product.id == item.id);
+        state.cartALLPrice = 0;
+
+        if (found) {
+
+            var total = parseInt(item.qty) * parseInt(item.price_sell);
+            found.qty = item.qty;
+            found.total_res = total;
+            found.note = item.note;
+           } else {
+
+           }
+           let a = localStorage.setItem("cart", JSON.stringify(state.cart));
+
+           for(let i = 0; i < state.cart.length; i++){
+
+            state.cartALLPrice += state.cart[i].total_res;
+          }
     },
     [SET_ADD_REST](state,item){
 
       console.log('item',item);
     let found = state.cart.find(product => product.id == item.id);
      //   state.cart.push(item);
-
      console.log('found',found);
   //  let a = localStorage.setItem("cart", JSON.stringify(state.cart));
 

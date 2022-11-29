@@ -45,9 +45,9 @@
 
 
                   <div class="text-center mb-3" style="font-size:2em;">
-                    <i class="far fa-minus-square text-muted mr-2"></i>
+                    <i class="far fa-minus-square text-muted mr-2" @click="downper()"></i>
                     <input type="text" min="1"  v-model="qty" style="width:15%; text-align:center;">
-                    <i class="far fa-plus-square text-muted ml-2" ></i>
+                    <i class="far fa-plus-square text-muted ml-2" @click="uppper()"></i>
                 </div>
                   <div class="text-center">
 
@@ -181,6 +181,24 @@ this.res = befres;
 let a = 'http://restau.test/public/product/'+image;
 
 return a;
+},
+
+downper(){
+
+if(this.qty == 1){
+
+}else {
+
+    this.qty--;
+}
+
+
+
+},
+uppper(){
+
+this.qty++;
+
 }
 
 

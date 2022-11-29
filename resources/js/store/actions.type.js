@@ -13,6 +13,8 @@ export const FETCH_RES = "fetch_res";
 export const FETCH_TOE_FRONT = "fetch_res_front";
 export const FETCH_RES_CART = "fetch_res_cart";
 export const GET_CART = "fetch_get_cart";
+export const UPDATE_CART = "update_get_cart";
+export const CHECKOUT = "fetch_checkout";
 
 
 

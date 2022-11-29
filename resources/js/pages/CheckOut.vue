@@ -1,5 +1,15 @@
 <template>
   <div class="checkout">
+    <div class="row">
+        <div class="col-6">
+            <button type="button" class="btn btn-danger btn-sm btn-block">ยกเลิกรายการทั้งหมด</button>
+        </div>
+        <div class="col-6">
+            <button type="button" class="btn btn-success btn-sm btn-block"  @click="Checkout()">ยืนยันรายการทั้งหมด</button>
+        </div>
+    </div>
+    <br>
+
     <div class="bg-white p-3 shadow">
       <h5><i class="fa fa-clone" aria-hidden="true"></i> รายการคำสั่งซื้อ</h5>
       <div class="row" style="padding-bottom:2%; padding-top:2%;"  v-for="i in this.cart">
@@ -8,25 +18,23 @@
         <div class="col-6">{{i.name_list}}
             <span class="text-dino" @click="scrollToTop(i)">แก้ไข</span>
         </div>
-        <div class="col-4 text-right"> {{i.total_res}}.00</div>
+        <div class="col-3 text-right"> {{i.total_res}}.00</div>
       </div>
+
 
 
 
        <hr class="style-two">
             <!-- ส่วนลด -->
             <div class="row" style="padding-bottom:2%; padding-top:2%;">
-        <div class="col-8"> ค่าสินค้าทั้งหมด </div>
-        <div class="col-4 text-right"> 54.00 บาท</div>
+        <div class="col-8"> รวมในตะกร้า </div>
+        <div class="col-4 text-right"> {{this.cartTotal}} รายการ </div>
       </div>
-                            <div class="row" style="padding-bottom:2%; padding-top:2%; font-weight:bold;">
-          <div class="col-8"> ส่วนลดค่าอาหาร<!--<br>15% สำหรับลูกค้าใหม่--> </div>
-          <div class="col-4 text-right"> 0.00 บาท</div>
-        </div>
-                  <div class="row" style="padding-bottom:2%; padding-top:2%;">
-        <div class="col-8"> ค่าบริการจัดส่ง  </div>
+
+                  <div class="row" style="padding-bottom:2%;">
+        <div class="col-8"> รวมทั้งสิน  </div>
         <div class="col-4 text-right">
-                    45.00 บาท
+                    {{this.cartALLPrice}}.00 บาท
 
         </div>
       </div>
@@ -50,15 +58,15 @@
 
                       <label>หมายเหตุ</label>
                       <small>(ไม่ระบุก็ได้)</small>
-                      <textarea name="partner_menu_detail" autofocus="autofocus" class="form-control form-control-sm input-border-bottom" placeholder="รายละเอียด และข้อมูลเพิ่มเติมของรายการนี้!"></textarea>
+                      <textarea name="partner_menu_detail" autofocus="autofocus" class="form-control form-control-sm input-border-bottom" placeholder="รายละเอียด และข้อมูลเพิ่มเติมของรายการนี้!" v-model="note"></textarea>
                     </div>
                   </div>
 
 
                   <div class="text-center mb-3" style="font-size:2em;">
-                    <i class="far fa-minus-square text-muted mr-2"></i>
-                    <input type="text" min="1"  v-model="qty" style="width:15%; text-align:center;">
-                    <i class="far fa-plus-square text-muted ml-2" ></i>
+                    <i class="far fa-minus-square text-muted mr-2"  @click="downper()"></i>
+                    <input type="text" min="1"  v-model="qty" style="width:15%; text-align:center;" :disabled="true">
+                    <i class="far fa-plus-square text-muted ml-2"  @click="uppper()"></i>
                 </div>
                   <div class="text-center">
 
@@ -79,7 +87,7 @@
 
 <script>
 import { mapGetters,mapState } from "vuex";
-import { FETCH_RES,FETCH_RES_CART } from "@store/actions.type";
+import { FETCH_RES,FETCH_RES_CART,CHECKOUT,UPDATE_CART } from "@store/actions.type";
 export default {
   name: 'checkout',
   data: () => ({
@@ -87,11 +95,18 @@ export default {
     form:{
     typeres:null
     },
-    formupdate:null,
+    formcheckout:{
+    token:null
+    },
+    note:null,
+    qty:null,
+
+    formupdate:{},
 
         }),
         computed: {
-   ...mapGetters(["cart"]),
+
+   ...mapGetters(["cart","cartTotal","cartALLPrice"]),
         },
         async created(){
 
@@ -108,16 +123,48 @@ methods: {
       //  alert('scrollToTop')
     this.myModel = true;
 
-           this.qty = i.qty;
-            // this.id = i.id;
-            // this.note = null;
+            this.qty = i.qty;
+            this.id = i.id;
+            this.note = i.note;
             this.name = i.name_list;
             this.price_sell = i.price_sell;
+
     },
 
     Addcart(){
 this.myModel = false;
-},
+
+
+            this.formupdate.id = this.id;
+            this.formupdate.name_list = this.name;
+            this.formupdate.price_sell = this.price_sell;
+            this.formupdate.qty = this.qty;
+            this.formupdate.note = this.note;
+            this.formupdate.token = this.$route.params.token;
+            this.formupdate.total_res = null;
+            console.log('i',this.formupdate);
+          let befres =  this.$store.dispatch(UPDATE_CART,this.formupdate);
+    },
+    downper(){
+
+        if(this.qty == 1){
+
+        }else {
+
+            this.qty--;
+        }
+
+
+
+    },
+    uppper(){
+        this.qty++;
+    },
+    Checkout(){
+
+        let checkout =  this.$store.dispatch(CHECKOUT,this.$route.params.token);
+
+    }
 
 
 }

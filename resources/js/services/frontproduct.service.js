@@ -7,8 +7,12 @@ export const FrontProductService = {
     getres(param) {
         return ApiService.post("frontres",param);
       },
-      gettoe(param) {
+    gettoe(param) {
         return ApiService.post("restoe",param);
-},
+    },
+    checkout(param) {
+        return ApiService.post("checkout",param);
+    },
+
 
 };
