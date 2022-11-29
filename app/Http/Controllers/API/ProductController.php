@@ -186,7 +186,25 @@ $updatedata = Order::where('id',$request->order_id)->update([
     public function checkout(Request $request)
     {
 
-\Log::info($request->all());
+
+
+
+
+
+
+foreach ($request->all() as $index => $check) {
+//     $checkout = Order::create([
+//     "res_id" => $check->id,
+//     "status" => 'Y',
+//     "orders_price" => $check->price_sell,
+//     "total_price" => $check->total_res,
+//     "quantity" => $check->qty,
+// ]);
+\Log::info($check['id']);
+        }
+
+
+
         return response()->json($request->all());
 
     }
