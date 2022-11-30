@@ -1,13 +1,31 @@
 <template>
   <div class="callstaff">
     <h2>
-      Call staff
+      Call staff {{this.currentRouteName}}
     </h2>
   </div>
 </template>
 
 <script>
+import { mapGetters,mapState } from "vuex";
+import { GET_TOKEN } from "@store/actions.type";
 export default {
-  name: 'callstaff'
+  name: 'callstaff',
+  data: () => ({
+        form:{
+            token:null,
+        }
+        }),
+  computed: {
+    currentRouteName() {
+      return this.$route.name;
+    }
+  },
+
+  async created(){
+
+            this.form.token = this.$route.params.token
+            let gettoken = await this.$store.dispatch(GET_TOKEN,this.form);
+        },
 }
 </script>

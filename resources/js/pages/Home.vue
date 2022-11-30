@@ -25,7 +25,7 @@
 </template>
 <script>
 import { mapGetters,mapState } from "vuex";
-import { FETCH_TYPERES,FETCH_TOE_FRONT } from "@store/actions.type";
+import { FETCH_TYPERES,FETCH_TOE_FRONT,GET_TOKEN } from "@store/actions.type";
 
 export default {
     name: 'home',
@@ -52,8 +52,10 @@ export default {
     }
   },
   async created(){
+
         this.form.token = this.$route.params.token;
         // let toe = await this.$store.dispatch(FETCH_TOE_FRONT,this.form);
+        let gettoken = await this.$store.dispatch(GET_TOKEN,this.form);
         let typeres = await this.$store.dispatch(FETCH_TYPERES,this.form);
         this.typerest = typeres;
 

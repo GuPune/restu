@@ -6,7 +6,7 @@
 <h5>
     <i class="fa fa-shopping-cart" aria-hidden="true">
 
-    </i> อาหารที่สั่ง</h5>
+    </i> อาหารที่สั่ง {{this.currentRouteName}}</h5>
     <div class="row" v-for="i in this.order" style="margin-top: 0.5rem;">
         <div class="col-4 pl-2 pr-2" style="background-color: white;">
                 <div class="col-12">
@@ -49,7 +49,7 @@
 
 <script>
 import { mapGetters,mapState } from "vuex";
-import { GET_ORDER_TOE } from "@store/actions.type";
+import { GET_ORDER_TOE,GET_TOKEN } from "@store/actions.type";
 export default {
   name: 'orderbuy',
     data: () => ({
@@ -58,8 +58,15 @@ export default {
         },
         order:null
         }),
+        computed: {
+    currentRouteName() {
+      return this.$route.name;
+    }
+  },
         async created(){
+            console.log('this.form.route orderbuy',this.$route)
             this.form.token = this.$route.params.token
+            let gettoken = await this.$store.dispatch(GET_TOKEN,this.form);
             let toe = await this.$store.dispatch(GET_ORDER_TOE,this.form);
             this.order = toe;
         },

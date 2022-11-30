@@ -1,15 +1,16 @@
 
 import { FrontProductService } from "@services/frontproduct.service";
 import {
-    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE
+    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE,GET_TOKEN
 } from "@store/actions.type";
 import {
-    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT
+    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT,SET_TOKEN
 } from "@store/mutations.type";
 
 
 
 const state = {
+    token: null,
     ordertype: [],
     res:[],
     toe:null,
@@ -21,6 +22,9 @@ const state = {
     },
 };
 const getters = {
+    token(state) {
+        return state.token;
+    },
     ordertype(state) {
         return state.ordertype;
     },
@@ -69,15 +73,9 @@ const actions = {
       },
 
     async [CHECKOUT](context,payload) {
-console.log('token checkout',payload);
-      //  this.formcheckout = state.cart;
 
-      //  this.formcheckout["token"] = payload;
-       // state.cart.push(this.formcheckout);
-       // console.log('checkout',state.cart);
+
       const { data } = await FrontProductService.checkout(state.cart);
-     // this.formcheckout.token= payload;
-
       var check = {};
       check["token"] = payload;
       check["order_number"] = data;
@@ -97,6 +95,13 @@ console.log('token checkout',payload);
        // context.commit(SET_UPDATE_CART,payload);
          return data;
   },
+    async [GET_TOKEN](context,payload) {
+
+  //  const { data } = await FrontProductService.getordertoe(payload);
+    context.commit(SET_TOKEN,payload);
+    // return data;
+    },
+
 
 
 
@@ -105,6 +110,11 @@ console.log('token checkout',payload);
 };
 
 const mutations = {
+    [SET_TOKEN](state, data) {
+
+        state.token = data.token;
+
+    },
     [SET_TYPE_LIST](state, data) {
         state.ordertype = data;
     },
@@ -117,6 +127,7 @@ const mutations = {
         state.cartALLPrice = 0;
         state.cartTotal = 0;
         state.cart = [];
+        localStorage.removeItem("cart");
     },
 
     [SET_GET_CART](state) {

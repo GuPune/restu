@@ -12,3 +12,5 @@ export const SET_ADD_REST = "set_add_rest";
 export const SET_GET_CART = "set_get_cart";
 export const SET_UPDATE_CART = "set_update_cart";
 export const SET_CHECKOUT = "set_checkout";
+export const SET_TOKEN = "set_token";
+

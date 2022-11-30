@@ -5,7 +5,7 @@ const routes = [
       name: '/',
     },
     {
-        path: '/restlist/:token/:id',
+        path: '/app/restlist/:token/:id',
         component: () => import('../pages/ResList.vue'),
         name: 'listres'
       },
@@ -15,22 +15,22 @@ const routes = [
       name: 'about'
     },
     {
-        path: '/orderbuy/:token',
+        path: '/app/orderbuy/:token',
         component: () => import('../pages/OrderBuy.vue'),
         name: 'orderbuy'
       },
       {
-        path: '/callstaff/:token',
+        path: '/app/callstaff/:token',
         component: () => import('../pages/CallStaff.vue'),
         name: 'callstaff'
       },
       {
-        path: '/paymoney/:token',
+        path: '/app/paymoney/:token',
         component: () => import('../pages/Pay.vue'),
         name: 'paymoney'
       },
       {
-        path: '/checkout/:token',
+        path: '/app/checkout/:token',
         component: () => import('../pages/CheckOut.vue'),
         name: 'checkout'
       },

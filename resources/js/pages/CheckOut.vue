@@ -1,5 +1,5 @@
 <template>
-  <div class="checkout">
+  <div class="checkout" v-if="(this.cart.length > 0)">
     <div class="row">
         <div class="col-6">
             <button type="button" class="btn btn-danger btn-sm btn-block">ยกเลิกรายการทั้งหมด</button>
@@ -11,7 +11,7 @@
     <br>
 
     <div class="bg-white p-3 shadow">
-      <h5><i class="fa fa-clone" aria-hidden="true"></i> รายการคำสั่งซื้อ</h5>
+      <h5><i class="fa fa-clone" aria-hidden="true"></i> รายการคำสั่งซื้อ {{this.currentRouteName}}</h5>
       <div class="row" style="padding-bottom:2%; padding-top:2%;"  v-for="i in this.cart">
         <div class="col-1">{{i.qty}}</div>
         <div class="col-1">x</div>
@@ -20,9 +20,6 @@
         </div>
         <div class="col-3 text-right"> {{i.total_res}}.00</div>
       </div>
-
-
-
 
        <hr class="style-two">
             <!-- ส่วนลด -->
@@ -83,17 +80,35 @@
       </transition>
 </div>
   </div>
+
+  <div class="checkout" v-else>
+    <div class="bg-white p-3 shadow">
+      <h5><i class="fa fa-clone" aria-hidden="true"></i> รายการคำสั่งซื้อไม่มี {{this.currentRouteName}}</h5>
+
+
+
+
+
+       <hr class="style-two">
+            <!-- ส่วนลด -->
+
+
+
+    </div>
+
+  </div>
 </template>
 
 <script>
 import { mapGetters,mapState } from "vuex";
-import { FETCH_RES,FETCH_RES_CART,CHECKOUT,UPDATE_CART } from "@store/actions.type";
+import { FETCH_RES,FETCH_RES_CART,CHECKOUT,UPDATE_CART,GET_TOKEN } from "@store/actions.type";
 export default {
   name: 'checkout',
   data: () => ({
      myModel:false,
     form:{
-    typeres:null
+    typeres:null,
+    token:null
     },
     formcheckout:{
     token:null
@@ -107,10 +122,17 @@ export default {
         computed: {
 
    ...mapGetters(["cart","cartTotal","cartALLPrice"]),
+   currentRouteName() {
+      return this.$route.name;
+    }
         },
+
+
         async created(){
 
-
+            console.log('this.form.route orderbuy',this.$route)
+            this.form.token = this.$route.params.token
+            let gettoken = await this.$store.dispatch(GET_TOKEN,this.form);
 
 },
 mounted() {

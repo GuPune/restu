@@ -134,6 +134,11 @@ qty:1,
 note:null,
 id:null
         }),
+        computed: {
+    currentRouteName() {
+      return this.$route.name;
+    }
+  },
 
         async created(){
 

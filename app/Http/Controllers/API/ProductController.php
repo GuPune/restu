@@ -215,17 +215,12 @@ foreach ($cart as $index => $check) {
     public function ordernumber(Request $request)
     {
 
-
-        \Log::info($request->all());
-
 $toe = Toe::where('qr_code',$request->token)->first();
-
-\Log::info($toe);
 
             $order = Order::where('order_number',$request->order_number)->get();
             foreach ($order as $key => $orders) {
                 $updatetor = Order::where('id',$orders->id)->update([
-                    "status" => 'S',
+                    "status" => 'Y',
                     "toe_id" => $toe->id,
                 ]);
 
