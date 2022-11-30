@@ -1,7 +1,7 @@
 
 import { FrontProductService } from "@services/frontproduct.service";
 import {
-    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART
+    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE
 } from "@store/actions.type";
 import {
     SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT
@@ -83,7 +83,7 @@ console.log('token checkout',payload);
       check["order_number"] = data;
       const { order } = await FrontProductService.checktoken(check);
 
-     //    context.commit(SET_CHECKOUT);
+     context.commit(SET_CHECKOUT);
         //  return data;
       },
     async [UPDATE_CART](context,payload) {
@@ -91,6 +91,14 @@ console.log('token checkout',payload);
           context.commit(SET_UPDATE_CART,payload);
           //  return data;
     },
+    async [GET_ORDER_TOE](context,payload) {
+
+        const { data } = await FrontProductService.getordertoe(payload);
+       // context.commit(SET_UPDATE_CART,payload);
+         return data;
+  },
+
+
 
 
 

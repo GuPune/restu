@@ -128,6 +128,7 @@ export default {
     }
   },
     async created(){
+
     //     this.form.token = this.$route.params.token;
     //     console.log('this.form.token',this.form.token)
     //     console.log(this.$route.query)

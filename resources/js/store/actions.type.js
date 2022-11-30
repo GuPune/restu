@@ -16,6 +16,6 @@ export const GET_CART = "fetch_get_cart";
 export const UPDATE_CART = "update_get_cart";
 export const CHECKOUT = "fetch_checkout";
 
-
+export const GET_ORDER_TOE = "fetch_order_toe";
 
 

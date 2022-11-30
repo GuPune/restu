@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Generate;
 use App\Models\Order;
 use App\Models\Productres;
 use App\Models\Toe;
@@ -215,8 +216,11 @@ foreach ($cart as $index => $check) {
     {
 
 
+        \Log::info($request->all());
 
 $toe = Toe::where('qr_code',$request->token)->first();
+
+\Log::info($toe);
 
             $order = Order::where('order_number',$request->order_number)->get();
             foreach ($order as $key => $orders) {
@@ -232,6 +236,32 @@ $toe = Toe::where('qr_code',$request->token)->first();
     return response()->json('success');
 
     }
+
+    public function order(Request $request)
+    {
+
+        $datas =[];
+     $getorder = Generate::where('qr_code',$request->token)->where('status','Y')->first();
+        if($getorder){
+            $res = Order::where('toe_id',$getorder->id)->get();
+
+            foreach ($res as $index => $re) {
+                $product = Productres::where('id',$re->res_id)->first();
+                $datas[$index]['name_list'] = $product->name_list;
+                $datas[$index]['images'] = $product->images;
+                $datas[$index]['total_price'] = $re->total_price;
+                $datas[$index]['quantity'] = $re->quantity;
+                $datas[$index]['status'] = $re->status;
+
+                    }
+        }
+
+
+    return response()->json($datas);
+
+    }
+
+
 
 
 
