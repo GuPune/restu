@@ -3,7 +3,6 @@
     <div class="p-2 shadow fixed-bottom" style="background-color:#ec7d23;">
   <div class="row" style="margin-bottom:2%; font-family:Mitr;">
     <div class="col-3 text-center text-white" style="padding-top:1%;">
-{{this.token}}
       <router-link :to="{ name: '/' , params: { token: this.token }}"><i class="fa fa-th fa-2x" aria-hidden="true"></i><br>เมนู</router-link>
 
 
