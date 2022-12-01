@@ -183,7 +183,7 @@ this.res = befres;
 
         checkImage(image){
 
-let a = 'http://restau.test/public/product/'+image;
+let a = 'https://restu.idtest.work/public/product/'+image;
 
 return a;
 },
