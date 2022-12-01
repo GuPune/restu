@@ -31,8 +31,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       name: null,
       price: null,
       qty: 1,
-      note: null
+      note: null,
+      id: null
     };
+  },
+  computed: {
+    currentRouteName: function currentRouteName() {
+      return this.$route.name;
+    }
   },
   created: function created() {
     var _this = this;
@@ -60,15 +66,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     Addcart: function Addcart() {
       this.myModel = false;
+      console.log('i', this.id);
       this.formadd.id = this.id;
       this.formadd.name_list = this.name;
       this.formadd.price_sell = this.price;
       this.formadd.qty = this.qty;
       this.formadd.note = this.note;
       this.formadd.token = this.$route.params.token;
+      this.formadd.total_res = null;
       var befres = this.$store.dispatch(_store_actions_type__WEBPACK_IMPORTED_MODULE_0__.FETCH_RES_CART, this.formadd);
     },
-    scrollToTop: function scrollToTop(i) {
+    scrollToTops: function scrollToTops(i) {
       this.myModel = true;
       this.qty = 1;
       this.id = i.id;
@@ -77,8 +85,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.price = i.price_sell;
     },
     checkImage: function checkImage(image) {
-      var a = 'http://restau.test/public/product/' + image;
+      var a = 'https://restu.idtest.work/public/product/' + image;
       return a;
+    },
+    downper: function downper() {
+      if (this.qty == 1) {} else {
+        this.qty--;
+      }
+    },
+    uppper: function uppper() {
+      this.qty++;
     }
   }
 });
@@ -110,7 +126,7 @@ var render = function render() {
       },
       on: {
         click: function click($event) {
-          return _vm.scrollToTop(i);
+          return _vm.scrollToTops(i);
         }
       }
     }, [_c("div", {
@@ -184,7 +200,12 @@ var render = function render() {
       "font-size": "2em"
     }
   }, [_c("i", {
-    staticClass: "far fa-minus-square text-muted mr-2"
+    staticClass: "far fa-minus-square text-muted mr-2",
+    on: {
+      click: function click($event) {
+        return _vm.downper();
+      }
+    }
   }), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
@@ -210,7 +231,12 @@ var render = function render() {
       }
     }
   }), _vm._v(" "), _c("i", {
-    staticClass: "far fa-plus-square text-muted ml-2"
+    staticClass: "far fa-plus-square text-muted ml-2",
+    on: {
+      click: function click($event) {
+        return _vm.uppper();
+      }
+    }
   })]), _vm._v(" "), _c("div", {
     staticClass: "text-center"
   }, [_c("input", {
