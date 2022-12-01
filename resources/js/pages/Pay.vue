@@ -21,17 +21,24 @@
       <th scope="row">1 น้ำอัดลม</th>
       <td>0.00</td>
     </tr>
-
     <tr>
       <th scope="row">รวมทั้งสิน</th>
       <td>458</td>
     </tr>
-
   </tbody>
 </table>
 
+
+
   </div>
 </div>
+<br>
+<div class="row">
+        <div class="col-12">
+            <button type="button" class="btn  btn-lg btn-block" style="background-color: darkorange;" @click="payment()"> ชำระเงินทันที</button>
+
+        </div>
+    </div>
 
   </div>
 </template>
@@ -52,10 +59,16 @@ export default {
       return this.$route.name;
     }
   },
-
   async created(){
    this.form.token = this.$route.params.token
    let gettoken = await this.$store.dispatch(GET_TOKEN,this.form);
+},
+
+methods: {
+
+    payment(){
+   alert('ชำระเงิน');
+    },
 },
 }
 </script>
