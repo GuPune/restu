@@ -18,12 +18,12 @@
         {{-- <link rel="stylesheet" href="https://dinovery.app/app/assets/css/custom.css?v1">
         <link rel="stylesheet" href="https://dinovery.app/app/assets/css/sidebar.css?v1"> --}}
 
-        {{-- <link rel="stylesheet" href="https://restu.idtest.work/css/sidebar.css">
-        <link rel="stylesheet" href="https://restu.idtest.work/css/custom.css"> --}}
+        <link rel="stylesheet" href="https://restu.idtest.work/css/sidebar.css">
+        <link rel="stylesheet" href="https://restu.idtest.work/css/custom.css">
 
-
+{{--
         <link rel="stylesheet" href="http://restau.test/css/sidebar.css">
-        <link rel="stylesheet" href="http://restau.test/css/custom.css">
+        <link rel="stylesheet" href="http://restau.test/css/custom.css"> --}}
 
         <!-- Scrollbar Custom CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css?v1">
