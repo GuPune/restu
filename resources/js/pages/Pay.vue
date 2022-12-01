@@ -1,8 +1,38 @@
 <template>
   <div class="pay">
-    <h2>
-      Pay {{this.currentRouteName}}
-    </h2>
+    <div class="card">
+  <h6 class="text-center" style="padding-top: 5px;">โต๊ะ ห้องแอร์ 8</h6>
+  <p style="font-size: 12px;text-align: center;"><i>25 พฤศจิกายน 2022</i></p>
+  <div class="card-body">
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col-6">จำนวน / รายการ</th>
+      <th scope="col-6">ราคา</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1 น้ำอัดลม</th>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th scope="row">1 น้ำอัดลม</th>
+      <td>0.00</td>
+    </tr>
+
+    <tr>
+      <th scope="row">รวมทั้งสิน</th>
+      <td>458</td>
+    </tr>
+
+  </tbody>
+</table>
+
+  </div>
+</div>
+
   </div>
 </template>
 
