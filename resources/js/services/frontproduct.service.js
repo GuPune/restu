@@ -19,6 +19,9 @@ export const FrontProductService = {
     getordertoe(param) {
         return ApiService.post("order",param);
     },
+    call(param) {
+        return ApiService.post("call",param);
+    },
 
 
 

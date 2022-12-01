@@ -9,8 +9,8 @@ use App\Models\Productres;
 use App\Models\Toe;
 use App\Models\Typeoffoods;
 use Illuminate\Http\Request;
-
-
+use App\CoreFunction\Line;
+use App\Models\Call;
 
 class ProductController extends Controller
 {
@@ -252,6 +252,26 @@ $toe = Toe::where('qr_code',$request->token)->first();
         }
 
 
+    return response()->json($datas);
+
+    }
+
+
+
+    public function call(Request $request)
+    {
+
+
+
+
+$generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
+
+
+
+
+
+
+  $datas = [];
     return response()->json($datas);
 
     }
