@@ -114,6 +114,10 @@ export default {
 methods: {
 
    async payment(){
+    console.log('this orders',this.orders)
+    if(this.orders == null){
+return false;
+    }
     this.myModel = true;
       //
     },

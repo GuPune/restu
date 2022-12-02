@@ -11,6 +11,8 @@ use App\Models\Typeoffoods;
 use Illuminate\Http\Request;
 use App\CoreFunction\Line;
 use App\Models\Call;
+use App\Models\Rating;
+use DB;
 
 class ProductController extends Controller
 {
@@ -236,9 +238,9 @@ $toe = Toe::where('qr_code',$request->token)->first();
     {
 
         $datas =[];
-     $getorder = Generate::where('qr_code',$request->token)->where('status','Y')->first();
+     $getorder = Generate::where('qr_code',$request->token)->first();
         if($getorder){
-            $res = Order::where('toe_id',$getorder->id)->get();
+            $res = Order::where('toe_id',$getorder->toe_id)->get();
 
             foreach ($res as $index => $re) {
                 $product = Productres::where('id',$re->res_id)->first();
@@ -277,9 +279,48 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
     }
 
 
+    public function ordercheckbill(Request $request)
+    {
+
+    $getorder = Generate::where('qr_code',$request->token) ->whereIn('status', ['Y', 'O'])->first();
+    $datas = [];
+    $datas['status'] = $getorder->status;
+    $totalCost = 0;
+        if($getorder){
+    $ord = Order::select(\DB::raw('product_res.name_list, SUM(fact_order.total_price) as total,SUM(fact_order.quantity) as qty'))
+         ->leftJoin('product_res', 'product_res.id', '=', 'fact_order.res_id')
+         ->where('fact_order.toe_id',$getorder->toe_id)
+         ->groupBy('fact_order.res_id')
+         ->get();
+
+                 foreach ($ord as $index => $ords) {
+                $datas['data'][$index]['name_list'] = $ords->name_list;
+                $datas['data'][$index]['qty'] = $ords->qty;
+                $datas['data'][$index]['total'] = $ords->total;
+
+
+                $totalCost += $ords->total;
+                    }
+
+        }
+        $datas['total'] = $totalCost;
 
 
 
+    return response()->json($datas);
 
+    }
+    public function checkbill(Request $request)
+    {
+
+        $updatetor = Generate::where('qr_code',$request->token)->update([
+            "status" => 'O',
+        ]);
+        $saverat = Rating::create([
+            "token" => $request->token,
+            "rating" => $request->stars,
+        ]);
+
+    }
 
 }
