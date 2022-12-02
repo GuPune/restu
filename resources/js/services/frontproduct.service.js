@@ -19,10 +19,14 @@ export const FrontProductService = {
     getordertoe(param) {
         return ApiService.post("order",param);
     },
+    getordercheckbill(param) {
+        return ApiService.post("ordercheckbill",param);
+    },
+
     call(param) {
         return ApiService.post("call",param);
     },
-
-
-
+    checkbill(param) {
+        return ApiService.post("checkbill",param);
+    },
 };

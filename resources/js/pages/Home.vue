@@ -26,6 +26,7 @@
 <script>
 import { mapGetters,mapState } from "vuex";
 import { FETCH_TYPERES,FETCH_TOE_FRONT,GET_TOKEN } from "@store/actions.type";
+import { IMAGE_URL } from "../components/environment/environment";
 
 export default {
     name: 'home',
@@ -73,7 +74,8 @@ export default {
 
 checkImage(image){
 
-    let a = 'http://restau.test/public/product/'+image;
+    let a = IMAGE_URL+''+image;
+
 
 return a;
 }

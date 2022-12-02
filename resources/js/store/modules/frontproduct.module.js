@@ -1,16 +1,17 @@
 
 import { FrontProductService } from "@services/frontproduct.service";
 import {
-    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE,GET_TOKEN,CALL_STAFF
+    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE,GET_TOKEN,CALL_STAFF,GET_ORDER_TOE_AND_CHECKBILL,PAYMENT
 } from "@store/actions.type";
 import {
-    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT,SET_TOKEN
+    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT,SET_TOKEN,SET_STATUS_CHECKBILL
 } from "@store/mutations.type";
 
 
 
 const state = {
     token: null,
+    status:'Y',
     ordertype: [],
     res:[],
     toe:null,
@@ -42,8 +43,10 @@ const getters = {
     },
     cartALLPrice(state){
         return state.cartALLPrice;
-    }
-
+    },
+    status(state){
+        return state.status;
+    },
 };
 
 
@@ -90,11 +93,16 @@ const actions = {
           //  return data;
     },
     async [GET_ORDER_TOE](context,payload) {
-
         const { data } = await FrontProductService.getordertoe(payload);
        // context.commit(SET_UPDATE_CART,payload);
          return data;
-  },
+     },
+
+     async [GET_ORDER_TOE_AND_CHECKBILL](context,payload) {
+        const { data } = await FrontProductService.getordercheckbill(payload);
+       // context.commit(SET_UPDATE_CART,payload);
+         return data;
+     },
     async [GET_TOKEN](context,payload) {
 
   //  const { data } = await FrontProductService.getordertoe(payload);
@@ -107,7 +115,12 @@ const actions = {
     const { data } = await FrontProductService.call(payload);
     //      context.commit(SET_TOKEN,payload);
 
-          },
+    },
+
+    async [PAYMENT](context,payload) {
+        const { data } = await FrontProductService.checkbill(payload);
+         context.commit(SET_STATUS_CHECKBILL);
+        },
 
 
 
@@ -223,7 +236,9 @@ if (found) {
    state.cartTotal = this.cart.length;
 
     },
-
+    [SET_STATUS_CHECKBILL](state,item){
+        state.status = 'O';
+    }
 
 };
 

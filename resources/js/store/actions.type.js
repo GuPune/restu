@@ -21,5 +21,6 @@ export const GET_TOKEN = "fetch_token";
 export const CALL_STAFF = "call_staff";
 export const PAYMENT = "payment";
 export const GETBILL = "get_bill";
+export const GET_ORDER_TOE_AND_CHECKBILL = "get_order_checkbill";
 
 

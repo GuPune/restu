@@ -119,6 +119,7 @@
 
 import { mapGetters,mapState } from "vuex";
 import { FETCH_RES,FETCH_RES_CART } from "@store/actions.type";
+import { IMAGE_URL } from "../components/environment/environment";
 export default {
   name: 'listres',
     data: () => ({
@@ -183,7 +184,8 @@ this.res = befres;
 
         checkImage(image){
 
-let a = 'https://restu.idtest.work/public/product/'+image;
+let a = IMAGE_URL+''+image;
+
 
 return a;
 },

@@ -44,4 +44,6 @@ Route::group(['middleware' => ['api']], function ($router) {
     Route::post('/order', 'App\Http\Controllers\API\ProductController@order');
     Route::post('/call', 'App\Http\Controllers\API\ProductController@call');
 
+    Route::post('/ordercheckbill', 'App\Http\Controllers\API\ProductController@ordercheckbill');
+    Route::post('/checkbill', 'App\Http\Controllers\API\ProductController@checkbill');
     });
