@@ -228,16 +228,16 @@ this.order_waiting = ordercus.waiting;
 
        async updateorder(){
 
-               let updatepending = await this.$store.dispatch(UPDATE_ORDER_PENDING,this.form);
+               let updatepending = await this.$store.dispatch(UPDATE_ORDER_PENDING,this.selected_pad);
 
         },
       async updatewait(){
-alert('updatewait');
-        let updatewait = await this.$store.dispatch(UPDATE_ORDER_WAIT,this.form);
+
+        let updatewait = await this.$store.dispatch(UPDATE_ORDER_WAIT,this.selected_wait);
         },
        async updatedoing(){
-alert('updatedoing');
- let updatedoing = await this.$store.dispatch(UPDATE_ORDER_DOING,this.form);
+
+ let updatedoing = await this.$store.dispatch(UPDATE_ORDER_DOING,this.selected_do);
         },
 
 

@@ -1,7 +1,7 @@
 
 import { ProductService } from "@services/product.service";
 import {
-    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS
+    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS,UPDATE_ORDER_PENDING,UPDATE_ORDER_WAIT,UPDATE_ORDER_DOING
 } from "@store/actions.type";
 import {
     SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT,SET_TOE_ID
@@ -118,6 +118,18 @@ context.commit(SET_DISCOUNT,payload);
         return data;
         },
 
+    async [UPDATE_ORDER_PENDING](context,payload) {
+            const { data } = await ProductService.orderupdate_pen(payload);
+            return data;
+    },
+    async [UPDATE_ORDER_WAIT](context,payload) {
+        const { data } = await ProductService.orderupdate_wait(payload);
+        return data;
+    },
+    async [UPDATE_ORDER_DOING](context,payload) {
+    const { data } = await ProductService.orderupdate_doing(payload);
+    return data;
+    },
 
 
 };

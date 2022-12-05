@@ -365,4 +365,23 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
         return response()->json($datas);
     }
 
+    public function updateorder_pen(Request $request)
+    {
+        \Log::info($request->all());
+        return response()->json('success');
+    }
+
+    public function updateorder_wait(Request $request)
+    {
+        \Log::info($request->all());
+        return response()->json('success');
+    }
+
+    public function updateorder_doing(Request $request)
+    {
+        \Log::info($request->all());
+        return response()->json('success');
+    }
+
+
 }

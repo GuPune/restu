@@ -32,6 +32,18 @@ export const ProductService = {
         return ApiService.post("orders_cus",params);
     },
 
+    orderupdate_pen(params) {
+        return ApiService.post("updateorder_pen",params);
+    },
+
+    orderupdate_wait(params) {
+        return ApiService.post("updateorder_wait",params);
+    },
+
+    orderupdate_doing(params) {
+        return ApiService.post("updateorder_doing",params);
+    },
+
 
 
 };
