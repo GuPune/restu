@@ -323,4 +323,46 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
 
     }
 
+    public function orderscus(Request $request)
+    {
+
+
+        $datas = [];
+        $getorder = Order::whereIn('status', ['Y', 'O','I'])->get();
+
+
+        foreach ($getorder as $index => $ords) {
+            $res = Productres::where('id',$ords->res_id)->first();
+            $toe = Toe::where('id',$ords->toe_id)->first();
+
+
+
+           if($ords->status == 'Y'){
+            $datas['pending'][$index]['id'] = $ords->id;
+            $datas['pending'][$index]['name_list'] = $res->name_list;
+            $datas['pending'][$index]['images'] = $res->images;
+            $datas['pending'][$index]['toe_id'] = $toe->number_toe;
+            $datas['pending'][$index]['qty'] = $ords->quantity;
+            $datas['pending'][$index]['status'] = $ords->status;
+
+           }else if($ords->status == 'O'){
+            $datas['doing'][$index]['id'] = $ords->id;
+            $datas['doing'][$index]['name_list'] = $res->name_list;
+            $datas['doing'][$index]['images'] = $res->images;
+            $datas['doing'][$index]['toe_id'] = $toe->number_toe;
+            $datas['doing'][$index]['qty'] = $ords->quantity;
+            $datas['doing'][$index]['status'] = $ords->status;
+           }else {
+            $datas['waiting'][$index]['id'] = $ords->id;
+            $datas['waiting'][$index]['name_list'] = $res->name_list;
+            $datas['waiting'][$index]['images'] = $res->images;
+            $datas['waiting'][$index]['toe_id'] = $toe->number_toe;
+            $datas['waiting'][$index]['qty'] = $ords->quantity;
+            $datas['waiting'][$index]['status'] = $ords->status;
+
+           }
+                }
+        return response()->json($datas);
+    }
+
 }

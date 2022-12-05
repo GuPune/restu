@@ -1,7 +1,7 @@
 
 import { ProductService } from "@services/product.service";
 import {
-    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE
+    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS
 } from "@store/actions.type";
 import {
     SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT,SET_TOE_ID
@@ -83,7 +83,6 @@ const actions = {
             alert('ok');
 
         }
-
     },
 
     async [UPDATE_ORDER](context,payload) {
@@ -111,6 +110,14 @@ const actions = {
 
 context.commit(SET_DISCOUNT,payload);
     },
+
+
+    async [FETCH_ORDER_CUS](context,payload) {
+        const { data } = await ProductService.orderscus(payload);
+
+        return data;
+        },
+
 
 
 };

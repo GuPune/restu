@@ -28,5 +28,10 @@ export const ProductService = {
     },
 
 
+    orderscus(params) {
+        return ApiService.post("orders_cus",params);
+    },
+
+
 
 };

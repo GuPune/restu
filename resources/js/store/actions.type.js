@@ -23,4 +23,6 @@ export const PAYMENT = "payment";
 export const GETBILL = "get_bill";
 export const GET_ORDER_TOE_AND_CHECKBILL = "get_order_checkbill";
 
+export const FETCH_ORDER_CUS = "fetch_order_cus";
+
 

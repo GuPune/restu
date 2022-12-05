@@ -57,6 +57,8 @@ import router from './Router/index';
  Vue.component('pos', require('./components/pos/Index.vue').default)
  Vue.component('res', require('./components/listres/Index.vue').default)
  Vue.component('app', require('./components/App.vue').default)
+
+ Vue.component('order', require('./components/order/Index.vue').default)
  /**
   * Next, we will create a fresh Vue application instance and attach it to
   * the page. Then, you may begin adding components to this application

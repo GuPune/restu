@@ -69,6 +69,22 @@
           </div>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#form-order" aria-expanded="false" aria-controls="form-order">
+            <i class="typcn typcn-globe-outline menu-icon"></i>
+          <span class="menu-title">รายการครัว</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="form-order">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="/admin/orderrest">
+                ออเดอร์อาหาร</a>
+            </li>
+            </ul>
+          </div>
+      </li>
+
+
 
 
 
