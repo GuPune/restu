@@ -213,6 +213,7 @@ setInterval(() => {
         },
 
            async getNow(){
+            console.log('getNow');
                 this.time--;
                 if(this.time == 0){
                     this.time = 30;
@@ -229,6 +230,7 @@ this.order_waiting = ordercus.waiting;
        async updateorder(){
 
                let updatepending = await this.$store.dispatch(UPDATE_ORDER_PENDING,this.selected_pad);
+              let y =  await this.updateorderb()
 
         },
       async updatewait(){
@@ -239,6 +241,18 @@ this.order_waiting = ordercus.waiting;
 
  let updatedoing = await this.$store.dispatch(UPDATE_ORDER_DOING,this.selected_do);
         },
+
+        async updateorderb(){
+         let ordercus = await this.$store.dispatch(FETCH_ORDER_CUS,this.form);
+                    this.order = ordercus.pending;
+                    this.order_doing = ordercus.doing;
+                    this.order_waiting = ordercus.waiting;
+                    this.selected_pad = [];
+
+
+
+        },
+
 
 
 

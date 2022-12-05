@@ -367,7 +367,17 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
 
     public function updateorder_pen(Request $request)
     {
-        \Log::info($request->all());
+
+if($request->all()){
+    foreach ($request->all() as $index => $orders) {
+        $updatetor = Order::where('id',$orders)->update([
+            "status" => 'O'
+        ]);
+    }
+}
+
+
+
         return response()->json('success');
     }
 
