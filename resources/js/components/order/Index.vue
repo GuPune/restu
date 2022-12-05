@@ -1,8 +1,8 @@
 <template>
     <div>
-        <b-container class="bv-example-row">
+        <b-container fluid="xl" >
   <b-row>
-    <b-col  sm="12" md="4" lg="4">
+    <b-col  sm="12" md="4" lg="4" xl="4">
         <div class="card">
             <ul class="list-group list-group-flush">
     <li class="list-group-item" style="text-align: center;">
@@ -17,7 +17,7 @@
                               </div>
               <div class="col-6">
                 <div>
-                  {{i.status}}<br>
+                  {{i.name_list}}<br>
                   <span style="font-size:0.6em;"></span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
@@ -27,7 +27,7 @@
                     <b-form-group>
       <b-form-checkbox-group
         id="checkbox-group-2"
-        v-model="selected"
+        v-model="selected_pad"
 
         name="flavour-2"
       >
@@ -43,11 +43,11 @@
           <div class="card-footer text-muted">
 
 <button type="button" class="btn btn-secondary btn-sm">เลือกทั้งหมด</button>
-<button type="button" class="btn btn-primary btn-sm">รับออเดอร์</button>
+<button type="button" class="btn btn-primary btn-sm" @click="updateorder()">รับออเดอร์</button>
   </div>
         </div>
     </b-col>
-    <b-col  sm="12" md="4" lg="4">
+    <b-col  sm="12" md="4" lg="4"  xl="4">
         <div class="card">
 
 
@@ -66,7 +66,7 @@
                               </div>
               <div class="col-6">
                 <div>
-                  {{i.status}}<br>
+                  {{i.name_list}}<br>
                   <span style="font-size:0.6em;"></span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
@@ -76,7 +76,7 @@
                     <b-form-group>
       <b-form-checkbox-group
         id="checkbox-group-2"
-        v-model="selected"
+        v-model="selected_do"
 
         name="flavour-2"
       >
@@ -92,12 +92,12 @@
           <div class="card-footer text-muted">
 
 <button type="button" class="btn btn-secondary btn-sm">เลือกทั้งหมด</button>
-<button type="button" class="btn btn-primary btn-sm">รับออเดอร์</button>
+<button type="button" class="btn btn-primary btn-sm" @click="updatedoing()">เสร็จสิ้น</button>
   </div>
         </div>
     </b-col>
 
-    <b-col  sm="12" md="4" lg="4">
+    <b-col  sm="12" md="4" lg="4"  xl="4">
         <div class="card">
             <ul class="list-group list-group-flush">
     <li class="list-group-item" style="text-align: center;">  <button type="button" class="btn btn-sm"
@@ -114,7 +114,7 @@
                               </div>
               <div class="col-6">
                 <div>
-                  {{i.status}}<br>
+                  {{i.name_list}}<br>
                   <span style="font-size:0.6em;"></span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
@@ -124,7 +124,7 @@
                     <b-form-group>
       <b-form-checkbox-group
         id="checkbox-group-2"
-        v-model="selected"
+        v-model="selected_wait"
 
         name="flavour-2"
       >
@@ -140,13 +140,13 @@
           <div class="card-footer text-muted">
 
 <button type="button" class="btn btn-secondary btn-sm">เลือกทั้งหมด</button>
-<button type="button" class="btn btn-primary btn-sm">รับออเดอร์</button>
+<button type="button" class="btn btn-primary btn-sm" @click="updatewait()">เสริฟ</button>
   </div>
         </div>
     </b-col>
 
   </b-row>
-  <div>Selected: <strong>{{ selected }}</strong></div>
+  <div>Selected: <strong>{{ selected_pad }} {{ selected_wait }} {{ selected_do }}</strong></div>
   <div>time: <strong>{{ time }}</strong></div>
 </b-container>
 
@@ -162,7 +162,7 @@
 
 <script>
 import { mapGetters,mapState } from "vuex";
-import { FETCH_ORDER_CUS } from "@store/actions.type";
+import { FETCH_ORDER_CUS,UPDATE_ORDER_WAIT,UPDATE_ORDER_PENDING,UPDATE_ORDER_DOING } from "@store/actions.type";
 import { IMAGE_URL } from "../environment/environment";
 export default {
     components: {
@@ -171,10 +171,14 @@ export default {
             return {
                 time:30,
                 order:null,
+                order_waiting:null,
+                order_doing:null,
                 form:{
 statusorder:'Y',
                 },
-      selected: [], // Must be an array reference!
+      selected_pad: [],
+      selected_wait: [],
+      selected_do: [],
       options: [
         { text: 'Orange', value: 'orange' },
         { text: 'Apple', value: 'apple' },
@@ -190,7 +194,7 @@ this.order = ordercus.pending;
 this.order_doing = ordercus.doing;
 this.order_waiting = ordercus.waiting;
 
-console.log('this.order',this.order.pending);
+
 
 setInterval(() => {
       this.getNow();
@@ -203,7 +207,7 @@ setInterval(() => {
         },
         methods: {
 
-          Checkimage(image){
+        Checkimage(image){
                 let public_images = IMAGE_URL+''+image;
                 return public_images;
         },
@@ -219,7 +223,22 @@ this.order_waiting = ordercus.waiting;
                     this.selected = [];
                 }
 
-            }
+            },
+
+
+       async updateorder(){
+
+               let updatepending = await this.$store.dispatch(UPDATE_ORDER_PENDING,this.form);
+
+        },
+      async updatewait(){
+alert('updatewait');
+        let updatewait = await this.$store.dispatch(UPDATE_ORDER_WAIT,this.form);
+        },
+       async updatedoing(){
+alert('updatedoing');
+ let updatedoing = await this.$store.dispatch(UPDATE_ORDER_DOING,this.form);
+        },
 
 
 
