@@ -40,55 +40,17 @@
               </div>
             </div>
           </div>
-          <div class="card-footer text-muted">
-
+          <div class="card-footer text-muted" v-if="order.length > 0">
 <button type="button" class="btn btn-secondary btn-sm"  @click="checkall('O')">เลือกทั้งหมด</button>
 <button type="button" class="btn btn-primary btn-sm" @click="updateorder()">รับออเดอร์</button>
+  </div>
+
+    <div class="card-footer text-muted" v-else>
+<p>ไม่มีข้อมูล</p>
   </div>
         </div>
 
 
-        <div class="card" v-else>
-            <ul class="list-group list-group-flush">
-    <li class="list-group-item" style="text-align: center;">
-         <button type="button" class="btn btn-sm" style="background-color: #DEDA0D;">รอดำเนินการ</button></li>
-  </ul>
-        <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order" :key="index">
-            <div class="row" style="">
-              <div class="col-3">
-                                  <!-- <img src="https://image.makewebeasy.net/noimage.png" width="100%"/> -->
-                  <img :src="Checkimage(i.images)" width="100%">
-
-                              </div>
-              <div class="col-6">
-                <div>
-                  {{i.name_list}}<br>
-                  <span style="font-size:0.6em;"></span><br>
-                  <!-- <span style="font-size:0.8em;"></span> -->
-                </div>
-              </div>
-              <div class="col-3 text-right">
-                <div>
-                    <b-form-group>
-      <b-form-checkbox-group
-        id="checkbox-group-2"
-        v-model="selected_pad"
-
-        name="flavour-2"
-      >
-        <b-form-checkbox :value="i.id"></b-form-checkbox>
-      </b-form-checkbox-group>
-    </b-form-group>
-
-
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer text-muted">
-            <p>ไม่มีข้อมูล</p>
-        </div>
-        </div>
     </b-col>
     <b-col  sm="12" md="4" lg="4"  xl="4">
         <div class="card" v-if="order_doing">
@@ -97,7 +59,7 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item" style="text-align: center;">  <button type="button" class="btn btn-sm"
       style="background-color: #1080DC;"
-    >กำลังเตรียมอาหาร</button></li>
+    >กำลังเตรียมอาหาร </button></li>
   </ul>
             <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_doing" :key="index">
             <div class="row" style="">
@@ -131,58 +93,19 @@
               </div>
             </div>
           </div>
-          <div class="card-footer text-muted">
+          <div class="card-footer text-muted" v-if="order_doing.length > 0">
 
 <button type="button" class="btn btn-secondary btn-sm" @click="checkall('I')">เลือกทั้งหมด</button>
 <button type="button" class="btn btn-primary btn-sm" @click="updatedoing()">เสร็จสิ้น</button>
   </div>
-        </div>
 
-
-        <div class="card" v-else>
-
-
-<ul class="list-group list-group-flush">
-  <li class="list-group-item" style="text-align: center;">  <button type="button" class="btn btn-sm"
-    style="background-color: #1080DC;"
-  >กำลังเตรียมอาหาร</button></li>
-</ul>
-          <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_doing" :key="index">
-          <div class="row" style="">
-            <div class="col-3">
-                                <!-- <img src="https://image.makewebeasy.net/noimage.png" width="100%"/> -->
-                <img :src="Checkimage(i.images)" width="100%">
-
-                            </div>
-            <div class="col-6">
-              <div>
-                {{i.name_list}}<br>
-                <span style="font-size:0.6em;"></span><br>
-                <!-- <span style="font-size:0.8em;"></span> -->
-              </div>
-            </div>
-            <div class="col-3 text-right">
-              <div>
-                  <b-form-group>
-    <b-form-checkbox-group
-      id="checkbox-group-2"
-      v-model="selected_do"
-
-      name="flavour-2"
-    >
-      <b-form-checkbox :value="i.id"></b-form-checkbox>
-    </b-form-checkbox-group>
-  </b-form-group>
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer text-muted">
+    <div class="card-footer text-muted" v-else>
 <p>ไม่มีข้อมูล</p>
   </div>
-      </div>
+        </div>
+
+
+
     </b-col>
 
     <b-col  sm="12" md="4" lg="4"  xl="4">
@@ -191,7 +114,7 @@
     <li class="list-group-item" style="text-align: center;">  <button type="button" class="btn btn-sm"
       style="
     background-color: #16CE64;"
-    >รอเสริฟ</button></li>
+    >รอเสริฟ </button></li>
   </ul>
             <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_waiting" :key="index">
             <div class="row" style="">
@@ -222,25 +145,17 @@
               </div>
             </div>
           </div>
-          <div class="card-footer text-muted">
-
+          <div class="card-footer text-muted" v-if="order_waiting.length > 0">
 <button type="button" class="btn btn-secondary btn-sm" @click="checkall('S')">เลือกทั้งหมด</button>
 <button type="button" class="btn btn-primary btn-sm" @click="updatewait()">เสริฟ</button>
   </div>
-        </div>
 
-        <div class="card" v-else="order_waiting">
-            <ul class="list-group list-group-flush">
-    <li class="list-group-item" style="text-align: center;">
-        <button type="button" class="btn btn-sm"
-      style="
-    background-color: #16CE64;"
-    >รอเสริฟ</button></li>
-  </ul>
-   <div class="card-footer text-muted">
+
+     <div class="card-footer text-muted" v-else>
 <p>ไม่มีข้อมูล</p>
   </div>
         </div>
+
     </b-col>
 
   </b-row>
@@ -294,6 +209,8 @@ this.order = ordercus.pending;
 this.order_doing = ordercus.doing;
 this.order_waiting = ordercus.waiting;
 
+ console.log('this.order_doing',this.order_doing);
+
 
 
 setInterval(() => {
@@ -308,9 +225,16 @@ setInterval(() => {
         methods: {
 
         checkall(e){
-console.log('e',e);
 
-
+if(e == 'O'){
+console.log('o');
+}
+if(e == 'I'){
+console.log('i');
+}
+if(e == 'S'){
+console.log('s');
+}
 
 this.selected_pad = [];
             if (!this.allSelected) {
@@ -336,6 +260,8 @@ this.selected_pad = [];
                     this.order = ordercus.pending;
 this.order_doing = ordercus.doing;
 this.order_waiting = ordercus.waiting;
+
+
                     this.selected = [];
                 }
 

@@ -328,7 +328,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
 
 
         $datas = [];
-        
+
         $getorder = Order::whereIn('status', ['Y', 'O','I'])->get();
         $datas['pending'] = [];
         $datas['doing'] = [];
@@ -353,14 +353,14 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
 
         if($orderDoing){
             foreach ($orderDoing as $key => $ordsdo) {
-                $res = Productres::where('id',$ords->res_id)->first();
-                $toe = Toe::where('id',$ords->toe_id)->first();
-                $datas['doing'][$key]['id'] = $ords->id;
+                $res = Productres::where('id',$ordsdo->res_id)->first();
+                $toe = Toe::where('id',$ordsdo->toe_id)->first();
+                $datas['doing'][$key]['id'] = $ordsdo->id;
                 $datas['doing'][$key]['name_list'] = $res->name_list;
                 $datas['doing'][$key]['images'] = $res->images;
                 $datas['doing'][$key]['toe_id'] = $toe->number_toe;
-                $datas['doing'][$key]['qty'] = $ords->quantity;
-                $datas['doing'][$key]['status'] = $ords->status;
+                $datas['doing'][$key]['qty'] = $ordsdo->quantity;
+                $datas['doing'][$key]['status'] = $ordsdo->status;
             }
         }
 
@@ -379,11 +379,11 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
         // foreach ($getorder as $index => $ords) {
         //     $res = Productres::where('id',$ords->res_id)->first();
         //     $toe = Toe::where('id',$ords->toe_id)->first();
-            
-          
+
+
 
         //    if($ords->status == 'Y'){
-           
+
         //     $datas['pending'][$index]['id'] = $ords->id;
         //     $datas['pending'][$index]['name_list'] = $res->name_list;
         //     $datas['pending'][$index]['images'] = $res->images;
@@ -392,16 +392,16 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
         //     $datas['pending'][$index]['status'] = $ords->status;
 
         //    }else if($ords->status == 'O'){
-            
+
         //     $datas['doing'][$index]['id'] = $ords->id;
         //     $datas['doing'][$index]['name_list'] = $res->name_list;
         //     $datas['doing'][$index]['images'] = $res->images;
         //     $datas['doing'][$index]['toe_id'] = $toe->number_toe;
         //     $datas['doing'][$index]['qty'] = $ords->quantity;
         //     $datas['doing'][$index]['status'] = $ords->status;
-            
+
         //    }else {
-           
+
         //     $datas['waiting'][$index]['id'] = $ords->id;
         //     $datas['waiting'][$index]['name_list'] = $res->name_list;
         //     $datas['waiting'][$index]['images'] = $res->images;
@@ -411,7 +411,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
 
         //    }
         //         }
-                
+
         return response()->json($datas);
     }
 
