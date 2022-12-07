@@ -328,40 +328,90 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
 
 
         $datas = [];
+        
         $getorder = Order::whereIn('status', ['Y', 'O','I'])->get();
+        $datas['pending'] = [];
+        $datas['doing'] = [];
+        $datas['waiting'] = [];
+        $orderPending  = Order::where('status', 'Y')->get();
+        $orderDoing  =  Order::where('status', 'O')->get();
+        $orderWait =  Order::where('status', 'I')->get();
 
 
-        foreach ($getorder as $index => $ords) {
-            $res = Productres::where('id',$ords->res_id)->first();
-            $toe = Toe::where('id',$ords->toe_id)->first();
+        if($orderPending){
+            foreach ($orderPending as $key => $ords) {
+                $res = Productres::where('id',$ords->res_id)->first();
+                $toe = Toe::where('id',$ords->toe_id)->first();
+                $datas['pending'][$key]['id'] = $ords->id;
+                $datas['pending'][$key]['name_list'] = $res->name_list;
+                $datas['pending'][$key]['images'] = $res->images;
+                $datas['pending'][$key]['toe_id'] = $toe->number_toe;
+                $datas['pending'][$key]['qty'] = $ords->quantity;
+                $datas['pending'][$key]['status'] = $ords->status;
+            }
+        }
 
+        if($orderDoing){
+            foreach ($orderDoing as $key => $ordsdo) {
+                $res = Productres::where('id',$ords->res_id)->first();
+                $toe = Toe::where('id',$ords->toe_id)->first();
+                $datas['doing'][$key]['id'] = $ords->id;
+                $datas['doing'][$key]['name_list'] = $res->name_list;
+                $datas['doing'][$key]['images'] = $res->images;
+                $datas['doing'][$key]['toe_id'] = $toe->number_toe;
+                $datas['doing'][$key]['qty'] = $ords->quantity;
+                $datas['doing'][$key]['status'] = $ords->status;
+            }
+        }
 
+        if($orderWait){
+            foreach ($orderWait as $key => $ordswait) {
+                $res = Productres::where('id',$ordswait->res_id)->first();
+                $toe = Toe::where('id',$ordswait->toe_id)->first();
+                $datas['waiting'][$key]['id'] = $ordswait->id;
+                $datas['waiting'][$key]['name_list'] = $res->name_list;
+                $datas['waiting'][$key]['images'] = $res->images;
+                $datas['waiting'][$key]['toe_id'] = $toe->number_toe;
+                $datas['waiting'][$key]['qty'] = $ordswait->quantity;
+                $datas['waiting'][$key]['status'] = $ordswait->status;
+            }
+        }
+        // foreach ($getorder as $index => $ords) {
+        //     $res = Productres::where('id',$ords->res_id)->first();
+        //     $toe = Toe::where('id',$ords->toe_id)->first();
+            
+          
 
-           if($ords->status == 'Y'){
-            $datas['pending'][$index]['id'] = $ords->id;
-            $datas['pending'][$index]['name_list'] = $res->name_list;
-            $datas['pending'][$index]['images'] = $res->images;
-            $datas['pending'][$index]['toe_id'] = $toe->number_toe;
-            $datas['pending'][$index]['qty'] = $ords->quantity;
-            $datas['pending'][$index]['status'] = $ords->status;
+        //    if($ords->status == 'Y'){
+           
+        //     $datas['pending'][$index]['id'] = $ords->id;
+        //     $datas['pending'][$index]['name_list'] = $res->name_list;
+        //     $datas['pending'][$index]['images'] = $res->images;
+        //     $datas['pending'][$index]['toe_id'] = $toe->number_toe;
+        //     $datas['pending'][$index]['qty'] = $ords->quantity;
+        //     $datas['pending'][$index]['status'] = $ords->status;
 
-           }else if($ords->status == 'O'){
-            $datas['doing'][$index]['id'] = $ords->id;
-            $datas['doing'][$index]['name_list'] = $res->name_list;
-            $datas['doing'][$index]['images'] = $res->images;
-            $datas['doing'][$index]['toe_id'] = $toe->number_toe;
-            $datas['doing'][$index]['qty'] = $ords->quantity;
-            $datas['doing'][$index]['status'] = $ords->status;
-           }else {
-            $datas['waiting'][$index]['id'] = $ords->id;
-            $datas['waiting'][$index]['name_list'] = $res->name_list;
-            $datas['waiting'][$index]['images'] = $res->images;
-            $datas['waiting'][$index]['toe_id'] = $toe->number_toe;
-            $datas['waiting'][$index]['qty'] = $ords->quantity;
-            $datas['waiting'][$index]['status'] = $ords->status;
+        //    }else if($ords->status == 'O'){
+            
+        //     $datas['doing'][$index]['id'] = $ords->id;
+        //     $datas['doing'][$index]['name_list'] = $res->name_list;
+        //     $datas['doing'][$index]['images'] = $res->images;
+        //     $datas['doing'][$index]['toe_id'] = $toe->number_toe;
+        //     $datas['doing'][$index]['qty'] = $ords->quantity;
+        //     $datas['doing'][$index]['status'] = $ords->status;
+            
+        //    }else {
+           
+        //     $datas['waiting'][$index]['id'] = $ords->id;
+        //     $datas['waiting'][$index]['name_list'] = $res->name_list;
+        //     $datas['waiting'][$index]['images'] = $res->images;
+        //     $datas['waiting'][$index]['toe_id'] = $toe->number_toe;
+        //     $datas['waiting'][$index]['qty'] = $ords->quantity;
+        //     $datas['waiting'][$index]['status'] = $ords->status;
 
-           }
-                }
+        //    }
+        //         }
+                
         return response()->json($datas);
     }
 
@@ -383,13 +433,25 @@ if($request->all()){
 
     public function updateorder_wait(Request $request)
     {
-        \Log::info($request->all());
+        if($request->all()){
+            foreach ($request->all() as $index => $orders) {
+                $updatetor = Order::where('id',$orders)->update([
+                    "status" => 'S'
+                ]);
+            }
+        }
         return response()->json('success');
     }
 
     public function updateorder_doing(Request $request)
     {
-        \Log::info($request->all());
+        if($request->all()){
+            foreach ($request->all() as $index => $orders) {
+                $updatetor = Order::where('id',$orders)->update([
+                    "status" => 'I'
+                ]);
+            }
+        }
         return response()->json('success');
     }
 

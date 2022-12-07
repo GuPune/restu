@@ -269,6 +269,7 @@ export default {
             return {
                 time:30,
                 order:null,
+                 allSelected:false,
                 order_waiting:null,
                 order_doing:null,
                 form:{
@@ -288,6 +289,7 @@ statusorder:'Y',
     async created(){
 
         let ordercus = await this.$store.dispatch(FETCH_ORDER_CUS,this.form);
+        console.log('this.selected_pad',JSON.stringify(ordercus.pending));
 this.order = ordercus.pending;
 this.order_doing = ordercus.doing;
 this.order_waiting = ordercus.waiting;
@@ -307,6 +309,17 @@ setInterval(() => {
 
         checkall(e){
 console.log('e',e);
+
+
+
+this.selected_pad = [];
+            if (!this.allSelected) {
+                 this.order.forEach((select) => {
+             this.selected_pad.push(select.id)
+            })
+
+            }
+          //  console.log('this.selected_pad',this.selected_pad);
         },
 
         Checkimage(image){
@@ -338,12 +351,14 @@ this.order_waiting = ordercus.waiting;
       async updatewait(){
 
         let updatewait = await this.$store.dispatch(UPDATE_ORDER_WAIT,this.selected_wait);
+         let y =  await this.updateorderb()
         },
        async updatedoing(){
 
 
 
  let updatedoing = await this.$store.dispatch(UPDATE_ORDER_DOING,this.selected_do);
+  let y =  await this.updateorderb()
         },
 
         async updateorderb(){
