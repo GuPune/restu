@@ -16,7 +16,7 @@
 <option value="0" style="text-align:right">- เลือกโต๊ะ -</option>
 <option :value="toealls.id" style="text-align:right" v-for="(toealls, key) in toeall" :key="toealls.id">{{toealls.number_toe}} {{toealls.number_sit}} ที่นั่ง</option>
  </select>
-;<input name="ref_retail_id" id="ref_retail_id" type="hidden" value="1">
+<input name="ref_retail_id" id="ref_retail_id" type="hidden" value="1">
 <select name="Groups_id" class="classname" id="Groups_id" style="width:110px; height:25px; font-size: 0.9rem; padding:2px;" @change="ChangeTyperes($event)">
 <option value="0">หมวดทั้งหมด</option>
 <option :value="typeres.id"  v-for="(typeres, index) in typerest" :key="typeres.id" >{{typeres.name}}</option>

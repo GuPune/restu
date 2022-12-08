@@ -26,8 +26,8 @@
 <div align="right" id="showbalance" style="font-size: 3.2rem; text-align: right">{{this.total.pricediscount}}.00</div> </div>
 </div>
 <div class="bg-primary" align="center">
-<button type="button" class="form-control  btn btn-success" name="checkbill" style="font-size: 1.5rem; width:100% ">เซ็คบิล [F8]</button>
-<button type="button" class="form-control  btn btn-primary" name="txtpayment" style="font-size: 1.5rem; width:100% " @click="scrollToTop()">ชำระเงิน [F9]</button>
+<button type="button" class="form-control  btn btn-success" name="checkbill" style="font-size: 1.5rem; width:100% ">เช็คบิล</button>
+<button type="button" class="form-control  btn btn-primary" name="txtpayment" style="font-size: 1.5rem; width:100% " @click="scrollToTop()">ชำระเงิน</button>
 </div>
 <div v-if="myModel">
     <transition name="model modal-open">

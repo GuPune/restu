@@ -84,7 +84,19 @@
           </div>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#form-rating" aria-expanded="false" aria-controls="form-rating">
+            <i class="typcn typcn-globe-outline menu-icon"></i>
+          <span class="menu-title">คะแนน</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="form-rating">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="/admin/rating">คะแนนที่ลูกค้าให้</a></li>
 
+            </ul>
+          </div>
+      </li>
 
 
 

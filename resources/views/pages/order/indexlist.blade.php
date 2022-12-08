@@ -24,7 +24,7 @@
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     }
     </style>
-
+{{--
 <form name="add">
     <div class="card-header card-primary" style=" margin-bottom:5px">
         <span>
@@ -352,7 +352,7 @@
     </div>
     </div>
     </div>
-    </form>
+    </form> --}}
 
 
 
