@@ -13,7 +13,7 @@
 </div>
 </i>
 <select name="Table_id" class="classname" id="Table_id" style="width:100px; height:25px; font-size: 0.9rem; padding:2px;"  @change="onChangeToeId()" v-model="toe_id">
-<option value="0" style="text-align:right">- เลือกโต๊ะ -</option>
+<option value="0" style="text-align:right">- เลือกโต๊ะ - {{this.ToeStatus}}</option>
 <option :value="toealls.id" style="text-align:right" v-for="(toealls, key) in toeall" :key="toealls.id">{{toealls.number_toe}} {{toealls.number_sit}} ที่นั่ง</option>
  </select>
 <input name="ref_retail_id" id="ref_retail_id" type="hidden" value="1">
@@ -21,14 +21,42 @@
 <option value="0">หมวดทั้งหมด</option>
 <option :value="typeres.id"  v-for="(typeres, index) in typerest" :key="typeres.id" >{{typeres.name}}</option>
 </select>
-<input type="text" name="txtproduct" placeholder="Barcode/ค้นหา" class="classname" id="txtproduct" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;    " autocomplete="off">
-</span>
-<span>
-<button type="button" class="classname  btn-danger" style="width:130px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " data-toggle="modal" data-target="#changetable">ย้ายโต๊ะ/รวมโต๊ะ</button>
+<button type="button" class="classname  btn-danger" style="width:130px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " data-toggle="modal" data-target="#changetable"><i class="fa fa-print" aria-hidden="true"></i>พิมพ์ QRCode</button>
 
-<button type="button" id="printer" class="classname  btn-success" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer " data-toggle="modal" data-target="#detailsent"><i class="fa fa-print" aria-hidden="true"></i> พิมพ์ส่งครัว&amp;บาร์ </button> &nbsp;&nbsp;<button type="button" class="classname  btn-warning" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " name="esc">ยกเลิกรายการ [F2]</button>
 </span>
-<span style="float:right"><strong style="font-size: 0.9rem;">ลูกค้า:</strong> <input name="Namecustomer" type="text" id="Namecustomer" data-toggle="modal" data-target="#CusModal" style="width:110px; height:25px; font-size: 0.7rem; padding:2px;  cursor:pointer  ; text-align:right" value="ทั่วไป" readonly="readonly" class="classname"></span>
+<span v-if="ToeStatus == 'idle'">
+<button type="button" id="printer" class="classname  btn-success" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer " data-toggle="modal" data-target="#detailsent"> เปิดใช้งาน</button> &nbsp;&nbsp;
+
+</span>
+
+<span v-else-if="ToeStatus == 'check'">
+<button type="button" id="printer" class="classname  btn-info" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer " data-toggle="modal" data-target="#detailsent"> เช็คบิล</button> &nbsp;&nbsp;
+
+</span>
+
+
+<span v-else-if="ToeStatus == 'call'">
+<button type="button" id="printer" class="classname  btn-warning" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer " data-toggle="modal" data-target="#detailsent"> เรียกพนักงาน</button> &nbsp;&nbsp;
+
+</span>
+<span v-else-if="ToeStatus == 'request'">
+<button type="button" id="printer" class="classname  btn-warning" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer " data-toggle="modal" data-target="#detailsent"> กำลังทำงาน</button> &nbsp;&nbsp;
+
+</span>
+
+<span v-else-if="ToeStatus == 'notidle'">
+<button type="button" id="printer" class="classname  btn-danger" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer " data-toggle="modal" data-target="#detailsent"> ปิดใช้งาน</button> &nbsp;&nbsp;
+
+</span>
+<span v-else>
+    <button type="button" id="printer" class="classname  btn-danger" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer " data-toggle="modal" data-target="#detailsent"> เลือกโต๊ะ</button> &nbsp;&nbsp;
+</span>
+
+<span >
+
+<button type="button" class="classname  btn-warning" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " name="esc">ยกเลิกรายการ</button>
+</span>
+<span style="float:right"><strong style="font-size: 0.9rem;">สถานะ:</strong> {{this.ToeStatus}}</span>
 </div>
 
 <div class="row">
@@ -76,6 +104,10 @@ export default {
         toeall:"0"
       }
     },
+    computed: {
+   ...mapGetters(["ToeStatus"]),
+
+        },
         async created(){
 let typeres = await this.$store.dispatch(FETCH_TYPEPRODUCT);
 let toe = await this.$store.dispatch(FETCH_TOE);
@@ -99,6 +131,8 @@ this.form.id = event.target.value;
             this.form.toe_id = this.toe_id;
 
                 let orders = await this.$store.dispatch(FETCH_ORDER,this.form);
+
+                console.log('orders',orders);
 
             }
 

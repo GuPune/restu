@@ -14,4 +14,4 @@ export const SET_UPDATE_CART = "set_update_cart";
 export const SET_CHECKOUT = "set_checkout";
 export const SET_TOKEN = "set_token";
 export const SET_STATUS_CHECKBILL = "set_checkbill";
-
+export const SET_TOE_STATUS = "set_toe_status";

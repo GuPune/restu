@@ -103,23 +103,31 @@ if($checkorder){
 
          $order = Order::where('toe_id',$request->toe_id)->where('status','Y')->get();
          $datas = [];
+         $datas['status'] = "NoSelect";
+         $datas['data'] = [];
+         $toe = Toe::where('id',$request->toe_id)->first();
+         if($request->toe_id){
+            $toe = Toe::where('id',$request->toe_id)->first();
+            $datas['status'] = $toe->orderstatus;
+         }
+
                 foreach ($order as $index => $orders) {
                     $getproduct = Productres::where('id',$orders->res_id)->first();
-                        $datas[$index]['code'] = $getproduct->code;
-                        $datas[$index]['name_list'] = $getproduct->name_list;
-                        $datas[$index]['images'] = $getproduct->images;
-                        $datas[$index]['zone_id'] = $getproduct->zone_id;
-                        $datas[$index]['type_of_food_id'] = $getproduct->type_of_food_id;
-                        $datas[$index]['price_sell'] = $getproduct->price_sell;
-                        $datas[$index]['unit_cost'] = $getproduct->unit_cost;
-                        $datas[$index]['status'] = $getproduct->status;
-                        $datas[$index]['id'] = $getproduct->id;
-                        $datas[$index]['order_id'] = $orders->id;
-                        $datas[$index]['res_id'] = $orders->res_id;
-                        $datas[$index]['toe_id'] = $orders->toe_id;
-                        $datas[$index]['quantity'] = $orders->quantity;
-                        $datas[$index]['orders_price'] = $orders->orders_price;
-                        $datas[$index]['totalPrice'] = $orders->total_price;
+                        $datas['data'][$index]['code'] = $getproduct->code;
+                        $datas['data'][$index]['name_list'] = $getproduct->name_list;
+                        $datas['data'][$index]['images'] = $getproduct->images;
+                        $datas['data'][$index]['zone_id'] = $getproduct->zone_id;
+                        $datas['data'][$index]['type_of_food_id'] = $getproduct->type_of_food_id;
+                        $datas['data'][$index]['price_sell'] = $getproduct->price_sell;
+                        $datas['data'][$index]['unit_cost'] = $getproduct->unit_cost;
+                        $datas['data'][$index]['status'] = $getproduct->status;
+                        $datas['data'][$index]['id'] = $getproduct->id;
+                        $datas['data'][$index]['order_id'] = $orders->id;
+                        $datas['data'][$index]['res_id'] = $orders->res_id;
+                        $datas['data'][$index]['toe_id'] = $orders->toe_id;
+                        $datas['data'][$index]['quantity'] = $orders->quantity;
+                        $datas['data'][$index]['orders_price'] = $orders->orders_price;
+                        $datas['data'][$index]['totalPrice'] = $orders->total_price;
                 }
 
        return response()->json($datas);

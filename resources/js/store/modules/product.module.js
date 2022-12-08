@@ -4,7 +4,7 @@ import {
     FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS,UPDATE_ORDER_PENDING,UPDATE_ORDER_WAIT,UPDATE_ORDER_DOING
 } from "@store/actions.type";
 import {
-    SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT,SET_TOE_ID
+    SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT,SET_TOE_ID,SET_TOE_STATUS
 } from "@store/mutations.type";
 
 
@@ -17,6 +17,7 @@ const state = {
     orders_total:[],
     discount:0,
     typediscount:1,
+    ToeStatus:null,
     total:{
         list:null,
         pricetotal:null,
@@ -42,6 +43,9 @@ const getters = {
     },
     toe_id(state) {
         return state.toe_id;
+    },
+    ToeStatus(state) {
+        return state.ToeStatus;
     },
 };
 
@@ -93,9 +97,11 @@ const actions = {
     async [FETCH_ORDER](context,payload) {
 
         const { data } = await ProductService.getorder(payload);
-        context.commit(SET_ORDERS_TOE, data);
+
+        context.commit(SET_ORDERS_TOE, data.data);
         context.commit(SET_ORDERS_TOTAL);
         context.commit(SET_TOE_ID,payload);
+        context.commit(SET_TOE_STATUS,data.status);
     },
 
     async [DELTLE_ORDER](context,payload) {
@@ -173,8 +179,16 @@ const mutations = {
     [SET_ORDERS_TOE](state, item) {
         state.orders = item;
 
+
+    },
+    [SET_TOE_STATUS](state, item) {
+        state.ToeStatus = item;
+        console.log('state.ToeStatus',item);
+
+
     },
     [SET_ORDERS_TOTAL](state, item) {
+
         state.total.list = 0;
         state.total.pricetotal = 0;
         state.total.quantity = 0;
