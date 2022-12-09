@@ -15,3 +15,5 @@ export const SET_CHECKOUT = "set_checkout";
 export const SET_TOKEN = "set_token";
 export const SET_STATUS_CHECKBILL = "set_checkbill";
 export const SET_TOE_STATUS = "set_toe_status";
+export const SET_TOE_STATUS_OPEN = "set_toe_status_open";
+export const SET_TOE_STATUS_CANCEL = "set_toe_status_cancel";

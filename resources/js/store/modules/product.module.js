@@ -1,10 +1,10 @@
 
 import { ProductService } from "@services/product.service";
 import {
-    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS,UPDATE_ORDER_PENDING,UPDATE_ORDER_WAIT,UPDATE_ORDER_DOING
+    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS,UPDATE_ORDER_PENDING,UPDATE_ORDER_WAIT,UPDATE_ORDER_DOING,OPENTOE,CANCELTOE
 } from "@store/actions.type";
 import {
-    SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT,SET_TOE_ID,SET_TOE_STATUS
+    SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT,SET_TOE_ID,SET_TOE_STATUS,SET_TOE_STATUS_OPEN,SET_TOE_STATUS_CANCEL
 } from "@store/mutations.type";
 
 
@@ -137,6 +137,18 @@ context.commit(SET_DISCOUNT,payload);
     return data;
     },
 
+    async [OPENTOE](context,payload) {
+        const { data } = await ProductService.opentoe(payload);
+
+        await context.commit(SET_TOE_STATUS_OPEN);
+    },
+
+    async [CANCELTOE](context,payload) {
+     const { data } = await ProductService.canceltoe(payload);
+
+      await context.commit(SET_TOE_STATUS_CANCEL);
+    },
+
 
 };
 
@@ -184,8 +196,14 @@ const mutations = {
     [SET_TOE_STATUS](state, item) {
         state.ToeStatus = item;
         console.log('state.ToeStatus',item);
+    },
 
+    [SET_TOE_STATUS_OPEN](state, item) {
+        state.ToeStatus = "notidle";
+    },
 
+    [SET_TOE_STATUS_CANCEL](state, item) {
+        state.ToeStatus = "idle";
     },
     [SET_ORDERS_TOTAL](state, item) {
 

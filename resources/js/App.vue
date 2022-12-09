@@ -53,9 +53,11 @@
   </div>
 
     <div v-else>
-        <Navbar />
+
+        <Navbar/>
         <div class="px-3" style="margin-top:7rem;">
  <router-view></router-view>
+
 </div>
  <Menu/>
   </div>
@@ -130,7 +132,7 @@ export default {
     async created(){
 
     //     this.form.token = this.$route.params.token;
-    console.log('this.form.token',this.$route)
+
     //     console.log(this.$route.query)
     //     let toe = await this.$store.dispatch(FETCH_TOE_FRONT,this.form);
     // let typeres = await this.$store.dispatch(FETCH_TYPERES,this.form);
@@ -145,7 +147,7 @@ export default {
         },
    async mounted() {
 
-    console.log('this.form.mounted',this.form.token)
+
 
         },
         methods: {

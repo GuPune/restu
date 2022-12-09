@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\CoreFunction\Line;
 use App\Models\Call;
 use App\Models\Rating;
+use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use DB;
 
 class ProductController extends Controller
@@ -462,6 +464,70 @@ if($request->all()){
         }
         return response()->json('success');
     }
+
+    public function opentoe(Request $request)
+    {
+
+
+
+
+
+
+        ///// generate token
+        $randomString = Str::random(30);
+
+
+        $gento = Generate::create([
+            "qr_code" => $randomString,
+            "toe_id" => $request->toe_id,
+            "status" => 'Y'
+        ]);
+
+
+        $output_file = '/public/qrcode/' . time() . '.svg';
+        QrCode::generate('http://restu.test/app/order/list/'.$randomString, public_path($output_file) );
+
+        $save = env('APP_URL'). $output_file;
+
+
+        $updatetor = Toe::where('id',$request->toe_id)->update([
+            "qr_code" => $randomString,
+            "images_qrcode" => $save,
+            "orderstatus" => 'notidle',
+        ]);
+
+
+
+
+        return response()->json('success');
+    }
+
+    public function canceltoe(Request $request)
+    {
+
+
+\Log::info($request->all());
+
+
+        return response()->json('success');
+    }
+
+
+
+
+    public function checktoken(Request $request)
+    {
+
+        $datas = [];
+        $datas['status'] = 'N';
+        $get = Generate::where('qr_code',$request->token)->where('status','Y')->first();
+        if($get){
+            $datas['status'] = $get->status;
+        }
+        return response()->json($datas['status']);
+
+    }
+
 
 
 }

@@ -19,12 +19,12 @@
 <input name="ref_retail_id" id="ref_retail_id" type="hidden" value="1">
 <select name="Groups_id" class="classname" id="Groups_id" style="width:110px; height:25px; font-size: 0.9rem; padding:2px;" @change="ChangeTyperes($event)">
 <option value="0">หมวดทั้งหมด</option>
-<option :value="typeres.id"  v-for="(typeres, index) in typerest" :key="typeres.id" >{{typeres.name}}</option>
+<option :value="typeres.id"  v-for="(typeres, index) in typerest" :key="typeres.id" >{{typeres.name}} </option>
 </select>
-<button type="button" class="classname  btn-danger" style="width:130px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " data-toggle="modal" data-target="#changetable"><i class="fa fa-print" aria-hidden="true"></i>พิมพ์ QRCode</button>
+<button type="button" class="classname btn-success" style="width:130px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " data-toggle="modal" data-target="#changetable" @click="MyQrcode()"><i class="fa fa-print" aria-hidden="true"></i>พิมพ์ QRCode</button>
 
 </span>
-<span v-if="ToeStatus == 'idle'">
+<span v-if="ToeStatus == 'idle'" @click="OpenToe()">
 <button type="button" id="printer" class="classname  btn-success" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer " data-toggle="modal" data-target="#detailsent"> เปิดใช้งาน</button> &nbsp;&nbsp;
 
 </span>
@@ -54,7 +54,7 @@
 
 <span >
 
-<button type="button" class="classname  btn-warning" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " name="esc">ยกเลิกรายการ</button>
+<button type="button" class="classname  btn-warning" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " name="esc" @click="Cancel()">ยกเลิกรายการ</button>
 </span>
 <span style="float:right"><strong style="font-size: 0.9rem;">สถานะ:</strong> {{this.ToeStatus}}</span>
 </div>
@@ -78,7 +78,52 @@
 <div class="col-sm-12 col-lg-12 alert alert-info" style="margin-top:20px">
 <SumP/>
 </div>
+
+
+
+<div v-if="Qrcode">
+    <transition name="model modal-open">
+          <div class="modal-mask modal fad xtdas">
+            <div class="modal-wrapper">
+            <div class="modal-dialog modal-sm">
+
+  <div class="modal-content">
+<div class="modal-header  card-primary">
+<h5 class="modal-title" id="exampleModalLabel">{{this.formtoe.number_toe}}</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true"></span>
+</button>
 </div>
+       <div class="modal-body">
+        <form>
+          <div class="form-group" style="
+    text-align: center;
+">
+             <img  :src="Checkimage(this.formtoe.images_qrcode)" width="80" height="80">
+
+          </div>
+          <div class="form-group" style="text-align: center;">
+            <label for="message-text" class="col-form-label">โต๊ะที่นั้ง {{this.formtoe.number_sit}}</label>
+
+          </div>
+        </form>
+      </div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+<button type="button" class="btn btn-primary" id="btnPrintbill">พิมพ์</button>
+</div>
+</div>
+
+
+            </div>
+            </div>
+          </div>
+      </transition>
+</div>
+</div>
+
+
+
 </template>
 
 
@@ -89,7 +134,7 @@ import Product from "../pos/Product.vue";
 import Cal from "../pos/Cal.vue";
 import SumP from "../pos/SumPos.vue";
 import Bill from "../pos/Bill.vue";
-import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,FETCH_ORDER,FETCH_TOE } from "@store/actions.type";
+import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,FETCH_ORDER,FETCH_TOE,OPENTOE,CANCELTOE } from "@store/actions.type";
 export default {
     components: {
         Product,Cal,SumP,Bill
@@ -101,7 +146,14 @@ export default {
         },
         toe_id:0,
         typerest: "0",
-        toeall:"0"
+        toeall:"0",
+        Qrcode:false,
+        toe_name:"Test",
+        formtoe:{
+            images_qrcode:null,
+            number_sit:null,
+            number_toe:null
+        }
       }
     },
     computed: {
@@ -109,6 +161,8 @@ export default {
 
         },
         async created(){
+
+
 let typeres = await this.$store.dispatch(FETCH_TYPEPRODUCT);
 let toe = await this.$store.dispatch(FETCH_TOE);
 
@@ -121,6 +175,11 @@ this.toeall = toe;
         },
         methods: {
 
+            Checkimage(image){
+
+                return image;
+        },
+
             async ChangeTyperes(event){
 this.form.id = event.target.value;
                 let typeres = await this.$store.dispatch(FETCH_PRODUCT_FITTER,this.form);
@@ -128,13 +187,38 @@ this.form.id = event.target.value;
             },
 
             async onChangeToeId(){
-            this.form.toe_id = this.toe_id;
+                this.form.toe_id = this.toe_id;
 
                 let orders = await this.$store.dispatch(FETCH_ORDER,this.form);
 
-                console.log('orders',orders);
+                let qr = this.toeall[this.toe_id - 1];
+
+this.formtoe.images_qrcode = qr.images_qrcode
+this.formtoe.number_sit = qr.number_sit
+this.formtoe.number_toe = qr.number_toe
+
+            },
+
+           async OpenToe(){
+  let open_toe = await this.$store.dispatch(OPENTOE,this.form);
+            },
+            async Cancel(){
+  console.log('toe_id',this.toe_id)
+
+  if(this.toe_id == 0){
+    return alert('กรุณาเลือกโต๊ะ');
+  }
+    let cancel_toe = await this.$store.dispatch(CANCELTOE,this.form);
+            },
+
+           async MyQrcode(){
+
+this.Qrcode = true;
+
 
             }
+
+
 
         }
 

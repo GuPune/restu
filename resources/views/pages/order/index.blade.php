@@ -14,7 +14,8 @@
 </div>
   <div class="row pt-2 pb-4">
     @foreach ($node->toe as $index => $toes)
-    <div class="col-sm-3 col-lg-2" style="float:left;" name="product" id="77">
+
+    <div class="col-sm-3 col-lg-2" style="float:left;" name="product" id="77"  onclick="choose({{$toes->id}});">
 
         <div class="card"
         @if ($toes->orderstatus == 'idle')
@@ -53,6 +54,7 @@
             </div>
           </div>
     </div>
+</a>
     @endforeach
 
 
@@ -207,6 +209,14 @@ $.ajaxSetup({
 
 });
 
+
+function choose(id) {
+console.log('id',id);
+
+    localStorage.setItem("toe_id",1);
+location.href = "orderlist";
+
+}
 
 function RefreshTable(data) {
 

@@ -29,4 +29,9 @@ export const FrontProductService = {
     checkbill(param) {
         return ApiService.post("checkbill",param);
     },
+    gettoken(param) {
+        return ApiService.post("checktoken",param);
+    },
+
+
 };

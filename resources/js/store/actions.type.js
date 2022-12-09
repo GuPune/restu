@@ -30,3 +30,5 @@ export const UPDATE_ORDER_WAIT = "update_order_wait";
 export const UPDATE_ORDER_DOING = "update_order_doing";
 
 
+export const OPENTOE = "open_toe";
+export const CANCELTOE = "cancel_toe";

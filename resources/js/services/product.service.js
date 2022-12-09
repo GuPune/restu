@@ -44,6 +44,12 @@ export const ProductService = {
         return ApiService.post("updateorder_doing",params);
     },
 
+    opentoe(param) {
+        return ApiService.post("opentoe",param);
+    },
+    canceltoe(param) {
+        return ApiService.post("canceltoe",param);
+    },
 
 
 };

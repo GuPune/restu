@@ -1,7 +1,7 @@
 
 import { FrontProductService } from "@services/frontproduct.service";
 import {
-    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE,GET_TOKEN,CALL_STAFF,GET_ORDER_TOE_AND_CHECKBILL,PAYMENT
+    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE,GET_TOKEN,CALL_STAFF,GET_ORDER_TOE_AND_CHECKBILL,PAYMENT,OPENTOE
 } from "@store/actions.type";
 import {
     SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT,SET_TOKEN,SET_STATUS_CHECKBILL
@@ -105,9 +105,9 @@ const actions = {
      },
     async [GET_TOKEN](context,payload) {
 
-  //  const { data } = await FrontProductService.getordertoe(payload);
-    context.commit(SET_TOKEN,payload);
-    // return data;
+const { data } = await FrontProductService.gettoken(payload);
+   context.commit(SET_TOKEN,payload);
+     return data;
     },
     async [CALL_STAFF](context,payload) {
 
@@ -121,6 +121,9 @@ const actions = {
         const { data } = await FrontProductService.checkbill(payload);
          context.commit(SET_STATUS_CHECKBILL);
         },
+
+
+
 
 
 

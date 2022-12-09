@@ -57,9 +57,10 @@ export default {
         this.form.token = this.$route.params.token;
         // let toe = await this.$store.dispatch(FETCH_TOE_FRONT,this.form);
         let gettoken = await this.$store.dispatch(GET_TOKEN,this.form);
+
+        console.log('gettoken',this.getoken);
         let typeres = await this.$store.dispatch(FETCH_TYPERES,this.form);
         this.typerest = typeres;
-
 
 
 

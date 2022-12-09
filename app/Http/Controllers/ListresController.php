@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Generate;
 use Illuminate\Http\Request;
 
 class ListresController extends Controller
@@ -18,9 +19,15 @@ class ListresController extends Controller
 
 
 
+$checktoken = Generate::where('qr_code',$token)->where('status','Y')->first();
 
-      //  return view("pages.frontlist.indexlist");
-      return view("welcome");
+if($checktoken){
+    return view("welcome");
+}else{
+    abort(404);
+}
+
+
 
     }
 
