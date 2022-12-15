@@ -32,3 +32,6 @@ export const UPDATE_ORDER_DOING = "update_order_doing";
 
 export const OPENTOE = "open_toe";
 export const CANCELTOE = "cancel_toe";
+
+export const FETCH_QRCODE = "fecth_qrcode";
+export const CLEAR_BILL = "clear_bill";

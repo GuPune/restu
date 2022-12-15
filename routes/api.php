@@ -55,8 +55,10 @@ Route::group(['middleware' => ['api']], function ($router) {
 
     Route::post('/opentoe', 'App\Http\Controllers\API\ProductController@opentoe');
     Route::post('/canceltoe', 'App\Http\Controllers\API\ProductController@canceltoe');
-
+    Route::post('/qrcode', 'App\Http\Controllers\API\ProductController@qrcode');
     Route::post('/checktoken', 'App\Http\Controllers\API\ProductController@checktoken');
+
+    Route::post('/clearbill', 'App\Http\Controllers\API\ProductController@clearbill');
 
     });
 

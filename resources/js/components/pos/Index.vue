@@ -109,7 +109,7 @@
         </form>
       </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+<button type="button" class="btn btn-secondary" data-dismiss="modal" @click="Close()">ปิด</button>
 <button type="button" class="btn btn-primary" id="btnPrintbill">พิมพ์</button>
 </div>
 </div>
@@ -120,6 +120,8 @@
           </div>
       </transition>
 </div>
+
+
 </div>
 
 
@@ -134,7 +136,7 @@ import Product from "../pos/Product.vue";
 import Cal from "../pos/Cal.vue";
 import SumP from "../pos/SumPos.vue";
 import Bill from "../pos/Bill.vue";
-import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,FETCH_ORDER,FETCH_TOE,OPENTOE,CANCELTOE } from "@store/actions.type";
+import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,FETCH_ORDER,FETCH_TOE,OPENTOE,CANCELTOE,FETCH_QRCODE } from "@store/actions.type";
 export default {
     components: {
         Product,Cal,SumP,Bill
@@ -148,6 +150,7 @@ export default {
         typerest: "0",
         toeall:"0",
         Qrcode:false,
+        CheckBill:false,
         toe_name:"Test",
         formtoe:{
             images_qrcode:null,
@@ -186,6 +189,8 @@ this.form.id = event.target.value;
 
             },
 
+
+
             async onChangeToeId(){
                 this.form.toe_id = this.toe_id;
 
@@ -201,9 +206,16 @@ this.formtoe.number_toe = qr.number_toe
 
            async OpenToe(){
   let open_toe = await this.$store.dispatch(OPENTOE,this.form);
+
+
+            },
+
+
+            async Close(){
+                this.Qrcode = false;
             },
             async Cancel(){
-  console.log('toe_id',this.toe_id)
+
 
   if(this.toe_id == 0){
     return alert('กรุณาเลือกโต๊ะ');
@@ -213,7 +225,27 @@ this.formtoe.number_toe = qr.number_toe
 
            async MyQrcode(){
 
+            if(this.toe_id == 0){
+                return alert('กรุณาเลือกโต๊ะที่ต้องการ');
+            }
+            if(this.ToeStatus == 'idle'){
+                return alert('กรุณาเปิดใช้งานก่อน');
+            }
+
+            this.form.toe_id = this.toe_id;
+
+let qrcode = await this.$store.dispatch(FETCH_QRCODE,this.form);
+
+            this.formtoe.images_qrcode = qrcode.images_qrcode;
+this.formtoe.number_sit = qrcode.number_sit;
+this.formtoe.number_toe = qrcode.number_toe;
+
+
+console.log('this.formtoe',this.formtoe);
+
 this.Qrcode = true;
+
+
 
 
             }

@@ -10,6 +10,7 @@ use App\Models\Toe;
 use App\Models\Typeoffoods;
 use Illuminate\Http\Request;
 use App\CoreFunction\Line;
+use App\Models\Bill;
 use App\Models\Call;
 use App\Models\Rating;
 use Illuminate\Support\Str;
@@ -506,7 +507,15 @@ if($request->all()){
     {
 
 
-\Log::info($request->all());
+
+
+
+$updatetor = Toe::where('id',$request->toe_id)->update([
+    "qr_code" => Null,
+    "images_qrcode" => Null,
+    "orderstatus" => 'idle',
+]);
+
 
 
         return response()->json('success');
@@ -528,6 +537,59 @@ if($request->all()){
 
     }
 
+    public function qrcode(Request $request)
+    {
 
+
+$gettoe = Toe::where('id',$request->toe_id)->first();
+$datas = [];
+$datas['number_toe'] = $gettoe->number_toe;
+$datas['images_qrcode'] = $gettoe->images_qrcode;
+$datas['number_sit'] =  $gettoe->number_sit;
+
+\Log::info($datas);
+
+return response()->json($datas);
+
+
+    }
+
+    public function clearbill(Request $request)
+    {
+
+
+$datas = [];
+
+$gettoken = Generate::where('toe_id',$request->toe_id)->where('status','Y')->first();
+
+$max_id = Bill::max('id')+1;
+$billnumber = "BILL".date('dmY').str_pad($max_id, 6, "0", STR_PAD_LEFT);
+
+$dis = $request->pricetotal - $request->pricediscount;
+$bill = Bill::create([
+    "token" => $gettoken->qr_code,
+    "bill_number" => $billnumber,
+    "pricetotal" => $request->pricetotal,
+    "pricediscount" => $dis,
+]);
+
+$updatetor = Toe::where('id',$request->toe_id)->update([
+    "qr_code" => Null,
+    "images_qrcode" => Null,
+    "orderstatus" => 'idle',
+]);
+
+$uptoken = Generate::where('qr_code',$gettoken->qr_code)->update([
+    "status" => 'S',
+]);
+
+$uptoken = Order::where('toe_id',$request->toe_id)->where('status','Y')->update([
+    "bill_id" => $bill->id,
+    "status" => 'S',
+]);
+
+
+return response()->json($datas);
+    }
 
 }

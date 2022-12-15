@@ -15,6 +15,10 @@ class CreateBillTable extends Migration
     {
         Schema::create('bill', function (Blueprint $table) {
             $table->id();
+            $table->text('bill_number')->nullable();
+            $table->text('pricetotal')->nullable();
+            $table->text('token')->nullable();
+            $table->text('pricediscount')->nullable();
             $table->timestamps();
         });
     }

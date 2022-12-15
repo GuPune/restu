@@ -1,7 +1,7 @@
 
 import { ProductService } from "@services/product.service";
 import {
-    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS,UPDATE_ORDER_PENDING,UPDATE_ORDER_WAIT,UPDATE_ORDER_DOING,OPENTOE,CANCELTOE
+    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS,UPDATE_ORDER_PENDING,UPDATE_ORDER_WAIT,UPDATE_ORDER_DOING,OPENTOE,CANCELTOE,FETCH_QRCODE,CLEAR_BILL
 } from "@store/actions.type";
 import {
     SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT,SET_TOE_ID,SET_TOE_STATUS,SET_TOE_STATUS_OPEN,SET_TOE_STATUS_CANCEL
@@ -113,7 +113,6 @@ const actions = {
     },
 
     async [FETCH_DISCOUNT](context,payload) {
-
 context.commit(SET_DISCOUNT,payload);
     },
 
@@ -145,9 +144,22 @@ context.commit(SET_DISCOUNT,payload);
 
     async [CANCELTOE](context,payload) {
      const { data } = await ProductService.canceltoe(payload);
-
       await context.commit(SET_TOE_STATUS_CANCEL);
     },
+
+    async [FETCH_QRCODE](context,payload) {
+        const { data } = await ProductService.qrcode(payload);
+
+        return data;
+       },
+
+    async [CLEAR_BILL](context,payload) {
+        const { data } = await ProductService.clearbill(payload);
+
+        return data;
+    },
+
+
 
 
 };

@@ -5,7 +5,7 @@ export const ProductService = {
       return ApiService.get("product");
     },
     getorder(params) {
-        console.log('getorder',params);
+
         return ApiService.post("transaction_orders",params);
       },
     gettyperes() {
@@ -50,6 +50,11 @@ export const ProductService = {
     canceltoe(param) {
         return ApiService.post("canceltoe",param);
     },
-
+    qrcode(param) {
+        return ApiService.post("qrcode",param);
+    },
+    clearbill(param) {
+        return ApiService.post("clearbill",param);
+    },
 
 };

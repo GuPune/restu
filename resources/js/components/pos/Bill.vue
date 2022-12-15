@@ -26,7 +26,7 @@
 <div align="right" id="showbalance" style="font-size: 3.2rem; text-align: right">{{this.total.pricediscount}}.00</div> </div>
 </div>
 <div class="bg-primary" align="center">
-<button type="button" class="form-control  btn btn-success" name="checkbill" style="font-size: 1.5rem; width:100% ">เช็คบิล</button>
+<button type="button" class="form-control  btn btn-success" name="checkbill" style="font-size: 1.5rem; width:100% "  @click="checkbill()">เช็คบิล</button>
 <button type="button" class="form-control  btn btn-primary" name="txtpayment" style="font-size: 1.5rem; width:100% " @click="scrollToTop()">ชำระเงิน</button>
 </div>
 <div v-if="myModel">
@@ -82,7 +82,7 @@
 </tr>
 <tr>
 <td colspan="4" height="60"><div align="center">
-<button type="button" class="btn btn-primary" id="bill" name="bill">บันทึกการชำระเงิน/พิมพ์ใบเสร็จ [Enter]</button>
+<button type="button" class="btn btn-primary" id="bill" name="bill" @click="checkmoney()">บันทึกการชำระเงิน/พิมพ์ใบเสร็จ</button>
 </div></td>
 </tr>
 </tbody></table>
@@ -92,6 +92,41 @@
 <div class="modal-footer">
 </div>
 </div>
+
+            </div>
+            </div>
+          </div>
+      </transition>
+</div>
+
+
+<div v-if="Checkbill">
+    <transition name="model modal-open">
+          <div class="modal-mask modal fad xtdas">
+            <div class="modal-wrapper">
+            <div class="modal-dialog modal-lg">
+
+  <div class="modal-content">
+<div class="modal-header  card-primary">
+<h5 class="modal-title" id="exampleModalLabel">เช็คบิล</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true"></span>
+</button>
+</div>
+       <div class="modal-body">
+        <form>
+
+          <div class="form-group" style="text-align: center;">
+            <label for="message-text" class="col-form-label">โต๊ะที่นั้ง</label>
+          </div>
+        </form>
+      </div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal" @click="Close()">ปิด</button>
+<button type="button" class="btn btn-primary" id="btnPrintbill">พิมพ์</button>
+</div>
+</div>
+
 
             </div>
             </div>
@@ -153,7 +188,7 @@
 
 <script>
 import { mapGetters,mapState } from "vuex";
-import { FETCH_DISCOUNT } from "@store/actions.type";
+import { FETCH_DISCOUNT,CLEAR_BILL } from "@store/actions.type";
 export default {
     data() {
       return {
@@ -162,6 +197,7 @@ export default {
         paymoney:0,
         paychange:0,
         myModel:false,
+        Checkbill:false,
 
 form:{
     toe_id:1,
@@ -193,6 +229,37 @@ let a = this.$store.dispatch(FETCH_DISCOUNT,this.form);
 
         this.paymoney = 0;
         this.paychange = 0;
+
+        },
+        checkbill(){
+this.Checkbill = true;
+        },
+        Close(){
+this.Checkbill = false;
+
+        },
+
+        checkmoney(){
+           if(this.total.list == 0){
+            this.myModel = false;
+return false;
+           }else {
+
+
+            this.form.paymoney = this.paymoney;
+            this.form.pricetotal = this.total.pricetotal;
+            this.form.pricediscount = this.total.pricediscount;
+           if(this.total.pricediscount > this.paymoney){
+
+return alert('จ่ายเงินไม่ได้');
+           }
+           let checkbill = this.$store.dispatch(CLEAR_BILL,this.form);
+           this.myModel = false;
+
+           setTimeout(function(){
+                            window.location.href = '/admin/order'
+}, 1000);
+           }
 
         },
         onKeyMoney(evt,id){
