@@ -16,6 +16,15 @@ class RestuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     function __construct()
+     {
+          $this->middleware('permission:res-list|res-create|res-edit|res-delete', ['only' => ['index','store']]);
+          $this->middleware('permission:res-create', ['only' => ['create','store']]);
+          $this->middleware('permission:res-edit', ['only' => ['edit','update']]);
+          $this->middleware('permission:res-delete', ['only' => ['destroy']]);
+     }
+
     public function index(Request $request)
     {
         //

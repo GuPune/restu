@@ -13,6 +13,14 @@ class RatingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     function __construct()
+     {
+          $this->middleware('permission:rat-list|rat-create|rat-edit|rat-delete', ['only' => ['index','store']]);
+          $this->middleware('permission:rat-create', ['only' => ['create','store']]);
+          $this->middleware('permission:rat-edit', ['only' => ['edit','update']]);
+          $this->middleware('permission:rat-delete', ['only' => ['destroy']]);
+     }
     public function index()
     {
         //
