@@ -104,22 +104,58 @@
     <transition name="model modal-open">
           <div class="modal-mask modal fad xtdas">
             <div class="modal-wrapper">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
 
   <div class="modal-content">
-<div class="modal-header  card-primary">
-<h5 class="modal-title" id="exampleModalLabel">เช็คบิล</h5>
+<div class="modal-header card-primary centerImage">
+   <p>
+<img src="http://127.0.0.1:8000/cms/images/logo.jpg" width="80" height="80">
+   </p>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true"></span>
 </button>
 </div>
        <div class="modal-body">
-        <form>
 
-          <div class="form-group" style="text-align: center;">
-            <label for="message-text" class="col-form-label">โต๊ะที่นั้ง</label>
-          </div>
-        </form>
+        <h3>รายการ</h3>
+        <table class="table table-striped">
+    <thead>
+      <tr>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr  v-for="(item, index) in this.orders">
+        <td>{{item.quantity}}</td>
+        <td>{{item.name_list}}</td>
+        <td>@{{item.orders_price}}.00</td>
+        <td>@{{item.totalPrice}}.00</td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>({{this.total.quantity}})</td>
+        <td> รวมเงิน</td>
+        <td>{{this.total.pricetotal}}.00</td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td> ส่วนลด</td>
+        <td>{{this.discount}}</td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td> ยอดสุทธิ
+</td>
+        <td>{{this.total.pricediscount}}.00</td>
+      </tr>
+
+    </tbody>
+  </table>
       </div>
 <div class="modal-footer">
 <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="Close()">ปิด</button>
@@ -181,6 +217,11 @@
 
 
 
+.centerImage
+{
+ text-align:center;
+ display:block;
+}
 
   </style>
 
@@ -192,7 +233,7 @@ import { FETCH_DISCOUNT,CLEAR_BILL } from "@store/actions.type";
 export default {
     data() {
       return {
-        discount:null,
+        discount:0,
         typediscount:1,
         paymoney:0,
         paychange:0,
@@ -207,7 +248,7 @@ form:{
       }
     },
     computed: {
-   ...mapGetters(["total"]),
+   ...mapGetters(["total","orders"]),
 
         },
     mounted() {
@@ -285,6 +326,9 @@ scrollToTop() {
       this.myModel = true;
 
   },
+  Checkimage(){
+
+  }
 
 
         },

@@ -66,7 +66,6 @@ this.Loadorder();
 
         async Sendorder(data){
 
-            console.log('toe_id',this.toe_id);
 
             if(this.toe_id == 0){
              return alert('กรุณาเลือกโต๊ะ');

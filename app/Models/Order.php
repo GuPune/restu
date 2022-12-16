@@ -20,6 +20,7 @@ class Order extends Model
         'orders_price',
         'total_price',
         'order_number',
-        'quantity'
+        'quantity',
+        'ger_id'
     ];
 }

@@ -61,6 +61,8 @@ class ProductController extends Controller
 
 
 $checkorder = Order::where('status','Y')->where('toe_id',$request->toe_id)->where('res_id',$request->id)->first();
+$toeid = Toe::where('id',$request->toe_id)->first();
+$token = Generate::where('qr_code',$toeid->qr_code)->first();
 
 if($checkorder){
     $totalprice = ($checkorder->quantity + 1) * ($checkorder->orders_price);
@@ -87,6 +89,7 @@ if($checkorder){
         "orders_price" => $request->price_sell,
         "total_price" => $request->price_sell,
         "status" => 'Y',
+        "ger_id" => $token->id
     ]);
 
     return response()->json([
@@ -103,15 +106,23 @@ if($checkorder){
     public function transaction_orders(Request $request)
     {
 
+            $toe = Toe::where('id',$request->toe_id)->first();
 
-         $order = Order::where('toe_id',$request->toe_id)->where('status','Y')->get();
          $datas = [];
          $datas['status'] = "NoSelect";
          $datas['data'] = [];
-         $toe = Toe::where('id',$request->toe_id)->first();
+         $order = [];
+
          if($request->toe_id){
             $toe = Toe::where('id',$request->toe_id)->first();
             $datas['status'] = $toe->orderstatus;
+            $getgen = Generate::where('qr_code',$toe->qr_code)->first();
+
+            $getgenid = null;
+            if($getgen){
+                $getgenid = $getgen->id;
+            }
+            $order = Order::where('toe_id',$request->toe_id)->where('ger_id',$getgenid)->get();
          }
 
                 foreach ($order as $index => $orders) {
@@ -229,12 +240,14 @@ foreach ($cart as $index => $check) {
     {
 
 $toe = Toe::where('qr_code',$request->token)->first();
+$gen = Generate::where('qr_code',$request->token)->first();
 
             $order = Order::where('order_number',$request->order_number)->get();
             foreach ($order as $key => $orders) {
                 $updatetor = Order::where('id',$orders->id)->update([
                     "status" => 'Y',
                     "toe_id" => $toe->id,
+                    "ger_id" => $gen->id
                 ]);
 
 
@@ -251,7 +264,7 @@ $toe = Toe::where('qr_code',$request->token)->first();
         $datas =[];
      $getorder = Generate::where('qr_code',$request->token)->first();
         if($getorder){
-            $res = Order::where('toe_id',$getorder->toe_id)->get();
+            $res = Order::where('toe_id',$getorder->toe_id)->where('ger_id',$getorder->id)->get();
 
             foreach ($res as $index => $re) {
                 $product = Productres::where('id',$re->res_id)->first();
@@ -293,7 +306,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
     public function ordercheckbill(Request $request)
     {
 
-    $getorder = Generate::where('qr_code',$request->token) ->whereIn('status', ['Y', 'O'])->first();
+    $getorder = Generate::where('qr_code',$request->token)->whereIn('status', ['Y', 'O'])->first();
     $datas = [];
     $datas['status'] = $getorder->status;
     $totalCost = 0;
@@ -301,6 +314,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
     $ord = Order::select(\DB::raw('product_res.name_list, SUM(fact_order.total_price) as total,SUM(fact_order.quantity) as qty'))
          ->leftJoin('product_res', 'product_res.id', '=', 'fact_order.res_id')
          ->where('fact_order.toe_id',$getorder->toe_id)
+         ->where('fact_order.ger_id',$getorder->id)
          ->groupBy('fact_order.res_id')
          ->get();
 
@@ -527,9 +541,16 @@ $updatetor = Toe::where('id',$request->toe_id)->update([
     public function checktoken(Request $request)
     {
 
+
+
         $datas = [];
         $datas['status'] = 'N';
         $get = Generate::where('qr_code',$request->token)->where('status','Y')->first();
+
+        // $updatetor = Order::where('order_number',$orders->id)->update([
+        //     "status" => 'Y',
+        //     "toe_id" => $toe->id,
+        // ]);
         if($get){
             $datas['status'] = $get->status;
         }

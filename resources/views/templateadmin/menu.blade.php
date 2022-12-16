@@ -1,3 +1,9 @@
+{{-- @php
+
+
+    $getid = Auth::user()->id;
+
+@endphp --}}
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
       <li class="nav-item">

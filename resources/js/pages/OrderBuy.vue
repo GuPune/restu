@@ -65,7 +65,7 @@ export default {
     }
   },
         async created(){
-            console.log('this.form.route orderbuy',this.$route)
+
             this.form.token = this.$route.params.token
             let gettoken = await this.$store.dispatch(GET_TOKEN,this.form);
             let toe = await this.$store.dispatch(GET_ORDER_TOE,this.form);

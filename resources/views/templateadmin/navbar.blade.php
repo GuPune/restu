@@ -1,6 +1,6 @@
 <header class="header">
     <a href="#" class="logo">
-        <img src="{{ asset('cms/img/1.png') }}" alt="logo" width="80" height="40">
+        <img src="{{ asset('cms/images/logo.jpg') }}" alt="logo" width="80" height="40">
     </a>
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
