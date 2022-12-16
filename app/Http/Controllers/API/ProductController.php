@@ -16,6 +16,7 @@ use App\Models\Rating;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use DB;
+use Generator;
 
 class ProductController extends Controller
 {
@@ -527,13 +528,23 @@ if($request->all()){
 
 
 
+        $gettoe = Toe::where('id',$request->toe_id)->first();
+        \Log::info($gettoe);
 
+
+
+
+
+$updategen = Generate::where('qr_code',$gettoe->qr_code)->update([
+    "status" => "C",
+]);
 
 $updatetor = Toe::where('id',$request->toe_id)->update([
     "qr_code" => Null,
     "images_qrcode" => Null,
     "orderstatus" => 'idle',
 ]);
+
 
 
 
@@ -587,13 +598,14 @@ return response()->json($datas);
 $datas = [];
 
 $gettoken = Generate::where('toe_id',$request->toe_id)->where('status','Y')->first();
+$toe = Toe::where('id',$request->toe_id)->first();
 
 $max_id = Bill::max('id')+1;
 $billnumber = "BILL".date('dmY').str_pad($max_id, 6, "0", STR_PAD_LEFT);
 
 $dis = $request->pricetotal - $request->pricediscount;
 $bill = Bill::create([
-    "token" => $gettoken->qr_code,
+    "token" => $toe->qr_code,
     "bill_number" => $billnumber,
     "pricetotal" => $request->pricetotal,
     "pricediscount" => $dis,
