@@ -216,6 +216,13 @@ const mutations = {
 
     [SET_TOE_STATUS_CANCEL](state, item) {
         state.ToeStatus = "idle";
+        state.orders = [];
+state.total.list = null;
+state.total.pricetotal = 0;
+state.total.quantity = 0;
+state.total.pricediscount = 0;
+
+
     },
     [SET_ORDERS_TOTAL](state, item) {
 

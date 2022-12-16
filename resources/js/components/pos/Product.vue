@@ -35,7 +35,7 @@ import { IMAGE_URL } from "../environment/environment";
     },
 
     computed: {
-   ...mapGetters(["product","toe_id"]),
+   ...mapGetters(["product","toe_id","ToeStatus"]),
 
         },
 
@@ -67,15 +67,18 @@ this.Loadorder();
         async Sendorder(data){
 
 
-            if(this.toe_id == 0){
+if(this.ToeStatus == 'notidle'){
+    if(this.toe_id == 0){
              return alert('กรุณาเลือกโต๊ะ');
             }
             Vue.set(data, 'res_id', data.id);
              Vue.set(data, 'toe_id', this.toe_id);
 
 
-
            let add_producttocart = await this.$store.dispatch(ADD_PRODUCT,data);
+
+}
+
         }
 
 

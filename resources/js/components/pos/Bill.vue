@@ -128,7 +128,7 @@
       <tr  v-for="(item, index) in this.orders">
         <td>{{item.quantity}}</td>
         <td>{{item.name_list}}</td>
-        <td>@{{item.orders_price}}.00</td>
+        <td>@{{item.price_sell}}.00</td>
         <td>@{{item.totalPrice}}.00</td>
       </tr>
 

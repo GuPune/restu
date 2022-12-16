@@ -60,11 +60,13 @@ class ProductController extends Controller
     {
 
 
-$checkorder = Order::where('status','Y')->where('toe_id',$request->toe_id)->where('res_id',$request->id)->first();
 $toeid = Toe::where('id',$request->toe_id)->first();
 $token = Generate::where('qr_code',$toeid->qr_code)->first();
 
+$checkorder = Order::where('status','Y')->where('toe_id',$request->toe_id)->where('res_id',$request->id)->where('ger_id',$token->id)->first();
+
 if($checkorder){
+
     $totalprice = ($checkorder->quantity + 1) * ($checkorder->orders_price);
 
     $updatetor = Order::where('res_id',$request->id)->where('status','Y')->where('toe_id',$request->toe_id)->update([
@@ -114,7 +116,9 @@ if($checkorder){
          $order = [];
 
          if($request->toe_id){
+
             $toe = Toe::where('id',$request->toe_id)->first();
+
             $datas['status'] = $toe->orderstatus;
             $getgen = Generate::where('qr_code',$toe->qr_code)->first();
 
@@ -123,6 +127,7 @@ if($checkorder){
                 $getgenid = $getgen->id;
             }
             $order = Order::where('toe_id',$request->toe_id)->where('ger_id',$getgenid)->get();
+
          }
 
                 foreach ($order as $index => $orders) {
