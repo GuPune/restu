@@ -509,7 +509,7 @@ if($request->all()){
 
 
         $output_file = '/public/qrcode/' . time() . '.svg';
-        QrCode::generate('http://restu.test/app/order/list/'.$randomString, public_path($output_file) );
+        QrCode::generate('https://restu.idtest.work/app/order/list/'.$randomString, public_path($output_file) );
 
         $save = env('APP_URL'). $output_file;
 
