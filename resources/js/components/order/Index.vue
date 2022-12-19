@@ -21,6 +21,16 @@
                   <span style="font-size:0.6em;"></span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
+                <div>
+                  <br>
+                  <span style="font-size:0.6em;">Note:{{i.note}}</span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
+                <div>
+                  <br>
+                  <span style="font-size:0.6em;">โต๊ะ:{{i.toe_id}}</span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
               </div>
               <div class="col-3 text-right">
                 <div>
@@ -72,6 +82,16 @@
                 <div>
                   {{i.name_list}}<br>
                   <span style="font-size:0.6em;"></span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
+                <div>
+                  <br>
+                  <span style="font-size:0.6em;">Note:{{i.note}}</span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
+                <div>
+                  <br>
+                  <span style="font-size:0.6em;">โต๊ะ:{{i.toe_id}}</span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
               </div>
@@ -127,6 +147,16 @@
                 <div>
                   {{i.name_list}}<br>
                   <span style="font-size:0.6em;"></span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
+                <div>
+                  <br>
+                  <span style="font-size:0.6em;">Note:{{i.note}}</span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
+                <div>
+                  <br>
+                  <span style="font-size:0.6em;">โต๊ะ:{{i.toe_id}}</span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
               </div>

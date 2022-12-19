@@ -8,14 +8,7 @@
             <div>
             <button class="btn btn-danger" style="width:30px; height:15px; font-size: 12px; padding:2px;cursor:pointer;  " type="button" name="dellist" @click="Del(item.order_id,index)"> ลบ </button> </div> </td>
             <td width="158"> <span style=" font-weight:bold; font-size:14px">{{item.code}}</span><br>
-            <div class="dropdown">
-            <button class="btn btn-success dropdown-toggle" style="width:60px; height:15px; font-size: 12px; padding:2px;  " type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            ส่วนลด </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2" >
-            <button class="dropdown-item" type="button" data-toggle="modal" style=" cursor:pointer" data-target="#modaldiscount" data-title="ลดราคา (บาท)" data-name="น้ำพริกชอุ่ม (50.00)" data-iddiscount="2" data-id="4728" data-txtdiscount="0">บาท (฿)</button>
-            <button class="dropdown-item" type="button" data-toggle="modal" style=" cursor:pointer" data-target="#modaldiscount" data-title="ลดราคา (%)" data-name="น้ำพริกชอุ่ม (50.00)" data-iddiscount="1" data-id="4728" data-txtdiscount="0">%</button>
-            </div>
-            </div>
+
             </td>
 
 

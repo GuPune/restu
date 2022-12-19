@@ -218,7 +218,7 @@ $updatedata = Order::where('id',$request->order_id)->update([
     {
 
 
-
+\Log::info($request->all());
 
 $cart = $request->all();
 
@@ -227,6 +227,7 @@ $cart_number = "ORDER".date('dmY').str_pad($max_id, 6, "0", STR_PAD_LEFT);
 foreach ($cart as $index => $check) {
     $checkout = Order::create([
     "res_id" => $check['id'],
+    "note" => $check['note'],
     "status" => 'Y',
     "order_number" => $cart_number,
     "orders_price" => $check['price_sell'],
@@ -235,7 +236,6 @@ foreach ($cart as $index => $check) {
 ]);
 
         }
-
 
 
         return response()->json($cart_number);
@@ -379,6 +379,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
                 $datas['pending'][$key]['toe_id'] = $toe->number_toe;
                 $datas['pending'][$key]['qty'] = $ords->quantity;
                 $datas['pending'][$key]['status'] = $ords->status;
+                $datas['pending'][$key]['note'] = $ords->note;
             }
         }
 
@@ -392,6 +393,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
                 $datas['doing'][$key]['toe_id'] = $toe->number_toe;
                 $datas['doing'][$key]['qty'] = $ordsdo->quantity;
                 $datas['doing'][$key]['status'] = $ordsdo->status;
+                $datas['doing'][$key]['note'] = $ordsdo->note;
             }
         }
 
@@ -405,6 +407,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
                 $datas['waiting'][$key]['toe_id'] = $toe->number_toe;
                 $datas['waiting'][$key]['qty'] = $ordswait->quantity;
                 $datas['waiting'][$key]['status'] = $ordswait->status;
+                $datas['waiting'][$key]['note'] = $ordswait->note;
             }
         }
         // foreach ($getorder as $index => $ords) {

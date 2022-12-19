@@ -21,6 +21,7 @@ class Order extends Model
         'total_price',
         'order_number',
         'quantity',
+        'note',
         'ger_id'
     ];
 }

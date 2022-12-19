@@ -241,8 +241,6 @@ this.formtoe.number_sit = qrcode.number_sit;
 this.formtoe.number_toe = qrcode.number_toe;
 
 
-console.log('this.formtoe',this.formtoe);
-
 this.Qrcode = true;
 
 

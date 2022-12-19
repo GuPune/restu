@@ -229,7 +229,7 @@
 
 <script>
 import { mapGetters,mapState } from "vuex";
-import { FETCH_DISCOUNT,CLEAR_BILL } from "@store/actions.type";
+import { FETCH_DISCOUNT,CLEAR_BILL,FETCH_ORDER } from "@store/actions.type";
 export default {
     data() {
       return {
@@ -241,14 +241,14 @@ export default {
         Checkbill:false,
 
 form:{
-    toe_id:1,
+    toe_id:null,
     discount:null,
     typediscount:null
 }
       }
     },
     computed: {
-   ...mapGetters(["total","orders"]),
+   ...mapGetters(["total","orders","toe_id"]),
 
         },
     mounted() {
@@ -272,8 +272,20 @@ let a = this.$store.dispatch(FETCH_DISCOUNT,this.form);
         this.paychange = 0;
 
         },
-        checkbill(){
+         checkbill(){
+
+            if(this.toe_id == 0){
+return alert('กรุณาเลือกโต๊ะ');
+            }
 this.Checkbill = true;
+
+
+this.form.toe_id = this.toe_id;
+
+let orders = this.$store.dispatch(FETCH_ORDER,this.form);
+
+
+
         },
         Close(){
 this.Checkbill = false;
