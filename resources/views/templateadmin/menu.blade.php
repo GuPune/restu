@@ -86,6 +86,9 @@
               <li class="nav-item"> <a class="nav-link" href="/admin/orderrest">
                 ออเดอร์อาหาร</a>
             </li>
+            <li class="nav-item"> <a class="nav-link" href="/admin/orderdrink">
+                บาร์น้ำ</a>
+            </li>
             </ul>
           </div>
       </li>
@@ -103,6 +106,21 @@
             </ul>
           </div>
       </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#form-setting" aria-expanded="false" aria-controls="form-setting">
+            <i class="typcn typcn-globe-outline menu-icon"></i>
+          <span class="menu-title">ตั้งค่าระบบ</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="form-setting">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="/admin/setting">ตั้งค่า</a></li>
+            </ul>
+          </div>
+      </li>
+
 
 
 
