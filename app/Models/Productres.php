@@ -22,5 +22,6 @@ class Productres extends Model
         'unit_cost',
         'note',
         'status',
+        'res_kit',
     ];
 }

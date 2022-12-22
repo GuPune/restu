@@ -73,6 +73,18 @@ $syste = SystemRes::first();
     public function update(Request $request, $id)
     {
         //
+
+        \Log::info($request->all());
+
+        $upsys = SystemRes::find($id)->update([
+            'order_set' => $request->selectedOption,
+            'line_notify' => $request->line_notify
+        ]);
+
+        return response()->json([
+            'msg_return' => 'สำเร็จ',
+            'code_return' => 1,
+        ]);
     }
 
     /**

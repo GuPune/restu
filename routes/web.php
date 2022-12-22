@@ -19,6 +19,7 @@ use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\TypeResController;
 use App\Http\Controllers\RestuController;
 use App\Http\Controllers\ListresController;
+use App\Http\Controllers\OrderdrinkController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\OrderResController;
 use App\Http\Controllers\RatingController;
@@ -132,6 +133,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/print', [PrintController::class, 'index']);
 
     Route::resource('orderrest', OrderResController::class);
+    Route::resource('orderdrink', OrderdrinkController::class);
 
     Route::resource('rating', RatingController::class);
 

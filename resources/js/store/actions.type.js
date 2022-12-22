@@ -24,6 +24,8 @@ export const GETBILL = "get_bill";
 export const GET_ORDER_TOE_AND_CHECKBILL = "get_order_checkbill";
 
 export const FETCH_ORDER_CUS = "fetch_order_cus";
+export const FETCH_ORDER_CUS_DRINK = "fetch_order_cus_drink";
+
 
 export const UPDATE_ORDER_PENDING = "update_order_pending";
 export const UPDATE_ORDER_WAIT = "update_order_wait";

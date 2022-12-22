@@ -208,6 +208,22 @@
                 <td><input type="file" name="file-res" id="file-res"></td>
                 </tr>
                 <tr>
+                    <td height="30">เลือกครัว</td>
+                    <td>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="optradio" value="R" checked>ครัวอาหาร
+                            </label>
+                          </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="optradio" value="S">บาร์น้ำ
+                            </label>
+                          </div>
+                    </td>
+                    </tr>
+                    <tr>
+                <tr>
                 <td height="30">หมายเหตุท้ายรายการ</td>
                 <td><textarea name="note" id="note" class="form-control"></textarea>
                </td>
@@ -239,7 +255,7 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">เพิ่มรายการ โซนสินค้า</h4>
+            <h4 class="modal-title" id="exampleModalLabel">เพิ่มรายการ อาหาร</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
             </button>
@@ -320,6 +336,22 @@
                 <td height="30">รูป</td>
                 <td><input type="file" name="file-res-edit" id="file-res-edit"></td>
                 </tr>
+
+                <tr>
+                    <td height="30">เลือกครัว</td>
+                    <td>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input radio1" id="resa1" name="optradio1" value="R">ครัวอาหาร
+                            </label>
+                          </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input radio1" id="resa2" name="optradio1" value="S">บาร์น้ำ
+                            </label>
+                          </div>
+                    </td>
+                    </tr>
                 <tr>
                 <td height="30">หมายเหตุท้ายรายการ</td>
                 <td><textarea name="editnote" id="editnote" class="form-control"></textarea>
@@ -659,6 +691,9 @@ $.ajaxSetup({
     var type = $('#edittype').val();
     var zone = $('#editzone').val();
 
+    var selectedOption = $("[name=optradio1]:checked").val();
+
+
     $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -670,7 +705,7 @@ $.ajaxSetup({
                     type: "PUT",
                     data:{
                                 '_token': "{{ csrf_token() }}",
-                                id:id,code:code,name_list:name_list,price_sell:price_sell,unit_cost:unit_cost,note:note,images:images,type:type,zone:zone},
+                                id:id,code:code,name_list:name_list,price_sell:price_sell,unit_cost:unit_cost,note:note,images:images,type:type,zone:zone,selectedOption:selectedOption},
                     url: "/admin/restu/"  + id,
                     success: function(datas){
 
@@ -819,6 +854,8 @@ var unit_cost = $('#unit_cost').val();
 var note = $('#note').val();
 var images = $('#images').val();
 
+var selectedOption = $("input:radio[name=optradio]:checked").val()
+
 let valform = validateForm();
             if(valform === true){
             $.ajaxSetup({
@@ -834,7 +871,7 @@ let valform = validateForm();
                 type: "POST",
                 data:{
                             '_token': "{{ csrf_token() }}",
-                            code:code,name_list:name_list,type:type,zone:zone,price_sell:price_sell,unit_cost:unit_cost,note:note,images:images},
+                            code:code,name_list:name_list,type:type,zone:zone,price_sell:price_sell,unit_cost:unit_cost,note:note,images:images,selectedOption:selectedOption},
                 url: "/admin/restu",
                 success: function(datas){
 
@@ -857,7 +894,7 @@ $('#showImageProduct').attr("src", $link +'/'+ 'no_photo.jpg');
                 table.ajax.reload(null, false);
 }, 500);
 
-$('#myModal').modal('hide');
+hideModal();
 
                 }
 
@@ -868,11 +905,17 @@ $('#myModal').modal('hide');
 
 
             }
+$("#myModal").hide();
 
-
-
+//$('#myModal').modal('hide');
 
 });
+
+function hideModal() {
+    $("#myModal").removeClass("in");
+  $(".modal-backdrop").remove();
+  $("#myModal").hide();
+}
 
 
 $('body').on('click', '.save-delete', function (e) {
@@ -947,6 +990,21 @@ $("#editzone").val(datas.zone_id);
 $("#editimages").val(datas.images);
 $('#showImageProductEdit').attr("src", $link +'/'+ datas.images);
 
+
+//var optradio = $('#resa').val('S');
+// document.querySelector('input[name="optradio"]:checked').value = 'S';
+// $('input[name="optradio"]:checked').val('S');
+// document.getElementById("resa").value = "S";
+//document.getElementsByName("optradio").checked = true;
+//var varName = $('input[name="optradio"]:checked').val('R');
+
+//document.querySelector('input[name=optradio]:checked').value = "R";
+$("input:radio[value=" + datas.res_kit + "]").prop('checked',true);
+// $("input:checked", "#radioButton").val()
+
+//$('input[type="radio"][name="optradio"]:checked').val('S');
+// $("input[type='radio'][name='optradio']:checked").val(datas.res_kit);
+// document.querySelector("input[name=optradio]:checked").value
                         $("#editmyModal").modal('show');
                     }
                 })

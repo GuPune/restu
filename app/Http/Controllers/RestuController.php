@@ -55,7 +55,7 @@ $zone = Zone::where('status','Y')->get();
     public function store(Request $request)
     {
         //
-
+\Log::info($request->all());
 
         $resadd = Productres::create([
             'code' => $request->code,
@@ -66,6 +66,7 @@ $zone = Zone::where('status','Y')->get();
             'price_sell' => $request->price_sell,
             'unit_cost' => $request->unit_cost,
             'note' => $request->note,
+            'res_kit' => $request->selectedOption,
             'status' => 'Y'
         ]);
 
@@ -122,6 +123,7 @@ $updatetor = Productres::where('id',$id)->update([
     'price_sell' => $request->price_sell,
     'unit_cost' => $request->unit_cost,
     'note' => $request->note,
+    'res_kit' => $request->selectedOption,
 ]);
 
 

@@ -23,6 +23,7 @@ class CreateProductResTable extends Migration
             $table->integer('price_sell')->nullable();
             $table->integer('unit_cost')->nullable();
             $table->string('status')->nullable();
+            $table->string('res_kit')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
         });

@@ -53,6 +53,7 @@
                       <div class="col-sm-9">
                         <input type="text" class="form-control" name="line_notify" id="line_notify" placeholder="รหัสสินค้า" value="{{$system->line_notify}}"/>
                       </div>
+                      <div class="help-block-name help-block-line">กรุณากรอก Token</div>
                     </div>
                   </div>
 
@@ -155,7 +156,7 @@ input:checked + .slider:before {
     </style>
 
 <style type="text/css">
-    .help-block-code,.help-block-name_list,.help-block-price{
+    .help-block-line,.help-block-name_list,.help-block-price{
         display: none;
         color: red;
         text-align: center;
@@ -176,12 +177,55 @@ input:checked + .slider:before {
 
 
 $('body').on('click', '.save', function (e) {
+    var id = $('#id').val();
+    var line_notify = $('#line_notify').val();
+    var selectedOption = $("input:radio[name=gridRadios]:checked").val()
+
+    if(line_notify == ''){
+    $('.help-block-line').show();
+    }else {
+    $('.help-block-line').hide();
+    }
 
 
-swal("บันทึก!", "บันทึก!", "success");
+
+
+
+if(line_notify == ''){
+    console.log('if');
+    return false;
+}else{
+    $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                dataType: 'json',
+                type: "PUT",
+                data:{
+                            '_token': "{{ csrf_token() }}",
+                            id:id,line_notify:line_notify,selectedOption:selectedOption},
+                url: "/admin/setting/" + id,
+                success: function(datas){
+
+      swal("บันทึกสำเร็จ!", "บันทึกสำเร็จ!", "success");
+
+
+                }
+            })
+
+}
+
+
+
+
+
 
 
 });
+
 </script>
 
 

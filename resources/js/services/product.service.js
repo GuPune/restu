@@ -31,6 +31,9 @@ export const ProductService = {
     orderscus(params) {
         return ApiService.post("orders_cus",params);
     },
+    orderscus_drink(params) {
+        return ApiService.post("orders_cus_drink",params);
+    },
 
     orderupdate_pen(params) {
         return ApiService.post("updateorder_pen",params);
