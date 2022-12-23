@@ -27,9 +27,10 @@ class RatingController extends Controller
        // $rating = Rating::all();
 
 
-        $rating = DB::select( DB::raw("select C.number_toe,A.rating,B.qr_code from rating A
+        $rating = DB::select(DB::raw("select C.number_toe,A.rating,B.qr_code,D.bill_number from rating A
         LEFT JOIN generate B ON A.token = B.qr_code
         LEFT JOIN toe C ON C.id = B.toe_id
+				LEFT JOIN bill D ON A.token = D.token
         "));
 
         return view('pages.rating.index')->with('rating',$rating);

@@ -22,6 +22,13 @@ class Order extends Model
         'order_number',
         'quantity',
         'note',
-        'ger_id'
+        'ger_id',
+        'created_at'
     ];
+
+
+    public function Prodes()
+    {
+       return $this->belongsTo(Productres::class,'res_id','id');
+    }
 }

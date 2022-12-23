@@ -36,7 +36,7 @@
                         <tr >
                             <td>{{$key+1}}</td>
                             <td>{{$ratings->number_toe}}</td>
-                            <td>{{$ratings->qr_code}}</td>
+                            <td>{{$ratings->bill_number}}</td>
                             <td>
 
                                 @for ($i = 0; $i < $ratings->rating; $i++)

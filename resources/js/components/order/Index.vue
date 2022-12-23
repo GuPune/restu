@@ -32,7 +32,14 @@
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
               </div>
-              <div class="col-3 text-right">
+              <div class="col-1">
+                <div>
+                    {{i.qty}}<br>
+                  <span style="font-size:0.6em;"></span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
+              </div>
+              <div class="col-2 text-right">
                 <div>
                     <b-form-group>
       <b-form-checkbox-group
@@ -78,7 +85,7 @@
                   <img :src="Checkimage(i.images)" width="100%">
 
                               </div>
-              <div class="col-6">
+              <div class="col-5">
                 <div>
                   {{i.name_list}}<br>
                   <span style="font-size:0.6em;"></span><br>
@@ -95,7 +102,14 @@
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
               </div>
-              <div class="col-3 text-right">
+              <div class="col-1">
+                <div>
+                    {{i.qty}}<br>
+                  <span style="font-size:0.6em;"></span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
+              </div>
+              <div class="col-2 text-right">
                 <div>
                     <b-form-group>
       <b-form-checkbox-group
@@ -143,7 +157,7 @@
                   <img :src="Checkimage(i.images)" width="100%">
 
                               </div>
-              <div class="col-6">
+              <div class="col-5">
                 <div>
                   {{i.name_list}}<br>
                   <span style="font-size:0.6em;"></span><br>
@@ -160,7 +174,14 @@
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
               </div>
-              <div class="col-3 text-right">
+              <div class="col-1">
+                <div>
+                    {{i.qty}}<br>
+                  <span style="font-size:0.6em;"></span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
+              </div>
+              <div class="col-2 text-right">
                 <div>
                     <b-form-group>
       <b-form-checkbox-group
