@@ -46,7 +46,12 @@ export const ProductService = {
     orderupdate_doing(params) {
         return ApiService.post("updateorder_doing",params);
     },
-
+    orderupdate_dis(param) {
+        return ApiService.post("orderupdate_dis",param);
+    },
+    orderupdate_chef(param) {
+        return ApiService.post("orderupdate_chef",param);
+    },
     opentoe(param) {
         return ApiService.post("opentoe",param);
     },
@@ -59,5 +64,6 @@ export const ProductService = {
     clearbill(param) {
         return ApiService.post("clearbill",param);
     },
+
 
 };

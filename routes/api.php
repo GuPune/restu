@@ -53,6 +53,8 @@ Route::group(['middleware' => ['api']], function ($router) {
     Route::post('/updateorder_pen', 'App\Http\Controllers\API\ProductController@updateorder_pen');
     Route::post('/updateorder_wait', 'App\Http\Controllers\API\ProductController@updateorder_wait');
     Route::post('/updateorder_doing', 'App\Http\Controllers\API\ProductController@updateorder_doing');
+    Route::post('/orderupdate_dis', 'App\Http\Controllers\API\ProductController@orderupdate_dis');
+    Route::post('/orderupdate_chef', 'App\Http\Controllers\API\ProductController@orderupdate_chef');
 
     Route::post('/opentoe', 'App\Http\Controllers\API\ProductController@opentoe');
     Route::post('/canceltoe', 'App\Http\Controllers\API\ProductController@canceltoe');

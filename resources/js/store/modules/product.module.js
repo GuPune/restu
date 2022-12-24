@@ -1,7 +1,7 @@
 
 import { ProductService } from "@services/product.service";
 import {
-    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS,UPDATE_ORDER_PENDING,UPDATE_ORDER_WAIT,UPDATE_ORDER_DOING,OPENTOE,CANCELTOE,FETCH_QRCODE,CLEAR_BILL,FETCH_ORDER_CUS_DRINK
+    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS,UPDATE_ORDER_PENDING,UPDATE_ORDER_WAIT,UPDATE_ORDER_DOING,OPENTOE,CANCELTOE,FETCH_QRCODE,CLEAR_BILL,FETCH_ORDER_CUS_DRINK,UPDATE_ORDER_DISC,SEND_ORDER_TO_CHEF
 } from "@store/actions.type";
 import {
     SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT,SET_TOE_ID,SET_TOE_STATUS,SET_TOE_STATUS_OPEN,SET_TOE_STATUS_CANCEL
@@ -75,9 +75,7 @@ const actions = {
 
 
     async [ADD_PRODUCT](context,payload) {
-
         const { data } = await ProductService.save(payload);
-
         if(data.data == "success"){
             Vue.set(payload, 'order_id', data.datas);
             context.commit(SET_ORDERS,payload);
@@ -85,9 +83,10 @@ const actions = {
           //  context.commit(SET_TOE_ID);
         }else {
             alert('ok');
-
         }
     },
+
+
 
     async [UPDATE_ORDER](context,payload) {
         const { data } = await ProductService.updateorder(payload);
@@ -114,6 +113,15 @@ const actions = {
 
     async [FETCH_DISCOUNT](context,payload) {
 context.commit(SET_DISCOUNT,payload);
+    },
+
+    async [UPDATE_ORDER_DISC](context,payload) {
+
+        const { data } = await ProductService.orderupdate_dis(payload);
+    },
+    async [SEND_ORDER_TO_CHEF](context,payload) {
+
+        const { data } = await ProductService.orderupdate_chef(payload);
     },
 
 
@@ -173,6 +181,7 @@ const mutations = {
         state.product = data;
     },
     [SET_ORDERS](state, item) {
+
       //  let found = state.orders.find(product => product.id == item.id);
       let found = state.orders.find(product => product.id == item.id);
       if (found) {

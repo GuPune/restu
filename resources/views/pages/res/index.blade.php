@@ -201,7 +201,7 @@
                 <td>
                     <input name="unit_cost" type="number" class="form-control" id="unit_cost" value="1" min="1" placeholder="บาท" required="required" onkeypress="return onlyNumberKey(event)"></td>
                 </tr>
-                <input name="images" type="text" class="form-control" id="images"   required="required">
+                <input name="images" type="hidden" class="form-control" id="images"   required="required">
 
                 <tr>
                 <td height="30">รูป</td>

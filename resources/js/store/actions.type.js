@@ -37,3 +37,6 @@ export const CANCELTOE = "cancel_toe";
 
 export const FETCH_QRCODE = "fecth_qrcode";
 export const CLEAR_BILL = "clear_bill";
+export const UPDATE_ORDER_DISC = "update_rder_disc";
+export const SEND_ORDER_TO_CHEF = "sendorder_chef";
+

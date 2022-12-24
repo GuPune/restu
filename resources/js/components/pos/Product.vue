@@ -77,6 +77,8 @@ if(this.ToeStatus == 'notidle'){
 
            let add_producttocart = await this.$store.dispatch(ADD_PRODUCT,data);
 
+           this.Loadorder();
+
 }
 
         }

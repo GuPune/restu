@@ -65,7 +65,7 @@ class ProductController extends Controller
 $toeid = Toe::where('id',$request->toe_id)->first();
 $token = Generate::where('qr_code',$toeid->qr_code)->first();
 
-$checkorder = Order::where('status','Y')->where('toe_id',$request->toe_id)->where('res_id',$request->id)->where('ger_id',$token->id)->first();
+$checkorder = Order::where('status','N')->where('toe_id',$request->toe_id)->where('res_id',$request->id)->where('ger_id',$token->id)->first();
 
 if($checkorder){
 
@@ -74,7 +74,7 @@ if($checkorder){
     $updatetor = Order::where('res_id',$request->id)->where('status','Y')->where('toe_id',$request->toe_id)->update([
         "res_id" => $request->id,
         "toe_id" => $request->toe_id,
-        "status" => 'Y',
+        "status" => 'N',
         "total_price" => $totalprice,
         "quantity" => $checkorder->quantity + 1,
     ]);
@@ -92,8 +92,10 @@ if($checkorder){
         "quantity" => 1,
         "orders_price" => $request->price_sell,
         "total_price" => $request->price_sell,
-        "status" => 'Y',
-        "ger_id" => $token->id
+        "status" => 'N',
+        "ger_id" => $token->id,
+        "discount" => 0,
+        "type_discount" => "C",
     ]);
 
     return response()->json([
@@ -141,7 +143,7 @@ if($checkorder){
                         $datas['data'][$index]['type_of_food_id'] = $getproduct->type_of_food_id;
                         $datas['data'][$index]['price_sell'] = $getproduct->price_sell;
                         $datas['data'][$index]['unit_cost'] = $getproduct->unit_cost;
-                        $datas['data'][$index]['status'] = $getproduct->status;
+                        $datas['data'][$index]['status'] = $orders->status;
                         $datas['data'][$index]['id'] = $getproduct->id;
                         $datas['data'][$index]['order_id'] = $orders->id;
                         $datas['data'][$index]['res_id'] = $orders->res_id;
@@ -149,6 +151,8 @@ if($checkorder){
                         $datas['data'][$index]['quantity'] = $orders->quantity;
                         $datas['data'][$index]['orders_price'] = $orders->orders_price;
                         $datas['data'][$index]['totalPrice'] = $orders->total_price;
+                        $datas['data'][$index]['discount'] = $orders->discount;
+                        $datas['data'][$index]['type_discount'] = $orders->type_discount;
                 }
 
        return response()->json($datas);
@@ -869,7 +873,6 @@ $datas['number_toe'] = $gettoe->number_toe;
 $datas['images_qrcode'] = $gettoe->images_qrcode;
 $datas['number_sit'] =  $gettoe->number_sit;
 
-\Log::info($datas);
 
 return response()->json($datas);
 
@@ -913,6 +916,53 @@ $uptoken = Order::where('toe_id',$request->toe_id)->where('status','Y')->update(
 
 
 return response()->json($datas);
+    }
+
+
+    public function orderupdate_dis(Request $request)
+    {
+
+
+        if($request->discount <= 0){
+            $updatefind = Order::find($request->id);
+        $updatetor = Order::where('id',$request->id)->update([
+            "discount" => 0,
+            "type_discount" => "C",
+            "total_price" => ($updatefind->orders_price * $updatefind->quantity)
+        ]);
+            return response()->json('success');
+        }else {
+
+            $updatefind = Order::find($request->id);
+
+            $updatetor = Order::where('id',$request->id)->update([
+                "discount" => $request->discount,
+                "type_discount" => "B",
+                "total_price" => ($updatefind->orders_price * $updatefind->quantity) - $request->discount
+            ]);
+            return response()->json('success');
+        }
+
+
+
+
+    }
+
+    public function orderupdate_chef(Request $request)
+    {
+
+
+
+
+    $gettoe = Toe::where('id',$request->toe_id)->first();
+    $getger = Generate::where('qr_code',$gettoe->qr_code)->first();
+
+      $updatechef = Order::where('ger_id',$getger->id)->where('status','N')->update([
+        "status" => 'Y'
+      ]);
+
+
+        return response()->json('success');
     }
 
 }

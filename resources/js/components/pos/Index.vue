@@ -56,8 +56,12 @@
 
 <button type="button" class="classname  btn-warning" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " name="esc" @click="Cancel()">ยกเลิกรายการ</button>
 </span>
+<span >
+<button type="button" class="classname  btn-success" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " name="esc" @click="Sendres()">ส่งรายการอาหาร</button>
+</span>
 <span style="float:right"><strong style="font-size: 0.9rem;">สถานะ:</strong> {{this.ToeStatus}}</span>
 </div>
+
 
 <div class="row">
     <div class="col-sm-12 col-lg-7" id="div1">
@@ -136,7 +140,7 @@ import Product from "../pos/Product.vue";
 import Cal from "../pos/Cal.vue";
 import SumP from "../pos/SumPos.vue";
 import Bill from "../pos/Bill.vue";
-import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,FETCH_ORDER,FETCH_TOE,OPENTOE,CANCELTOE,FETCH_QRCODE } from "@store/actions.type";
+import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,FETCH_ORDER,FETCH_TOE,OPENTOE,CANCELTOE,FETCH_QRCODE,SEND_ORDER_TO_CHEF } from "@store/actions.type";
 export default {
     components: {
         Product,Cal,SumP,Bill
@@ -214,23 +218,82 @@ this.formtoe.number_toe = qr.number_toe
             async Close(){
                 this.Qrcode = false;
             },
+
+            async Sendres(){
+
+
+            if(this.toe_id == 0){
+                this.$toast.open({
+        message: "กรุณาเลือกโต๊ะ",
+        type: "error",
+        duration: 2000,
+        dismissible: true
+      })
+                return false;
+            }
+            if(this.ToeStatus == 'idle'){
+                this.$toast.open({
+        message: "กรุณาเปิดโต๊ะก่อน",
+        type: "error",
+        duration: 2000,
+        dismissible: true
+      })
+                return false;
+            }
+
+
+                this.form.toe_id = this.toe_id;
+                let send_order = await this.$store.dispatch(SEND_ORDER_TO_CHEF,this.form);
+                let orders = await this.$store.dispatch(FETCH_ORDER,this.form);
+
+                this.$toast.open({
+        message: "ส่งไปยังครัวเรียบร้อย",
+        type: "success",
+        duration: 1500,
+        dismissible: true
+      })
+
+
+
+            },
             async Cancel(){
 
 
-  if(this.toe_id == 0){
-    return alert('กรุณาเลือกโต๊ะ');
-  }
+                if(this.toe_id == 0){
+                this.$toast.open({
+        message: "กรุณาเลือกโต๊ะ",
+        type: "error",
+        duration: 2000,
+        dismissible: true
+      })
+                return false;
+            }
+
     let cancel_toe = await this.$store.dispatch(CANCELTOE,this.form);
             },
 
            async MyQrcode(){
 
             if(this.toe_id == 0){
-                return alert('กรุณาเลือกโต๊ะที่ต้องการ');
+                this.$toast.open({
+        message: "กรุณาเลือกโต๊ะ",
+        type: "error",
+        duration: 2000,
+        dismissible: true
+      })
+                return false;
             }
             if(this.ToeStatus == 'idle'){
-                return alert('กรุณาเปิดใช้งานก่อน');
+                this.$toast.open({
+        message: "กรุณาเปิดโต๊ะก่อน",
+        type: "error",
+        duration: 2000,
+        dismissible: true
+      })
+                return false;
             }
+
+
 
             this.form.toe_id = this.toe_id;
 

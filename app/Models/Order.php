@@ -23,9 +23,10 @@ class Order extends Model
         'quantity',
         'note',
         'ger_id',
-        'created_at'
+        'created_at',
+        'type_discount',
+        'discount'
     ];
-
 
     public function Prodes()
     {

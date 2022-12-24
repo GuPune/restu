@@ -30,6 +30,20 @@
         </a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#form-report" aria-expanded="false" aria-controls="form-report">
+            <i class="typcn typcn-globe-outline menu-icon"></i>
+          <span class="menu-title">รายงาน</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="form-report">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="/admin/users">R01 ยอดขายรายวัน</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/admin/roles">R02 สรุปการชำระเงิน</a></li>
+            </ul>
+          </div>
+      </li>
+
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#form-slid" aria-expanded="false" aria-controls="form-slid">
