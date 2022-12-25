@@ -17,6 +17,6 @@ class Bill extends Model
         'token',
         'pricetotal',
         'pricediscount',
-
+        'discount_all_order',
     ];
 }

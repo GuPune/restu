@@ -78,7 +78,7 @@ const actions = {
         const { data } = await ProductService.save(payload);
         if(data.data == "success"){
             Vue.set(payload, 'order_id', data.datas);
-            context.commit(SET_ORDERS,payload);
+        //    context.commit(SET_ORDERS,payload);
             context.commit(SET_ORDERS_TOTAL);
           //  context.commit(SET_TOE_ID);
         }else {

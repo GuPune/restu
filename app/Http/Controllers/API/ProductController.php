@@ -69,9 +69,12 @@ $checkorder = Order::where('status','N')->where('toe_id',$request->toe_id)->wher
 
 if($checkorder){
 
+
+
     $totalprice = ($checkorder->quantity + 1) * ($checkorder->orders_price);
 
-    $updatetor = Order::where('res_id',$request->id)->where('status','Y')->where('toe_id',$request->toe_id)->update([
+
+    $updatetor = Order::where('res_id',$request->id)->where('status','N')->where('toe_id',$request->toe_id)->update([
         "res_id" => $request->id,
         "toe_id" => $request->toe_id,
         "status" => 'N',
@@ -890,13 +893,16 @@ $toe = Toe::where('id',$request->toe_id)->first();
 
 $max_id = Bill::max('id')+1;
 $billnumber = "BILL".date('dmY').str_pad($max_id, 6, "0", STR_PAD_LEFT);
-
+$discountorder = Order::where('ger_id',$gettoken->id)->sum('discount');
+$sunorder = Order::where('ger_id',$gettoken->id)->sum('orders_price');
 $dis = $request->pricetotal - $request->pricediscount;
+$totalall = $sunorder - ($discountorder + $request->discount);
 $bill = Bill::create([
     "token" => $toe->qr_code,
     "bill_number" => $billnumber,
-    "pricetotal" => $request->pricetotal,
+    "pricetotal" => $totalall,
     "pricediscount" => $dis,
+    "discount_all_order" => $discountorder,
 ]);
 
 $updatetor = Toe::where('id',$request->toe_id)->update([

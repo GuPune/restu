@@ -18,6 +18,9 @@ import VueNumericInput from 'vue-numeric-input';
 import App from './App.vue';
 import VueRouter from 'vue-router';
 import router from './Router/index';
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
 
 
 
@@ -32,6 +35,8 @@ import router from './Router/index';
  Vue.use(IconsPlugin)
  Vue.use(VueNumericInput)
  Vue.use(VueRouter)
+
+Vue.use(VueToast);
 
 
  ApiService.init();

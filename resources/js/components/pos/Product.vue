@@ -72,7 +72,7 @@ if(this.ToeStatus == 'notidle'){
              return alert('กรุณาเลือกโต๊ะ');
             }
             Vue.set(data, 'res_id', data.id);
-             Vue.set(data, 'toe_id', this.toe_id);
+            Vue.set(data, 'toe_id', this.toe_id);
 
 
            let add_producttocart = await this.$store.dispatch(ADD_PRODUCT,data);

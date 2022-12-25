@@ -106,56 +106,72 @@
             <div class="modal-wrapper">
             <div class="modal-dialog">
 
-  <div class="modal-content">
-<div class="modal-header card-primary centerImage">
-   <p>
-<img src="http://127.0.0.1:8000/cms/images/logo.jpg" width="80" height="80">
-   </p>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true"></span>
-</button>
-</div>
+  <div class="modal-content" style="width:320px;">
+
        <div class="modal-body">
 
-        <h3>รายการ</h3>
-        <table class="table table-striped">
-    <thead>
-      <tr>
+      <table width="290px" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+  <tr>
+<td colspan="3" style="font-size:27px;color:#000" align="center"> <strong>9</strong></td>
+</tr>
+<tr>
+<td colspan="3" align="center">
+<img src="http://127.0.0.1:8000/cms/images/logo.jpg" width="100px"> </td>
+</tr>
+<tr>
+<td height="20" colspan="3" style="font-size:14px;color:#000">
+<div align="left"><strong></strong> </div></td></tr>
+<tr>
+<td colspan="3" style="font-size:15px;color:#000">&nbsp;</td>
+</tr>
+<tr>
+<td colspan="3" style="font-size:15px;color:#000"><div align="center"><strong>รายการเรียกเก็บเงิน</strong></div></td>
+</tr>
+<tr>
+<td colspan="3"> <hr></td>
+</tr>
 
-      </tr>
-    </thead>
-    <tbody>
-      <tr  v-for="(item, index) in this.orders">
-        <td>{{item.quantity}}</td>
-        <td>{{item.name_list}}</td>
-        <td>@{{item.price_sell}}.00</td>
-        <td>@{{item.totalPrice}}.00</td>
-      </tr>
-
-      <tr>
-        <td></td>
-        <td>({{this.total.quantity}})</td>
-        <td> รวมเงิน</td>
-        <td>{{this.total.pricetotal}}.00</td>
-      </tr>
-
-      <tr>
-        <td></td>
-        <td></td>
-        <td> ส่วนลด</td>
-        <td>{{this.discount}}</td>
-      </tr>
-
-      <tr>
-        <td></td>
-        <td></td>
-        <td> ยอดสุทธิ
+<tr  v-for="(item, index) in this.orders">
+<td width="112" valign="top">
+  <div align="left" style="font-size:13px;color:#000">{{item.quantity}} {{item.name_list}}<br>
+ส่วนลด 1 ฿
+</div>
 </td>
-        <td>{{this.total.pricediscount}}.00</td>
-      </tr>
-
-    </tbody>
-  </table>
+<td width="53" valign="top">
+  <div align="left" style="font-size:13px;color:#000">@<s>@{{item.price_sell}}.00</s><br>@{{item.price_sell}}.00
+  </div>
+  </td>
+<td width="45" valign="top"><div align="right" style="font-size:13px;color:#000">
+  <s>@{{item.totalPrice}}.00</s><br>@{{item.totalPrice}}.00
+  </div>
+  </td>
+</tr>
+<tr>
+<td colspan="2" style="font-size:13px;color:#000">
+  <div align="right">({{this.total.quantity}})&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;รวมเงิน
+    </div>
+  </td>
+<td style="font-size:13px;color:#000"><div align="right">{{this.total.pricetotal}}.00</div>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="font-size:13px;color:#000"><div align="right">ส่วนลด</div>
+ </td>
+<td style="font-size:13px;color:#000"><div align="right">{{this.discount}}.00</div>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="font-size:13px;color:#000"><div align="right">ยอดสุทธิ</div>
+</td>
+<td style="font-size:13px"><div align="right">{{this.total.pricediscount}}.00</div></td>
+</tr>
+<tr>
+<td colspan="3" style="font-size:15px;color:#000" align="center">Exchange Rate: 1THB / 450LAK | 1USD / 15,000 LAK
+Facebook: Naoki Japanese Restaurant
+ຂອບໃຈທີ່ມາອຸດໜູນ ໂອກາດໜ້າເຊີນໃໝ່</td>
+</tr>
+</tbody></table>
       </div>
 <div class="modal-footer">
 <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="Close()">ปิด</button>
@@ -306,13 +322,16 @@ return false;
 
 return alert('จ่ายเงินไม่ได้');
            }
-           let checkbill = this.$store.dispatch(CLEAR_BILL,this.form);
-           this.myModel = false;
+           this.form.toe_id = this.toe_id;
+
+
+          let checkbill = this.$store.dispatch(CLEAR_BILL,this.form);
+          this.myModel = false;
 
            setTimeout(function(){
                             window.location.href = '/admin/order'
 }, 1000);
-           }
+        }
 
         },
         onKeyMoney(evt,id){
