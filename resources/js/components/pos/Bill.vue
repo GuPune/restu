@@ -29,79 +29,10 @@
 <button type="button" class="form-control  btn btn-success" name="checkbill" style="font-size: 1.5rem; width:100% "  @click="checkbill()">เช็คบิล</button>
 <button type="button" class="form-control  btn btn-primary" name="txtpayment" style="font-size: 1.5rem; width:100% " @click="scrollToTop()">ชำระเงิน</button>
 </div>
-<div v-if="myModel">
-    <transition name="model modal-open">
-          <div class="modal-mask modal fad xtdas">
-            <div class="modal-wrapper">
-            <div class="modal-dialog modal-xl">
-
-                <div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title" id="exampleModalLabel">ชำระเงิน</h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true"></span>
-</button>
-</div>
-<div class="modal-body" id="resultdetail">
-<form name="bill"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tbody><tr>
-<td width="27%" height="50" class="bg-success p-1 px-2 font-1xl">ลูกค้า</td>
-<td width="26%" align="left" style="padding-left:15px">ทั่วไป</td>
-<td width="15%" align="left" class="bg-success p-1 px-2 font-1xl">การชำระ</td>
-<td width="32%" align="left"><span style="padding-left:15px">
-<select name="Ref_type_payment_id" class="bg-warning p-1 px-2 font-1xl" id="Ref_type_payment_id" style=" width:150px;">
-<option value="1" style="text-align:right" selected="">เงินสด</option>
-</select>
-</span></td>
-</tr>
-<tr>
-<td height="50" class="bg-success p-1 px-2 font-1xl">รายการสินค้า</td>
-<td align="left" style="padding-left:15px">{{this.total.list}} รายการ </td>
-
-<td align="left"><span style="padding-left:15px">
-- </span></td>
-</tr>
-<tr>
-<td height="50" class="bg-success p-1 px-2 font-1xl">จำนวนเงินที่ต้องชำระ</td>
-<td colspan="3" style="padding-left:15px"><h4>{{this.total.pricediscount}} บาท </h4>
-<div align="right"></div></td>
-</tr>
-
-<tr>
-<td height="50" class="bg-success p-1 px-2 font-1xl">จำนวนเงินที่รับ
-</td>
-<td colspan="3" style="padding-left:15px">
-    <input name="payment" type="number" id="payment" data="number" class="h2" style="text-align:right; width:150px"  @keyup="calculate" v-model="paymoney" min="0" @change="CheckMoney()">
-   <button type="button" style="background-color: #CCCCCC" name="del" @click="clear()">ลบ</button> </td>
-</tr>
-<tr>
-<td height="50" class="bg-success p-1 px-2 font-1xl">เงินทอน</td>
-<td style="padding-left:15px"><input name="valchange" type="number" class="h2" id="valchange" readonly="" style="width:150px; text-align:right; font-weight:bold" placeholder="ทอนเงิน" data="number" v-model="paychange" ></td>
-<td><div align="right"></div></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td colspan="4" height="60"><div align="center">
-<button type="button" class="btn btn-primary" id="bill" name="bill" @click="checkmoney()">บันทึกการชำระเงิน/พิมพ์ใบเสร็จ</button>
-</div></td>
-</tr>
-</tbody></table>
-</form>
-
-</div>
-<div class="modal-footer">
-</div>
-</div>
-
-            </div>
-            </div>
-          </div>
-      </transition>
-</div>
 
 
 <div v-if="Checkbill">
-    <transition name="model modal-open">
+    <transition name="model modal-open"  id="printThis">
           <div class="modal-mask modal fad xtdas">
             <div class="modal-wrapper">
             <div class="modal-dialog">
@@ -173,9 +104,9 @@ Facebook: Naoki Japanese Restaurant
 </tr>
 </tbody></table>
       </div>
-<div class="modal-footer">
+<div class="modal-footer" id="btfoot">
 <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="Close()">ปิด</button>
-<button type="button" class="btn btn-primary" id="btnPrintbill">พิมพ์</button>
+<button type="button" class="btn btn-primary" id="btnPrintbill" @click="Print()" >พิมพ์</button>
 </div>
 </div>
 
@@ -239,6 +170,38 @@ Facebook: Naoki Japanese Restaurant
  display:block;
 }
 
+@media screen {
+  #printSection {
+      display: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility:visible;
+  }
+  #printSection, #printSection * {
+    visibility:visible;
+  }
+  #printSection {
+    position:absolute;
+    left:0;
+    top:0;
+  }
+    #btfoot {
+      display: none;
+  }
+  #printThis{
+    position:absolute;
+      visibility:visible;
+
+    left:0;
+    top:0;
+  }
+}
+
+
+
   </style>
 
 
@@ -288,6 +251,17 @@ let a = this.$store.dispatch(FETCH_DISCOUNT,this.form);
         this.paychange = 0;
 
         },
+        Print(){
+
+   this.printElement(document.getElementById("printThis"));
+
+window.print();
+        },
+
+       printElement(elem) {
+
+    window.print();
+},
          checkbill(){
 
             if(this.toe_id == 0){
