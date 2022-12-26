@@ -83,9 +83,9 @@
       <td width="115" height="30" bgcolor="#999999"><div align="center"><strong>ส่วนลด </strong></div></td>
       <td width="116" bgcolor="#999999" class="border"><div align="center"><strong>รวมเงิน </strong></div></td>
       </tr>
-      @foreach($order as $datas)
+      @foreach($order as $key => $datas)
       <tr>
-      <td height="25" valign="top"><div align="center">1</div></td>
+      <td height="25" valign="top"><div align="center">{{$key +1}}</div></td>
       <td height="25" valign="top" style="padding-left:5px; padding-right:2px ">{{$datas->name_list}}</td>
       <td height="25" valign="top"><div align="center">{{$datas->quantity}}</div></td>
       <td height="25" valign="top">
