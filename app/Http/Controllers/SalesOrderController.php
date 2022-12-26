@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\CoreFunction\Datatable;
 use App\Models\Bill;
+use App\Models\Generate;
+use App\Models\Order;
 use Yajra\DataTables\DataTables;
 
 
@@ -53,6 +55,15 @@ class SalesOrderController extends Controller
     public function show($id)
     {
         //
+
+        $findbill = Bill::where('id',$id)->first();
+        $findger = Generate::where('qr_code',$findbill->token)->first();
+
+
+        $data =  Order::select('fact_order.id','fact_order.res_id','fact_order.orders_price','fact_order.total_price','fact_order.quantity','fact_order.discount','product_res.name_list','product_res.images','product_res.price_sell')
+        ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('fact_order.ger_id',$findger->id)->get();
+
+      return view('pages.salesorder.show')->with('bill',$findbill)->with('order',$data);
     }
 
     /**

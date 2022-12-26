@@ -12,7 +12,7 @@
             <div class="card-header">รายการขาย</div>
           <div class="card-body">
             <form name="search">
-                <input type="text" name="id" id="id" />
+                <input type="hidden" name="id" id="id" />
                 <input name="svalue" type="hidden" value="1">
                 <div class="card-block">
                 <div class="form-group row">
