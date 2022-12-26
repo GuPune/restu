@@ -23,7 +23,9 @@ use App\Http\Controllers\OrderdrinkController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\OrderResController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SettingController;
+
 
 
 
@@ -127,6 +129,8 @@ Route::prefix('admin')->group(function () {
 
 
     Route::resource('order', OrderController::class);
+    Route::resource('salesorder', SalesOrderController::class);
+    Route::post('salesorder/datatables', [\App\Http\Controllers\SalesOrderController::class, 'getdatatable'])->name('saleorder.data');
 
     Route::resource('orderlist', OrderlistController::class);
 

@@ -18,7 +18,12 @@ class CreateBillTable extends Migration
             $table->text('bill_number')->nullable();
             $table->text('pricetotal')->nullable();
             $table->text('token')->nullable();
-            $table->text('pricediscount')->nullable();
+            $table->string('discount_all_order')->nullable();
+            $table->string('pricediscount')->nullable();
+            $table->string('type_pay')->nullable();
+            $table->string('get_paid')->nullable();
+            $table->string('accept_change')->nullable();
+            $table->string('qty')->nullable();
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ namespace App\CoreFunction;
 
 use Illuminate\Database\Eloquent\Model;
 use App;
+use App\Models\Bill;
 use DB;
 use App\Models\Toe;
 use App\Models\Zone;
@@ -53,11 +54,6 @@ class Datatable extends Model
     {
 
 
-        // $data = Productres::whereIn('status', ['Y','N'])->get();
-
-        // return $data;
-
-        \Log::info($request->all());
 
 
         $data =  Productres::select('product_res.id','product_res.code','product_res.name_list','product_res.images','product_res.price_sell','product_res.status','type_of_food.name')
@@ -79,6 +75,32 @@ class Datatable extends Model
 
    return $data;
     }
+
+
+    public static function saleorder($request = null)
+    {
+
+        $data =  Bill::select('bill.id','bill.bill_number','bill.pricetotal','bill.pricediscount','bill.type_pay','bill.get_paid','bill.accept_change','bill.qty','bill.discount_all_order','bill.total','generate.status','bill.created_at',DB::raw("DATE_FORMAT(bill.created_at, '%d-%b-%Y %H:%i:%s') as day_fort"))
+        ->leftJoin('generate', 'bill.token', '=', 'generate.qr_code');
+
+        if($request['typepay']){
+            $data->where('bill.type_pay',$request['typepay']);
+        }
+        if($request['status']){
+           $data->where('generate.status',$request['status']);
+        }
+        if($request['billnumber']){
+            $data->where('bill.bill_number',$request['billnumber']);
+        }
+
+        $data->orderBy('bill.created_at', 'desc')->get();
+
+        // 'inputdaterange' => '12/26/2022 - 12/26/2022',
+
+        return $data;
+
+    }
+
 
 
 

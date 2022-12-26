@@ -30,6 +30,21 @@
         </a>
       </li>
 
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#form-salesorder" aria-expanded="false" aria-controls="form-salesorder">
+            <i class="typcn typcn-globe-outline menu-icon"></i>
+          <span class="menu-title">จัดการขาย</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="form-salesorder">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="/admin/salesorder">S01 รายการงานทั้งหมด</a></li>
+
+            </ul>
+          </div>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#form-report" aria-expanded="false" aria-controls="form-report">
             <i class="typcn typcn-globe-outline menu-icon"></i>

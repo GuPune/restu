@@ -894,8 +894,10 @@ $toe = Toe::where('id',$request->toe_id)->first();
 $max_id = Bill::max('id')+1;
 $billnumber = "BILL".date('dmY').str_pad($max_id, 6, "0", STR_PAD_LEFT);
 $discountorder = Order::where('ger_id',$gettoken->id)->sum('discount');
+$qty = Order::where('ger_id',$gettoken->id)->sum('quantity');
 $sunorder = Order::where('ger_id',$gettoken->id)->sum('orders_price');
 $dis = $request->pricetotal - $request->pricediscount;
+$acceptpay = $request->paymoney - $request->pricediscount;
 $totalall = $sunorder - ($discountorder + $request->discount);
 $bill = Bill::create([
     "token" => $toe->qr_code,
@@ -903,6 +905,11 @@ $bill = Bill::create([
     "pricetotal" => $totalall,
     "pricediscount" => $dis,
     "discount_all_order" => $discountorder,
+    "get_paid" => $request->paymoney,
+    "type_pay" => $request->type_pay,
+    "accept_change" => $acceptpay,
+    "total" => $sunorder,
+    "qty" => $qty
 ]);
 
 $updatetor = Toe::where('id',$request->toe_id)->update([

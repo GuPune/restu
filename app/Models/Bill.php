@@ -18,5 +18,10 @@ class Bill extends Model
         'pricetotal',
         'pricediscount',
         'discount_all_order',
+        'get_paid',
+        'accept_change',
+        'type_pay',
+        'qty',
+        'total'
     ];
 }

@@ -64,6 +64,7 @@ Vue.use(VueToast);
  Vue.component('app', require('./components/App.vue').default)
 
  Vue.component('order', require('./components/order/Index.vue').default)
+ Vue.component('orderdrink', require('./components/orderdrink/Index.vue').default)
  /**
   * Next, we will create a fresh Vue application instance and attach it to
   * the page. Then, you may begin adding components to this application
