@@ -53,8 +53,7 @@
         </a>
         <div class="collapse" id="form-report">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="/admin/users">R01 ยอดขายรายวัน</a></li>
-              <li class="nav-item"> <a class="nav-link" href="/admin/roles">R02 สรุปการชำระเงิน</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/admin/reportday">R01 สรุปรายรับรายรับ (รายวัน)</a></li>
             </ul>
           </div>
       </li>

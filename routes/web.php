@@ -23,8 +23,10 @@ use App\Http\Controllers\OrderdrinkController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\OrderResController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ReportDayController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SettingController;
+
 
 
 
@@ -142,6 +144,9 @@ Route::prefix('admin')->group(function () {
     Route::resource('rating', RatingController::class);
 
     Route::resource('setting', SettingController::class);
+
+
+    Route::get('/reportday', [ReportDayController::class, 'index'])->name('reportday');
 
 });
 
