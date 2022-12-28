@@ -15,7 +15,9 @@
           </div>
           <div class="sidebar-profile-name">
             <p class="sidebar-name">
+                @auth
                 {{Auth::user()->name}}
+                @endauth
             </p>
 
           </div>
