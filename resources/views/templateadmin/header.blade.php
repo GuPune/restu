@@ -22,7 +22,7 @@
             <span class="nav-profile-name">
                 @auth
                 {{Auth::user()->name}}
-@endauth
+                @endauth
 
             </span>
           </a>
