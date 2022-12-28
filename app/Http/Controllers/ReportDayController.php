@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportReport;
+use App\Models\Bill;
 
 class ReportDayController extends Controller
 {
@@ -12,13 +15,31 @@ class ReportDayController extends Controller
     public function index(Request $request)
     {
 
+
         $today = \Carbon\Carbon::today(); //Current Date and Time
+
 $a = $today->format('d');
 
 
+
+        if($request->txtyear == null){
+
+$yea= \Carbon\Carbon::today();
+$y = $today->format('Y');
+$request->txtyear = $y;
+
+        }
+        if($request->txtmonth == null){
+            $mo= \Carbon\Carbon::today();
+$m = $today->format('m');
+$request->txtmonth = $m;
+
+        }
         $gets = $request->txtyear .'-'. $request->txtmonth.'-'.$a;
+
         $firstDayofMonth =    \Carbon\Carbon::parse($gets)->startOfMonth()->toDateString();
         $lastDayofMonth =    \Carbon\Carbon::parse($gets)->endOfMonth()->toDateString();
+
 
         $reportday = DB::select(
             DB::raw("SELECT `dateList`.`Date`,
@@ -41,8 +62,21 @@ $a = $today->format('d');
         ORDER BY `dateList`.`Date` ASC")
          );
 
+       $years =  $request->txtyear;
+       $ms =  $request->txtmonth;
 
-        return view('pages.report.day')->with('report',$reportday);
+       $resul = Bill::whereBetween('created_at', [$firstDayofMonth, $lastDayofMonth])->sum('pricetotal');
+
+
+        return view('pages.report.day')->with('report',$reportday)->with(compact('years','ms','resul'));
+    }
+
+    public function export($y,$m)
+    {
+
+        return Excel::download(new ExportReport($y,$m), 'report.xlsx');
+
+        //return Excel::download(new DisneyplusExport, 'disney.xlsx');
     }
 
 }

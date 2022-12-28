@@ -22,6 +22,7 @@ class Bill extends Model
         'accept_change',
         'type_pay',
         'qty',
-        'total'
+        'total',
+        'date'
     ];
 }

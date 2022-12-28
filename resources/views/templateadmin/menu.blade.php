@@ -24,7 +24,13 @@
         <p class="sidebar-menu-title">Dash menu</p>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/admin/order">
+        <a class="nav-link" href="/admin/dashboard">
+          <i class="typcn typcn-device-desktop menu-icon"></i>
+          <span class="menu-title">ภาพรวม</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/pos">
           <i class="typcn typcn-device-desktop menu-icon"></i>
           <span class="menu-title">หน้าขาย</span>
         </a>
@@ -32,15 +38,15 @@
 
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#form-salesorder" aria-expanded="false" aria-controls="form-salesorder">
+        <a class="nav-link" data-toggle="collapse" href="#form-salesorderx" aria-expanded="false" aria-controls="form-salesorderx">
             <i class="typcn typcn-globe-outline menu-icon"></i>
           <span class="menu-title">จัดการขาย</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="form-salesorder">
+        <div class="collapse" id="form-salesorderx">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="/admin/salesorder">S01 รายการงานทั้งหมด</a></li>
-
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/salesorder">S01 รายการงานทั้งหมด</a></li>
             </ul>
           </div>
       </li>

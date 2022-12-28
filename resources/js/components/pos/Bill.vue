@@ -397,7 +397,7 @@ return alert('จ่ายเงินไม่ได้');
          this.myModel = false;
 
            setTimeout(function(){
-                            window.location.href = '/admin/order'
+                            window.location.href = '/admin/pos'
 }, 1000);
         }
 

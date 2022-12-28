@@ -130,7 +130,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/restu/uploadimage', [App\Http\Controllers\ProductController::class, 'upload']);
 
 
-    Route::resource('order', OrderController::class);
+    Route::resource('pos', OrderController::class);
     Route::resource('salesorder', SalesOrderController::class);
     Route::post('salesorder/datatables', [\App\Http\Controllers\SalesOrderController::class, 'getdatatable'])->name('saleorder.data');
 
@@ -147,6 +147,7 @@ Route::prefix('admin')->group(function () {
 
 
     Route::get('/reportday', [ReportDayController::class, 'index'])->name('reportday');
+    Route::get('export/{year}/{m}', [ReportDayController::class, 'export']);
 
 });
 

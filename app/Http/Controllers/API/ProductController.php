@@ -819,9 +819,22 @@ if($request->all()){
     {
 
 
-
         $gettoe = Toe::where('id',$request->toe_id)->first();
-        \Log::info($gettoe);
+        $max_id = Bill::max('id')+1;
+$billnumber = "BILL".date('dmY').str_pad($max_id, 6, "0", STR_PAD_LEFT);
+$today = \Carbon\Carbon::now();
+$bill = Bill::create([
+    "token" => $gettoe->qr_code,
+    "bill_number" => $billnumber,
+    "pricetotal" => 0,
+    "pricediscount" => 0,
+    "discount_all_order" => 0,
+    "get_paid" => 0,
+    "accept_change" => 0,
+    "total" => 0,
+    "qty" => 0,
+    "date" => $today,
+]);
 
 
 
@@ -836,6 +849,9 @@ $updatetor = Toe::where('id',$request->toe_id)->update([
     "images_qrcode" => Null,
     "orderstatus" => 'idle',
 ]);
+
+
+
 
 
 
@@ -899,6 +915,7 @@ $sunorder = Order::where('ger_id',$gettoken->id)->sum('orders_price');
 $dis = $request->pricetotal - $request->pricediscount;
 $acceptpay = $request->paymoney - $request->pricediscount;
 $totalall = $sunorder - ($discountorder + $request->discount);
+$today = \Carbon\Carbon::now();
 $bill = Bill::create([
     "token" => $toe->qr_code,
     "bill_number" => $billnumber,
@@ -909,6 +926,7 @@ $bill = Bill::create([
     "type_pay" => $request->type_pay,
     "accept_change" => $acceptpay,
     "total" => $sunorder,
+    "date" => $today,
     "qty" => $qty
 ]);
 

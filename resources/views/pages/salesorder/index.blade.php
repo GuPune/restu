@@ -21,7 +21,7 @@
                 <input type="text" id="billNumber" value="" name="billNumber" class="form-control" style="width:180px">
                 </div>
                 <div class="col-md-4">
-                <span style="float:right"><a href="product/history_excel.php?date=23/12/2022-26/12/2022&amp;c=&amp;b=&amp;r=&amp;p=&amp;s=&amp;txtsearch=" class="btn btn-info" target="_blank"><i class="fa fa-file-excel-o" aria-hidden="true"></i> ดาวน์โหลดข้อมูลไฟล์ Excel</a></span>
+                {{-- <span style="float:right"><a href="product/history_excel.php?date=23/12/2022-26/12/2022&amp;c=&amp;b=&amp;r=&amp;p=&amp;s=&amp;txtsearch=" class="btn btn-info" target="_blank"><i class="fa fa-file-excel-o" aria-hidden="true"></i> ดาวน์โหลดข้อมูลไฟล์ Excel</a></span> --}}
                 </div>
                 </div>
                 <div class="form-group row">
@@ -367,7 +367,16 @@ columnDefs: [{
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row) {
-                        return '<label for="css">'+row.bill_number+'</label><br><label for="css" style="font-size: 10px;">'+row.day_fort+'</label>';
+
+                        if(row.status == 'S'){
+                            var btnDetail = '<label for="css">'+row.bill_number+'</label><br><label for="css" style="font-size: 10px;">'+row.day_fort+'<a role="button" class="btn btn-info btn-sm"> ชำระ</a>'
+
+                        }else{
+                            var btnDetail = '<label for="css">'+row.bill_number+'</label><br><label for="css" style="font-size: 10px;">'+row.day_fort+'</label><a role="button" class="btn btn-danger btn-sm"> ยกเลิก</a>'
+                        }
+
+
+                        return btnDetail;
                     }
                 },
     {
