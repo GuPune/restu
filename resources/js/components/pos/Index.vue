@@ -365,6 +365,7 @@ this.Qrcode = true;
 
                 const modal = document.getElementById("modalInvoice")
                 const cloned = modal.cloneNode(true)
+
                 let section = document.getElementById("print")
 
 
@@ -378,6 +379,11 @@ this.Qrcode = true;
   section.innerHTML = "";
   section.appendChild(cloned);
   window.print();
+
+
+    section.innerHTML = "";
+  //  section.appendChild();
+
         //        window.print();
 
             }

@@ -34,7 +34,7 @@
 
 <div v-if="Checkbill">
     <transition name="model modal-open">
-          <div class="modal-mask modal fad xtdas">
+          <div class="modal-mask modal fad xtdas" id="checkbill">
             <div class="modal-wrapper">
             <div class="modal-dialog">
 
@@ -45,7 +45,7 @@
       <table width="290px" border="0" cellspacing="0" cellpadding="0">
 <tbody>
   <tr>
-<td colspan="3" style="font-size:27px;color:#000" align="center"> <strong>9</strong></td>
+<td colspan="3" style="font-size:27px;color:#000" align="center"> <strong></strong></td>
 </tr>
 <tr>
 <td colspan="3" align="center">
@@ -63,9 +63,7 @@
 <tr>
 <td colspan="3"> <hr></td>
 </tr>
-
 <tr  v-for="(item, index) in this.orders">
-
 <td width="112" valign="top">
   <div align="left" style="font-size:13px;color:#000">{{item.quantity}} {{item.name_list}}<br>
 
@@ -335,19 +333,21 @@ let a = this.$store.dispatch(FETCH_DISCOUNT,this.form);
         },
         Print(){
 
-//             const modal = document.getElementById("modalInvoice")
-//             const cloned = modal.cloneNode(true)
-//             let section = document.getElementById("print")
+            const modal = document.getElementById("checkbill")
 
-// if (!section) {
-//    section  = document.createElement("div")
-//    section.id = "print"
-//    document.body.appendChild(section)
-// }
+            const cloned = modal.cloneNode(true)
+            let section = document.getElementById("print")
 
-// section.innerHTML = "";
-// section.appendChild(cloned);
+if (!section) {
+   section  = document.createElement("div")
+   section.id = "print"
+   document.body.appendChild(section)
+}
+
+section.innerHTML = "";
+section.appendChild(cloned);
 window.print();
+section.innerHTML = "";
 
         },
 
@@ -358,7 +358,14 @@ window.print();
          checkbill(){
 
             if(this.toe_id == 0){
-return alert('กรุณาเลือกโต๊ะ');
+
+                              this.$toast.open({
+        message: "กรุณาเลือกโต๊ะ",
+        type: "error",
+        duration: 2000,
+        dismissible: true
+      })
+return false;
             }
 this.Checkbill = true;
 
@@ -421,6 +428,17 @@ calculate: function () {
     this.paychange = this.paymoney - this.total.pricediscount;
     },
 scrollToTop() {
+
+                if(this.toe_id == 0){
+
+                              this.$toast.open({
+        message: "กรุณาเลือกโต๊ะ",
+        type: "error",
+        duration: 2000,
+        dismissible: true
+      })
+return false;
+            }
 
       this.myModel = true;
 
