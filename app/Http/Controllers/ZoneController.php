@@ -19,12 +19,16 @@ class ZoneController extends Controller
 
     function __construct()
     {
+        $this->middleware('auth');
          $this->middleware('permission:zone-list|zone-create|zone-edit|zone-delete', ['only' => ['index','store']]);
          $this->middleware('permission:zone-create', ['only' => ['create','store']]);
          $this->middleware('permission:zone-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:zone-close|zone-open', ['only' => ['close','open']]);
          $this->middleware('permission:zone-delete', ['only' => ['destroy']]);
+
     }
+
+
 
 
 

@@ -11,7 +11,10 @@ use App\Models\Bill;
 class ReportDayController extends Controller
 {
     //
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(Request $request)
     {
 
