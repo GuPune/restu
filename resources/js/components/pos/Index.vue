@@ -87,7 +87,7 @@
 
 <div v-if="Qrcode">
     <transition name="model modal-open">
-          <div class="modal-mask modal fad xtdas">
+          <div class="modal-mask modal fad xtdas screen" id="modalInvoice">
             <div class="modal-wrapper">
             <div class="modal-dialog modal-sm">
 
@@ -100,10 +100,8 @@
 </div>
        <div class="modal-body">
         <form>
-          <div class="form-group" style="
-    text-align: center;
-">
-             <img  :src="Checkimage(this.formtoe.images_qrcode)" width="80" height="80">
+          <div class="form-group" style="text-align: center;">
+             <img  :src="Checkimage(this.formtoe.images_qrcode)" width="100%" height="100%">
 
           </div>
           <div class="form-group" style="text-align: center;">
@@ -112,9 +110,10 @@
           </div>
         </form>
       </div>
-<div class="modal-footer">
+      <div style="page-break-after: always"> </div>
+<div class="modal-footer btnPri">
 <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="Close()">ปิด</button>
-<button type="button" class="btn btn-primary" id="btnPrintbill">พิมพ์</button>
+<button type="button" class="btn btn-primary" id="btnPrintbill" @click="Printqr()">พิมพ์</button>
 </div>
 </div>
 
@@ -132,7 +131,58 @@
 
 </template>
 
+<style>
 
+
+
+@media print {
+    .container-scroller{
+        display: none;
+    }
+    .pagebreak {
+        clear: both;
+        page-break-after: always;
+    }
+}
+
+@media print {
+
+
+
+    @page
+{
+
+    size: auto;   /* auto is the initial value */
+    margin: 25mm 5mm 5mm 5mm;
+}
+
+ body {
+
+  visibility:hidden;
+
+  }
+  #print, #print * {
+    visibility:visible;
+  }
+  #print {
+    position:absolute;
+    left:0;
+    top:0;
+    padding: 10mm;
+  }
+  #print {
+    page-break-after:always;
+  }
+  .btnPri{
+    display: none;
+  }
+  .pagebreak { page-break-before: always; } /* page-break-after works, as well */
+}
+
+
+
+
+</style>
 <script>
 
 import { mapGetters,mapState } from "vuex";
@@ -308,6 +358,27 @@ this.Qrcode = true;
 
 
 
+
+            },
+
+            Printqr(){
+
+                const modal = document.getElementById("modalInvoice")
+                const cloned = modal.cloneNode(true)
+                let section = document.getElementById("print")
+
+
+
+  if (!section) {
+     section  = document.createElement("div")
+     section.id = "print"
+     document.body.appendChild(section)
+  }
+
+  section.innerHTML = "";
+  section.appendChild(cloned);
+  window.print();
+        //        window.print();
 
             }
 
