@@ -8,6 +8,14 @@
     <li class="list-group-item" style="text-align: center;">
          <button type="button" class="btn btn-sm" style="background-color: #DEDA0D;">รอดำเนินการ</button></li>
   </ul>
+  <div class="card-footer text-muted" v-if="order.length > 0">
+<button type="button" class="btn btn-secondary btn-sm"  @click="checkall('O')">เลือกทั้งหมด</button>
+<button type="button" class="btn btn-primary btn-sm" @click="updateorder()">รับออเดอร์</button>
+  </div>
+
+    <div class="card-footer text-muted" v-else>
+<p>ไม่มีข้อมูล</p>
+  </div>
         <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order" :key="index">
             <div class="row" style="">
               <div class="col-3">
@@ -57,14 +65,7 @@
               </div>
             </div>
           </div>
-          <div class="card-footer text-muted" v-if="order.length > 0">
-<button type="button" class="btn btn-secondary btn-sm"  @click="checkall('O')">เลือกทั้งหมด</button>
-<button type="button" class="btn btn-primary btn-sm" @click="updateorder()">รับออเดอร์</button>
-  </div>
 
-    <div class="card-footer text-muted" v-else>
-<p>ไม่มีข้อมูล</p>
-  </div>
         </div>
 
 
@@ -78,6 +79,15 @@
       style="background-color: #1080DC;"
     >กำลังเตรียมอาหาร </button></li>
   </ul>
+  <div class="card-footer text-muted" v-if="order_doing.length > 0">
+
+<button type="button" class="btn btn-secondary btn-sm" @click="checkall('I')">เลือกทั้งหมด</button>
+<button type="button" class="btn btn-primary btn-sm" @click="updatedoing()">เสร็จสิ้น</button>
+  </div>
+
+    <div class="card-footer text-muted" v-else>
+<p>ไม่มีข้อมูล</p>
+  </div>
             <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_doing" :key="index">
             <div class="row" style="">
               <div class="col-3">
@@ -127,15 +137,7 @@
               </div>
             </div>
           </div>
-          <div class="card-footer text-muted" v-if="order_doing.length > 0">
 
-<button type="button" class="btn btn-secondary btn-sm" @click="checkall('I')">เลือกทั้งหมด</button>
-<button type="button" class="btn btn-primary btn-sm" @click="updatedoing()">เสร็จสิ้น</button>
-  </div>
-
-    <div class="card-footer text-muted" v-else>
-<p>ไม่มีข้อมูล</p>
-  </div>
         </div>
 
 
@@ -150,6 +152,15 @@
     background-color: #16CE64;"
     >รอเสริฟ </button></li>
   </ul>
+  <div class="card-footer text-muted" v-if="order_waiting.length > 0">
+<button type="button" class="btn btn-secondary btn-sm" @click="checkall('S')">เลือกทั้งหมด</button>
+<button type="button" class="btn btn-primary btn-sm" @click="updatewait()">เสริฟ</button>
+  </div>
+
+
+     <div class="card-footer text-muted" v-else>
+<p>ไม่มีข้อมูล</p>
+  </div>
             <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_waiting" :key="index">
             <div class="row" style="">
               <div class="col-3">
@@ -196,15 +207,7 @@
               </div>
             </div>
           </div>
-          <div class="card-footer text-muted" v-if="order_waiting.length > 0">
-<button type="button" class="btn btn-secondary btn-sm" @click="checkall('S')">เลือกทั้งหมด</button>
-<button type="button" class="btn btn-primary btn-sm" @click="updatewait()">เสริฟ</button>
-  </div>
 
-
-     <div class="card-footer text-muted" v-else>
-<p>ไม่มีข้อมูล</p>
-  </div>
         </div>
 
     </b-col>
@@ -260,7 +263,7 @@ this.order = ordercus.pending;
 this.order_doing = ordercus.doing;
 this.order_waiting = ordercus.waiting;
 
- console.log('this.order_doing',this.order_doing);
+
 
 
 
@@ -278,22 +281,36 @@ setInterval(() => {
         checkall(e){
 
 if(e == 'O'){
-console.log('o');
-}
-if(e == 'I'){
-console.log('i');
-}
-if(e == 'S'){
-console.log('s');
-}
-
-this.selected_pad = [];
+    this.selected_pad = [];
             if (!this.allSelected) {
                  this.order.forEach((select) => {
              this.selected_pad.push(select.id)
             })
 
             }
+}
+if(e == 'I'){
+    this.selected_do = [];
+    if (!this.allSelected) {
+                 this.order_doing.forEach((select) => {
+             this.selected_do.push(select.id)
+            })
+
+            }
+
+
+}
+if(e == 'S'){
+    this.selected_wait = [];
+    if (!this.allSelected) {
+                 this.order_waiting.forEach((select) => {
+             this.selected_wait.push(select.id)
+            })
+
+    }
+}
+
+
           //  console.log('this.selected_pad',this.selected_pad);
         },
 

@@ -123,7 +123,7 @@
           </div>
       </transition>
 </div>
-
+<div>time: <strong>{{ time }}</strong></div>
 
 </div>
 
@@ -197,6 +197,7 @@ export default {
         },
         data() {
       return {
+        time:30,
         form:{
             id:null
         },
@@ -225,6 +226,12 @@ let toe = await this.$store.dispatch(FETCH_TOE);
 
 this.typerest = typeres;
 this.toeall = toe;
+
+
+setInterval(() => {
+      this.getNow();
+    }, 1000)
+
 
         },
     mounted() {
@@ -306,6 +313,22 @@ this.formtoe.number_toe = qr.number_toe
 
 
             },
+
+            async getNow(){
+
+this.time--;
+if(this.time == 0){
+    this.time = 30;
+    this.form.toe_id = this.toe_id;
+    console.log(this.form);
+    let orders = await this.$store.dispatch(FETCH_ORDER,this.form);
+
+}
+
+
+
+},
+
             async Cancel(){
 
 
