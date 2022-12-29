@@ -34,13 +34,13 @@
 
 <div v-if="Checkbill">
     <transition name="model modal-open">
-          <div class="modal-mask modal fad xtdas" id="checkbill">
+          <div class="modal-mask modal fad xtdas">
             <div class="modal-wrapper">
             <div class="modal-dialog">
 
   <div class="modal-content" style="width:320px;">
 
-       <div class="modal-body">
+       <div class="modal-body" id="checkbill">
 
       <table width="290px" border="0" cellspacing="0" cellpadding="0">
 <tbody>
@@ -262,8 +262,16 @@ Facebook: Naoki Japanese Restaurant
 }
 
 @media print {
+
+    @page
+{
+
+}
+
   body * {
-    visibility:visible;
+    visibility:hidden;
+    color: #000;
+	font-family:"Tahoma";
   }
   #printSection, #printSection * {
     visibility:visible;
@@ -278,8 +286,6 @@ Facebook: Naoki Japanese Restaurant
   }
 
 }
-
-
 
   </style>
 
@@ -336,11 +342,11 @@ let a = this.$store.dispatch(FETCH_DISCOUNT,this.form);
             const modal = document.getElementById("checkbill")
 
             const cloned = modal.cloneNode(true)
-            let section = document.getElementById("print")
+            let section = document.getElementById("printSection")
 
 if (!section) {
    section  = document.createElement("div")
-   section.id = "print"
+   section.id = "printSection"
    document.body.appendChild(section)
 }
 
