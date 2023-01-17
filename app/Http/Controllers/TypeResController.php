@@ -45,9 +45,15 @@ class TypeResController extends Controller
     {
         //
 
+        $image = $request->images;
+
+        if(!$request->images){
+$image = 'no_photo.jpg';
+        }
+
         $addrestype = Typeoffoods::create([
             'name' => $request->name,
-            'images' => $request->images,
+            'images' => $image,
             'status' => 'Y'
         ]);
 

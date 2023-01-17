@@ -201,7 +201,7 @@
                 <td>
                     <input name="unit_cost" type="number" class="form-control" id="unit_cost" value="1" min="1" placeholder="บาท" required="required" onkeypress="return onlyNumberKey(event)"></td>
                 </tr>
-                <input name="images" type="hidden" class="form-control" id="images"   required="required">
+                <input name="images" type="text" class="form-control" id="images"   required="required" hidden>
 
                 <tr>
                 <td height="30">รูป</td>
@@ -853,10 +853,13 @@ var price_sell = $('#price_sell').val();
 var unit_cost = $('#unit_cost').val();
 var note = $('#note').val();
 var images = $('#images').val();
-
 var selectedOption = $("input:radio[name=optradio]:checked").val()
 
+
+
 let valform = validateForm();
+
+
             if(valform === true){
             $.ajaxSetup({
                 headers: {
@@ -903,7 +906,7 @@ hideModal();
 
             }else{
 
-
+                return false;
             }
 $("#myModal").hide();
 

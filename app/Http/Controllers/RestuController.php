@@ -55,12 +55,16 @@ $zone = Zone::where('status','Y')->get();
     public function store(Request $request)
     {
         //
-\Log::info($request->all());
+        $image = $request->images;
+        \Log::info($request->all());
+        if(!$request->images){
+$image = 'no_photo.jpg';
+        }
 
         $resadd = Productres::create([
             'code' => $request->code,
             'name_list' => $request->name_list,
-            'images' => $request->images,
+            'images' => $image,
             'zone_id' => $request->zone,
             'type_of_food_id' => $request->type,
             'price_sell' => $request->price_sell,
