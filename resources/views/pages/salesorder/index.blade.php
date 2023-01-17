@@ -391,8 +391,11 @@ columnDefs: [{
                         }else if(row.type_pay == '2'){
                             var btnDetail = 'พร้อมเพย์'
 
-                        }else{
+                        }else if(row.type_pay == '3'){
                             var btnDetail = 'โอนเงิน'
+
+                        }else{
+                            var btnDetail = '-'
                         }
 
                         return btnDetail;
