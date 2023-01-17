@@ -194,9 +194,11 @@ $updatedata = Order::where('id',$request->order_id)->update([
 
         $datas = [];
 
-        $typefood = Typeoffoods::where('status','Y')->get();
+        // $typefood = Typeoffoods::where('status','Y')->get();
+
 
         $group = Group::get();
+
 
         // foreach ($typefood as $index => $typefoods) {
         //     $datas[$index]['id'] = $typefoods->id;
@@ -206,10 +208,11 @@ $updatedata = Order::where('id',$request->order_id)->update([
         //     $datas[$index]['token'] = $request->token;
         //  }
 
-         foreach ($group as $index => $typefoods) {
-            $typefood = Typeoffoods::where('status','Y')->where('group_id',$typefoods->id)->get();
-            $datas[$index]['id'] = $typefoods->id;
-            $datas[$index]['name'] = $typefoods->name;
+         foreach ($group as $index => $gr) {
+
+            $typefood = Typeoffoods::where('status','Y')->where('group_id',$gr->id)->get();
+            $datas[$index]['id'] = $gr->id;
+            $datas[$index]['name'] = $gr->name;
             $datas[$index]['token'] = $request->token;
             $datas[$index]['food'] = $typefood;
 

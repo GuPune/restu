@@ -1,7 +1,5 @@
 <template>
   <div class="listres">
-
-
     <div class="bg-white p-3 mb-1" data-toggle="modal" data-target="#exampleModal31126" @click="scrollToTops(i)" v-for="i in this.res">
             <div class="row" style="">
               <div class="col-3">

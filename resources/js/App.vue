@@ -27,7 +27,7 @@
   <!-- Page Content  -->
   <div id="content" v-if="currentRouteName === '/'">
 
-    <div class="px-3" style="margin-top:6rem;">
+    <div class="px-3" style="margin-top:5rem;">
 <Banner/>
 
 
@@ -55,7 +55,7 @@
     <div v-else>
 
         <Navbar/>
-        <div class="px-3" style="margin-top:7rem;">
+        <div class="px-3" style="margin-top:5rem;">
  <router-view></router-view>
 
 </div>
