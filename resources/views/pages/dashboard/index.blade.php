@@ -15,7 +15,7 @@
   <div class="row">
   <div class="col-8">
   <h4 class="card-title">ยอดขายวันนี้</h4>
-  <p class="text-muted">&nbsp;วันจันทร์ที่ 26 เดือนธันวาคม พ.ศ.2565</p>
+  <p class="text-muted">&nbsp;{{ date('Y-m-d H:i:s') }}</p>
   <br>
   <div class="col-sm-4" style="float:left">
   <div class="card">
