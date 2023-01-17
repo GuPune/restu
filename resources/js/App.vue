@@ -55,7 +55,7 @@
     <div v-else>
 
         <Navbar/>
-        <div class="px-3" style="margin-top:5rem;">
+        <div class="px-3" style="margin-top:5rem;margin-bottom:7rem;">
  <router-view></router-view>
 
 </div>
