@@ -1,13 +1,39 @@
 <template>
+
     <div>
-        <hr class="style-two">
+
+        <div v-for="i in this.typerest">
+
+            <hr class="style-two">
 <h5>
     <i class="fa fa-shopping-cart" aria-hidden="true">
 
-    </i> ประเภทอาหาร {{this.currentRouteName}}  {{this.form.token}}</h5>
-        <div class="row mb-3">
-				<div class="col-4 pl-2 pr-2" v-for="i in this.typerest">
+    </i> ประเภทอาหาร  {{ i.name }}</h5>
 
+    <div class="row mb-3" >
+				<div class="col-4 pl-2 pr-2" v-for="x in i.food">
+                     <router-link :to="{ name: 'listres', params: { token:i.token,id: x.id }}">
+					<div class="card shadow">
+						<div class="card-body text-center">
+                             <img  :src="checkImage(x.images)" width="100%"/>
+                             </div>
+                                 <h5 class="card-title" style="text-align: center;">{{x.name}}</h5>
+
+					</div>
+                     </router-link>
+                    </div>
+      </div>
+
+
+        </div>
+
+        <!-- <hr class="style-two">
+<h5>
+    <i class="fa fa-shopping-cart" aria-hidden="true">
+
+    </i> ประเภทอาหาร</h5>
+        <div class="row mb-3" >
+				<div class="col-4 pl-2 pr-2" v-for="i in this.typerest">
                      <router-link :to="{ name: 'listres', params: { token:i.token,id: i.id }}">
 					<div class="card shadow">
 						<div class="card-body text-center">
@@ -16,12 +42,13 @@
                                  <h5 class="card-title" style="text-align: center;">{{i.name}}</h5>
 
 					</div>
-
-
                      </router-link>
                     </div>
-      </div>
+      </div> -->
     </div>
+
+
+
 </template>
 <script>
 import { mapGetters,mapState } from "vuex";
@@ -58,9 +85,10 @@ export default {
         // let toe = await this.$store.dispatch(FETCH_TOE_FRONT,this.form);
         let gettoken = await this.$store.dispatch(GET_TOKEN,this.form);
 
-        console.log('gettoken',this.getoken);
+
         let typeres = await this.$store.dispatch(FETCH_TYPERES,this.form);
         this.typerest = typeres;
+        console.log('typeres',typeres);
 
 
 

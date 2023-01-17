@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\CoreFunction\Line;
 use App\Models\Bill;
 use App\Models\Call;
+use App\Models\Group;
 use App\Models\Rating;
 use App\Models\SystemRes;
 use Illuminate\Support\Str;
@@ -195,13 +196,24 @@ $updatedata = Order::where('id',$request->order_id)->update([
 
         $typefood = Typeoffoods::where('status','Y')->get();
 
-        foreach ($typefood as $index => $typefoods) {
+        $group = Group::get();
+
+        // foreach ($typefood as $index => $typefoods) {
+        //     $datas[$index]['id'] = $typefoods->id;
+        //     $datas[$index]['name'] = $typefoods->name;
+        //     $datas[$index]['status'] = $typefoods->status;
+        //     $datas[$index]['images'] = $typefoods->images;
+        //     $datas[$index]['token'] = $request->token;
+        //  }
+
+         foreach ($group as $index => $typefoods) {
+            $typefood = Typeoffoods::where('status','Y')->where('group_id',$typefoods->id)->get();
             $datas[$index]['id'] = $typefoods->id;
             $datas[$index]['name'] = $typefoods->name;
-            $datas[$index]['status'] = $typefoods->status;
-            $datas[$index]['images'] = $typefoods->images;
             $datas[$index]['token'] = $request->token;
-                }
+            $datas[$index]['food'] = $typefood;
+
+         }
 
         return response()->json($datas);
 
