@@ -38,7 +38,7 @@
                 <h3 class="w-75 p-3">ตั้งค่าสินค้า/บริการ</h3>
               </div>
               <div class="col-md-2 float-right">
-                <button type="button" class="btn btn-success bt-sec" data-toggle="modal" data-target="#myModal">
+                <button type="button" class="btn btn-success bt-sec">
                     + เพิ่มสินค้า
                   </button>
                </div>
@@ -175,6 +175,7 @@
                 <option value="{{$types->id}}">{{$types->name}}</option>
                 @endforeach
             </select>
+            <div class="help-block-type">กรุณากรอกหมวด</div>
         </td>
                 </tr>
                 <tr>
@@ -255,7 +256,7 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">เพิ่มรายการ อาหาร</h4>
+            <h4 class="modal-title" id="exampleModalLabel">แก้ไขรายการ อาหาร</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
             </button>
@@ -441,7 +442,7 @@ input:checked + .slider:before {
     </style>
 
 <style type="text/css">
-    .help-block-code,.help-block-name_list,.help-block-price{
+    .help-block-code,.help-block-name_list,.help-block-price,.help-block-type{
         display: none;
         color: red;
         text-align: center;
@@ -672,8 +673,11 @@ $.ajaxSetup({
  }
 
  $('body').on('click', '.bt-sec', function (e) {
-
     $('#showImageProduct').attr("src", $link +'/'+ 'no_photo.jpg');
+
+    $("#myModal").modal('show');
+
+
  });
 
 
@@ -821,9 +825,7 @@ swal("บันทึกสำเร็จ!", "บันทึกสำเร็
 
 var code = $('#code').val();
 var name_list = $('#name_list').val();
-
-
-
+var type = $('#type').val();
 
 
 if(code == ''){
@@ -832,8 +834,11 @@ if(code == ''){
 if(name_list == ''){
     $('.help-block-name_list').show();
 }
+if(type == null){
+    $('.help-block-type').show();
+}
 
-if(code == ''|| name_list == ''){
+if(code == ''|| name_list == '' || type == null){
     return false;
 }else{
     return true;
@@ -897,7 +902,8 @@ $('#showImageProduct').attr("src", $link +'/'+ 'no_photo.jpg');
                 table.ajax.reload(null, false);
 }, 500);
 
-hideModal();
+// hideModal();
+$('#myModal').modal('hide');
 
                 }
 
