@@ -744,7 +744,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
 if($request->all()){
     foreach ($request->all() as $index => $orders) {
         $updatetor = Order::where('id',$orders)->update([
-            "status" => 'O'
+            "status" => 'I'
         ]);
     }
 }

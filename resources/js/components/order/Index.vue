@@ -2,7 +2,7 @@
     <div>
         <b-container fluid="xl" >
   <b-row>
-    <b-col  sm="12" md="4" lg="4" xl="4">
+    <b-col  sm="12" md="6" lg="6" xl="6">
         <div class="card" v-if="order">
             <ul class="list-group list-group-flush">
     <li class="list-group-item" style="text-align: center;">
@@ -70,7 +70,7 @@
 
 
     </b-col>
-    <b-col  sm="12" md="4" lg="4"  xl="4">
+    <!-- <b-col  sm="12" md="6" lg="6"  xl="6">
         <div class="card" v-if="order_doing">
 
 
@@ -91,7 +91,7 @@
             <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_doing" :key="index">
             <div class="row" style="">
               <div class="col-3">
-                                  <!-- <img src="https://image.makewebeasy.net/noimage.png" width="100%"/> -->
+
                   <img :src="Checkimage(i.images)" width="100%">
 
                               </div>
@@ -99,24 +99,24 @@
                 <div>
                   {{i.name_list}}<br>
                   <span style="font-size:0.6em;"></span><br>
-                  <!-- <span style="font-size:0.8em;"></span> -->
+
                 </div>
                 <div>
                   <br>
                   <span style="font-size:0.6em;">Note:{{i.note}}</span><br>
-                  <!-- <span style="font-size:0.8em;"></span> -->
+
                 </div>
                 <div>
                   <br>
                   <span style="font-size:0.6em;">โต๊ะ:{{i.toe_id}}</span><br>
-                  <!-- <span style="font-size:0.8em;"></span> -->
+
                 </div>
               </div>
               <div class="col-1">
                 <div>
                     {{i.qty}}<br>
                   <span style="font-size:0.6em;"></span><br>
-                  <!-- <span style="font-size:0.8em;"></span> -->
+
                 </div>
               </div>
               <div class="col-2 text-right">
@@ -142,9 +142,9 @@
 
 
 
-    </b-col>
+    </b-col> -->
 
-    <b-col  sm="12" md="4" lg="4"  xl="4">
+    <b-col  sm="12" md="5" lg="5"  xl="5">
         <div class="card" v-if="order_waiting">
             <ul class="list-group list-group-flush">
     <li class="list-group-item" style="text-align: center;">  <button type="button" class="btn btn-sm"
@@ -213,7 +213,7 @@
     </b-col>
 
   </b-row>
-  <div>Selected: <strong>{{ selected_pad }} {{ selected_wait }} {{ selected_do }}</strong></div>
+
   <div>time: <strong>{{ time }}</strong></div>
 </b-container>
 

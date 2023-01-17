@@ -220,6 +220,7 @@ this.mydiscounttotal = false;
 this.form.id = this.id;
 this.form.discount = this.disc;
 this.form.type_discount = "B";
+
 let update_disc = await this.$store.dispatch(UPDATE_ORDER_DISC,this.form);
 
 
@@ -234,6 +235,9 @@ this.FetchData();
 
 
       let update_orders = await this.$store.dispatch(UPDATE_ORDER,this.form);
+
+
+      this.FetchData();
             },
 
 

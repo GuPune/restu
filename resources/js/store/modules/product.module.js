@@ -90,8 +90,8 @@ const actions = {
 
     async [UPDATE_ORDER](context,payload) {
         const { data } = await ProductService.updateorder(payload);
-        context.commit(SET_UPDATEORDERS,payload);
-        context.commit(SET_ORDERS_TOTAL);
+      //  context.commit(SET_UPDATEORDERS,payload);
+      //  context.commit(SET_ORDERS_TOTAL);
            },
     async [FETCH_ORDER](context,payload) {
 
