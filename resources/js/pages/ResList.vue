@@ -2,70 +2,11 @@
   <div class="listres">
     <div class="tabbable">
     <ul class="nav nav-pills mb-2 shadow-sm">
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link active" style="color:orange;" data-toggle="pill" href="#category0">อาหาร<p></p></a>
+        <li class="nav-item" style="font-weight: bold; color:black;"  v-for="x in this.typegroup" @click="scrollFind(x.id)">
+          <a class="nav-link active" style="color:orange;" data-toggle="pill" href="#category0">{{x.name}}<p></p></a>
         </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category1">ผลิตภัณฑ์บำรุงผิวกาย<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category2">น้ำหอม/โคโรญ<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category3">ผลิตภัณฑ์ปรับอากาศ<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category4">โฟมล้างหน้า<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category5">ของใช้ส่วนตัว<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category6">ของแห้ง,อาหารกระป๋อง<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category7">เครื่องปรุงรส<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category8">ผลิตภัณฑ์ทำความสะอาด<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category9">นมผง&amp;นมUHT<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category10">น้ำดื่ม<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category11">ของใช้ในครัวเรือน<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category12">ผลิตภัณฑ์แม่และเด็ก<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category13">ผ้าอนามัยและผ้าอ้อมผู้ใหญ่<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category14">ผลิตภัณฑ์บำรุงผิวหน้า<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category15">ผลิตภัณฑ์สำหรับผู้ชาย<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category16">สบู่และครีมอาบน้ำ<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category17">แชมพูและผลิตภัณฑ์สำหรับเส้นผม<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category18">ผลิตภัณฑ์ซักผ้าและน้ำยาปรับผ้านุ่ม<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category19">ผลิตภัณฑ์ดูแลช่องปาก<p></p></a>
-        </li>
-                <li class="nav-item" style="font-weight: bold; color:black;">
-          <a class="nav-link " style="color:orange;" data-toggle="pill" href="#category20">สินค้าลดราคา<p></p></a>
-        </li>
-              </ul>
+
+    </ul>
             </div>
     <div class="bg-white p-3 mb-1" data-toggle="modal" data-target="#exampleModal31126" @click="scrollToTops(i)" v-for="i in this.res">
             <div class="row" style="">
@@ -188,7 +129,7 @@
 <script>
 
 import { mapGetters,mapState } from "vuex";
-import { FETCH_RES,FETCH_RES_CART } from "@store/actions.type";
+import { FETCH_RES,FETCH_RES_CART,FETCH_TYPERES_GROUP  } from "@store/actions.type";
 import { IMAGE_URL } from "../components/environment/environment";
 export default {
   name: 'listres',
@@ -199,6 +140,7 @@ form:{
 },
 formadd:{},
 res:null,
+typegroup:null,
 name:null,
 price:null,
 qty:1,
@@ -216,6 +158,9 @@ id:null
             this.form.typeres = this.$route.params.id
       let befres = await this.$store.dispatch(FETCH_RES,this.form);
 this.res = befres;
+
+let gettypegroup = await this.$store.dispatch(FETCH_TYPERES_GROUP,this.form);
+this.typegroup = gettypegroup;
 
                 },
         mounted() {
@@ -248,6 +193,16 @@ this.res = befres;
             this.note = null;
             this.name = i.name_list;
             this.price = i.price_sell;
+
+
+        },
+
+        async scrollFind(x){
+
+            this.form.typeres = x
+            console.log(this.form);
+      let befres = await this.$store.dispatch(FETCH_RES,this.form);
+this.res = befres;
 
 
         },

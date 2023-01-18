@@ -32,6 +32,10 @@ export const FrontProductService = {
     gettoken(param) {
         return ApiService.post("checktoken",param);
     },
+    gettypegroup(param) {
+        return ApiService.post("typegroup",param);
+    },
+
 
 
 };

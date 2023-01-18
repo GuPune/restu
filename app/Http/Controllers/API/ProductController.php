@@ -1011,4 +1011,32 @@ return response()->json($datas);
         return response()->json('success');
     }
 
+
+    public function typegroup(Request $request)
+    {
+
+        $datas = [];
+
+        $typefood = Typeoffoods::where('status','Y')->get();
+
+
+       foreach ($typefood as $index => $typefoods) {
+           $datas[$index]['id'] = $typefoods->id;
+           $datas[$index]['name'] = $typefoods->name;
+           $datas[$index]['status'] = $typefoods->status;
+           $datas[$index]['images'] = $typefoods->images;
+           $datas[$index]['token'] = $request->token;
+        }
+
+
+
+       return response()->json($datas);
+    }
+
+
+
+
+
+
+
 }

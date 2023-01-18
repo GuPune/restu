@@ -37,6 +37,7 @@ Route::group(['middleware' => ['api']], function ($router) {
 
 
     Route::post('/fronttypelist', 'App\Http\Controllers\API\ProductController@fronttyperes');
+    Route::post('/typegroup', 'App\Http\Controllers\API\ProductController@typegroup');
     Route::post('/frontres', 'App\Http\Controllers\API\ProductController@frontres');
     Route::post('/restoe', 'App\Http\Controllers\API\ProductController@restoe');
     Route::post('/checkout', 'App\Http\Controllers\API\ProductController@checkout');
