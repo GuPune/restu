@@ -2,7 +2,7 @@
     <div>
         <b-container fluid="xl" >
   <b-row>
-    <b-col  sm="12" md="4" lg="4" xl="4">
+    <b-col  sm="12" md="6" lg="6" xl="6">
         <div class="card" v-if="order">
             <ul class="list-group list-group-flush">
     <li class="list-group-item" style="text-align: center;">
@@ -69,7 +69,7 @@
 
 
     </b-col>
-    <b-col  sm="12" md="4" lg="4"  xl="4">
+    <!-- <b-col  sm="12" md="4" lg="4"  xl="4">
         <div class="card" v-if="order_doing">
 
 
@@ -81,7 +81,7 @@
             <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_doing" :key="index">
             <div class="row" style="">
               <div class="col-3">
-                                  <!-- <img src="https://image.makewebeasy.net/noimage.png" width="100%"/> -->
+
                   <img :src="Checkimage(i.images)" width="100%">
 
                               </div>
@@ -89,24 +89,24 @@
                 <div>
                   {{i.name_list}}<br>
                   <span style="font-size:0.6em;"></span><br>
-                  <!-- <span style="font-size:0.8em;"></span> -->
+
                 </div>
                 <div>
                   <br>
                   <span style="font-size:0.6em;">Note:{{i.note}}</span><br>
-                  <!-- <span style="font-size:0.8em;"></span> -->
+
                 </div>
                 <div>
                   <br>
                   <span style="font-size:0.6em;">โต๊ะ:{{i.toe_id}}</span><br>
-                  <!-- <span style="font-size:0.8em;"></span> -->
+
                 </div>
               </div>
               <div class="col-1">
                 <div>
                     {{i.qty}}<br>
                   <span style="font-size:0.6em;"></span><br>
-                  <!-- <span style="font-size:0.8em;"></span> -->
+
                 </div>
               </div>
               <div class="col-2 text-right">
@@ -140,9 +140,9 @@
 
 
 
-    </b-col>
+    </b-col> -->
 
-    <b-col  sm="12" md="4" lg="4"  xl="4">
+    <b-col  sm="12" md="6" lg="6"  xl="6">
         <div class="card" v-if="order_waiting">
             <ul class="list-group list-group-flush">
     <li class="list-group-item" style="text-align: center;">  <button type="button" class="btn btn-sm"
@@ -255,12 +255,12 @@ statusorder:'Y',
     async created(){
 
         let ordercus = await this.$store.dispatch(FETCH_ORDER_CUS_DRINK,this.form);
-        console.log('this.selected_pad',JSON.stringify(ordercus.pending));
+
 this.order = ordercus.pending;
 this.order_doing = ordercus.doing;
 this.order_waiting = ordercus.waiting;
 
- console.log('this.order_doing',this.order_doing);
+
 
 
 
