@@ -25,7 +25,8 @@ class Order extends Model
         'ger_id',
         'created_at',
         'type_discount',
-        'discount'
+        'discount',
+        'flag'
     ];
 
     public function Prodes()

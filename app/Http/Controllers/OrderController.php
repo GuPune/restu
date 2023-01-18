@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Productres;
 use App\Models\SystemRes;
+use App\Models\Temporder;
 use App\Models\Toe;
 use App\Models\Zone;
 use Illuminate\Http\Request;
@@ -133,13 +134,13 @@ class OrderController extends Controller
 
 
         $orderPending =  Order::select('fact_order.id','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
-        ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','S')->where('fact_order.status','Y')->get();
+        ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','R')->where('fact_order.status','Y')->get();
 
         $orderDoing =  Order::select('fact_order.id','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
-        ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','S')->where('fact_order.status','O')->get();
+        ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','R')->where('fact_order.status','O')->get();
 
         $orderWait =  Order::select('fact_order.id','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
-        ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','S')->where('fact_order.status','I')->get();
+        ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','R')->where('fact_order.status','I')->get();
 
 
         if($orderPending){
@@ -207,22 +208,10 @@ class OrderController extends Controller
          $orderPending = DB::select(
             DB::raw("select ROW_NUMBER() OVER (ORDER BY B.name_list) AS rowbumber,A.id as id,B.name_list As name_list,A.quantity As quantity,A.created_at As created_at,B.images As images,A.note as note,A.toe_id as toe_id,A.status as status,A.res_id as res_id
             from fact_order A
-           left join product_res B ON A.res_id = B.id where B.res_kit = 'S' AND A.`status` = 'Y'
+           left join product_res B ON A.res_id = B.id where B.res_kit = 'R' AND A.`status` = 'Y'
            ")
          );
 
-         $orderDoing = DB::select(
-            DB::raw("select ROW_NUMBER() OVER (ORDER BY B.name_list) AS rowbumber,A.id as id,B.name_list As name_list,A.quantity As quantity,A.created_at As created_at,B.images As images,A.note as note,A.toe_id as toe_id,A.status as status,A.res_id as res_id
-            from fact_order A
-           left join product_res B ON A.res_id = B.id where B.res_kit = 'S' AND A.`status` = 'O'
-           ")
-         );
-         $orderWait = DB::select(
-            DB::raw("select ROW_NUMBER() OVER (ORDER BY B.name_list) AS rowbumber,A.id as id,B.name_list As name_list,A.quantity As quantity,A.created_at As created_at,B.images As images,A.note as note,A.toe_id as toe_id,A.status as status,A.res_id as res_id
-            from fact_order A
-           left join product_res B ON A.res_id = B.id where B.res_kit = 'S' AND A.`status` = 'I'
-           ")
-         );
 
         if($orderPending){
             foreach ($orderPending as $key => $ords) {
@@ -239,34 +228,55 @@ class OrderController extends Controller
             }
         }
 
+        $sata = [];
 
-        if($orderDoing){
-            foreach ($orderDoing as $key => $ordsdo) {
-                $res = Productres::where('id',$ordsdo->res_id)->first();
-                $toe = Toe::where('id',$ordsdo->toe_id)->first();
-                $datas['doing'][$key]['id'] = $ordsdo->id;
-                $datas['doing'][$key]['name_list'] = $res->name_list;
-                $datas['doing'][$key]['images'] = $res->images;
-                $datas['doing'][$key]['toe_id'] = $toe->number_toe;
-                $datas['doing'][$key]['qty'] = $ordsdo->quantity;
-                $datas['doing'][$key]['status'] = $ordsdo->status;
-                $datas['doing'][$key]['note'] = $ordsdo->note;
-            }
-        }
+        do {
+            $x = Order::where('flag','N')->count();
+            $total = Order::where('flag','N')->get();
 
-        if($orderWait){
-            foreach ($orderWait as $key => $ordswait) {
-                $res = Productres::where('id',$ordswait->res_id)->first();
-                $toe = Toe::where('id',$ordswait->toe_id)->first();
-                $datas['waiting'][$key]['id'] = $ordswait->id;
-                $datas['waiting'][$key]['name_list'] = $res->name_list;
-                $datas['waiting'][$key]['images'] = $res->images;
-                $datas['waiting'][$key]['toe_id'] = $toe->number_toe;
-                $datas['waiting'][$key]['qty'] = $ordswait->quantity;
-                $datas['waiting'][$key]['status'] = $ordswait->status;
-                $datas['waiting'][$key]['note'] = $ordswait->note;
+            \Log::info($total);
+
+            if($x > 0){
+                foreach ($total as $key => $totals) {
+
+                if($key === 0){
+                        $firstin = $totals->res_id;
+$updatetor = Order::where('id',$totals->id)->update([
+    'flag' => 'Y',
+]);
+$sata[$key]['food'] = $totals;
+
+$checkout = Temporder::create([
+    "fact_order_id" => $totals->id,
+    "res_id" => $totals->res_id,
+]);
+
+
+                    }
+
+                    if($key > 0){
+                        if($firstin == $totals->res_id){
+                            $updatetor = Order::where('id',$totals->id)->update([
+                                'flag' => 'Y',
+                            ]);
+                            $checkout = Temporder::create([
+                                "fact_order_id" => $totals->id,
+                                "res_id" => $totals->res_id,
+                            ]);
+
+
+                        }
+                    }
+
+                }
             }
-        }
+
+
+
+          } while ($x > 0);  //เท็จ
+///ถ้าจิง ทำคำสั่งต่อไป
+          \Log::info('จบ');
+
       }
 
 
@@ -277,6 +287,6 @@ class OrderController extends Controller
 
 
 
-        return response()->json($datas);
+        return response()->json($sata);
     }
 }

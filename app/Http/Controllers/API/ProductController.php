@@ -15,6 +15,7 @@ use App\Models\Call;
 use App\Models\Group;
 use App\Models\Rating;
 use App\Models\SystemRes;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use DB;
@@ -497,7 +498,6 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
               }
           }
 
-
           if($orderDoing){
               foreach ($orderDoing as $key => $ordsdo) {
                   $res = Productres::where('id',$ordsdo->res_id)->first();
@@ -654,6 +654,10 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
                   $datas['pending'][$key]['status'] = $ords->status;
                   $datas['pending'][$key]['note'] = $ords->note;
                   $datas['pending'][$key]['created_at'] = $ords->created_at;
+
+
+
+
               }
           }
 
