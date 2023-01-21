@@ -2,7 +2,7 @@
   <div class="pay">
     <div class="card">
   <h6 class="text-center" style="padding-top: 5px;">โต๊ะ ห้องแอร์ 8</h6>
-  <p style="font-size: 12px;text-align: center;"><i>25 พฤศจิกายน 2022</i></p>
+  <p style="font-size: 12px;text-align: center;"><i> {{ fulldatetime }}</i></p>
   <div class="card-body">
     <table class="table">
   <thead>
@@ -93,7 +93,8 @@ export default {
         orders:null,
         total:null,
         maxStars:5,
-        status:null
+        status:null,
+        fulldatetime: ''
         }),
   computed: {
 
@@ -111,10 +112,30 @@ export default {
    this.total = order.total;
 },
 
+mounted() {
+        this.fulldatetime = this.printFullDate();
+ },
+
 methods: {
 
+    printFullDate: function(){
+
+this.date = new Date();
+var strArray=['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+var d = this.date.getDate();
+var m = strArray[this.date.getMonth()];
+var y = this.date.getFullYear() + 543;
+
+var x = new Date();
+var n = x.toLocaleTimeString();
+
+
+return '' + (d <= 9 ? '0' + d : d) + ' ' + m + ' ' + y;
+},
+
+
    async payment(){
-    console.log('this orders',this.orders)
+
     if(this.orders == null){
 return false;
     }

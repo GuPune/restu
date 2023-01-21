@@ -4,10 +4,20 @@ export const ProductService = {
     get() {
       return ApiService.get("product");
     },
+    showtoe() {
+        return ApiService.get("showtoe");
+      },
+
+
     getorder(params) {
 
         return ApiService.post("transaction_orders",params);
       },
+
+    changetoe(params) {
+        return ApiService.post("changetoe",params);
+    },
+
     gettyperes() {
         return ApiService.get("typeres");
       },

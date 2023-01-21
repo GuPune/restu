@@ -82,4 +82,40 @@ $request->txtmonth = $m;
         //return Excel::download(new DisneyplusExport, 'disney.xlsx');
     }
 
+    public function product(Request $request)
+    {
+
+\Log::info($request->all());
+
+        $biilall =  Bill::select('bill.bill_number','bill.created_at','bill.total','bill.pricetotal','bill.qty','bill.pricediscount','bill.discount_all_order','generate.status')
+        ->leftJoin('generate', 'bill.token', '=', 'generate.qr_code')->where('generate.status','S');
+
+        if($request->inputdaterange){
+
+          $cuts = explode('-',$request->inputdaterange,2);
+          $first = substr($request->inputdaterange, 0, -13);  // เอาหน้า
+          $to = substr($request->inputdaterange, 13);  // returns "abcde"
+
+
+          $biilall->whereBetween('bill.created_at', [$first, $to]);
+
+        }
+
+        if($request->billnumber){
+            $biilall->where('bill.bill_number',$request->billnumber);
+        }
+
+$pro = $biilall->get();
+
+        return view('pages.report.product')->with('report',$pro);
+
+    }
+
+
+    public function pay(Request $request)
+    {
+
+        return view('pages.report.pay');
+    }
+
 }

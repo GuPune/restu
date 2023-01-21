@@ -53,7 +53,10 @@
 </span>
 
 <span >
+<button type="button" class="classname  btn-danger" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " name="esc" @click="ChangeT()">ย้ายโต๊ะ</button>
+</span>
 
+<span >
 <button type="button" class="classname  btn-warning" style="width:150px; height:25px; font-size: 0.9rem; padding:2px;  cursor:pointer  " name="esc" @click="Cancel()">ยกเลิกรายการ</button>
 </span>
 <span >
@@ -102,11 +105,9 @@
         <form>
           <div class="form-group" style="text-align: center;">
              <img  :src="Checkimage(this.formtoe.images_qrcode)" width="100%" height="100%">
-
           </div>
           <div class="form-group" style="text-align: center;">
             <label for="message-text" class="col-form-label">โต๊ะที่นั้ง {{this.formtoe.number_sit}}</label>
-
           </div>
         </form>
       </div>
@@ -115,6 +116,60 @@
 <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="Close()">ปิด</button>
 <button type="button" class="btn btn-primary" id="btnPrintbill" @click="Printqr()">พิมพ์</button>
 </div>
+</div>
+
+
+            </div>
+            </div>
+          </div>
+      </transition>
+</div>
+
+<div v-if="ChangeToe">
+    <transition name="model modal-open">
+          <div class="modal-mask modal fad xtdas screen" id="modalInvoice">
+            <div class="modal-wrapper">
+            <div class="modal-dialog modal-xl">
+
+  <div class="modal-content">
+<div class="modal-header  card-primary">
+<h1 class="modal-title" id="exampleModalLabel">ย้ายโต๊ะ</h1>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true"></span>
+</button>
+</div>
+
+      <div class="modal-body" id="load_changetable">
+        <table width="500px" border="0" cellspacing="0" cellpadding="0" style="font-size:12px" class="table table-hover">
+<tbody>
+    <tr>
+<td width="307" height="30"><div align="left"><strong>ย้ายโต๊ะ</strong>
+</div>
+</td>
+<td width="131">
+    <div align="center">
+        <strong>สถานะ</strong>
+    </div>
+</td>
+<td width="62">
+    <div align="right"></div></td>
+</tr>
+<tr  v-for="x in this.show">
+<td height="30">
+    <div align="left">{{x.number_toe}}</div></td>
+<td>
+    <div align="center"><i class="fa fa-cutlery"> </i> ว่าง</div></td>
+<td>
+    <div align="right"><button type="button" class="btn btn-danger btn-sm" name="changetable" id="78" data="2"  @click="ChangeToesuss(x)">ย้ายโต๊ะ</button></div></td>
+</tr>
+
+
+</tbody></table>
+</div>
+<div class="modal-footer btnPri">
+<button type="button" class="btn btn-secondary" data-dismiss="modal" @click="Close()">ปิด</button>
+</div>
+
 </div>
 
 
@@ -153,7 +208,7 @@
 {
 
     size: auto;   /* auto is the initial value */
-    margin: 25mm 5mm 5mm 5mm;
+    margin: 5mm 5mm 5mm 5mm;
 }
 
  body {
@@ -180,7 +235,11 @@
 }
 
 
+.modal-content {
 
+    border: 0px solid #e8eff9;
+
+}
 
 </style>
 <script>
@@ -190,7 +249,7 @@ import Product from "../pos/Product.vue";
 import Cal from "../pos/Cal.vue";
 import SumP from "../pos/SumPos.vue";
 import Bill from "../pos/Bill.vue";
-import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,FETCH_ORDER,FETCH_TOE,OPENTOE,CANCELTOE,FETCH_QRCODE,SEND_ORDER_TO_CHEF } from "@store/actions.type";
+import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,FETCH_ORDER,FETCH_TOE,OPENTOE,CANCELTOE,FETCH_QRCODE,SEND_ORDER_TO_CHEF,SHOWTOE,CHANGETOESUSS } from "@store/actions.type";
 export default {
     components: {
         Product,Cal,SumP,Bill
@@ -205,8 +264,14 @@ export default {
         typerest: "0",
         toeall:"0",
         Qrcode:false,
+        show:null,
         CheckBill:false,
+        ChangeToe:false,
         toe_name:"Test",
+        formchangetoe:{
+toeold:null,
+toenew:null
+        },
         formtoe:{
             images_qrcode:null,
             number_sit:null,
@@ -255,9 +320,13 @@ this.form.id = event.target.value;
             async onChangeToeId(){
                 this.form.toe_id = this.toe_id;
 
+
+
                 let orders = await this.$store.dispatch(FETCH_ORDER,this.form);
 
-                let qr = this.toeall[this.toe_id - 1];
+                let qr = this.toeall.find(x => x.id === this.toe_id);
+
+
 
 this.formtoe.images_qrcode = qr.images_qrcode
 this.formtoe.number_sit = qr.number_sit
@@ -274,7 +343,49 @@ this.formtoe.number_toe = qr.number_toe
 
             async Close(){
                 this.Qrcode = false;
+                this.ChangeToe = false;
             },
+
+            async ChangeT(){
+
+                if(this.toe_id == 0){
+                this.$toast.open({
+        message: "กรุณาเลือกโต๊ะ",
+        type: "error",
+        duration: 2000,
+        dismissible: true
+      })
+                return false;
+            }
+                this.ChangeToe = true;
+                let showtoenull = await this.$store.dispatch(SHOWTOE);
+                this.show = showtoenull;
+
+            },
+
+            async ChangeToesuss(i){
+
+                this.ChangeToe = false;
+                this.formchangetoe
+
+                if(this.toe_id == 0){
+                this.$toast.open({
+        message: "กรุณาเลือกโต๊ะ",
+        type: "error",
+        duration: 2000,
+        dismissible: true
+      })
+                return false;
+            }
+
+
+        this.formchangetoe.toeold = this.toe_id;
+        this.formchangetoe.toenew = i.id;
+        let changetoesus = await this.$store.dispatch(CHANGETOESUSS,this.formchangetoe);
+        this.fetchdata();
+
+            },
+
 
             async Sendres(){
 
@@ -320,10 +431,16 @@ this.time--;
 if(this.time == 0){
     this.time = 30;
     this.form.toe_id = this.toe_id;
-    console.log(this.form);
     let orders = await this.$store.dispatch(FETCH_ORDER,this.form);
 
 }
+            },
+
+
+async fetchdata(){
+
+    this.form.toe_id = this.toe_id;
+    let orders = await this.$store.dispatch(FETCH_ORDER,this.form);
 
 
 
@@ -385,10 +502,8 @@ this.Qrcode = true;
             },
 
             Printqr(){
-
                 const modal = document.getElementById("modalInvoice")
                 const cloned = modal.cloneNode(true)
-
                 let section = document.getElementById("print")
 
 

@@ -42,7 +42,7 @@
 
        <div class="modal-body" id="checkbill">
 
-      <table width="290px" border="0" cellspacing="0" cellpadding="0">
+ <table width="290px" border="0" cellspacing="0" cellpadding="0">
 <tbody>
   <tr>
 <td colspan="3" style="font-size:27px;color:#000" align="center"> <strong></strong></td>
@@ -63,6 +63,27 @@
 <tr>
 <td colspan="3"> <hr></td>
 </tr>
+
+<tr>
+<td colspan="3">วันที่ {{ fulldatetime }}</td>
+
+
+</tr>
+
+<tr>
+<td colspan="3"> <hr></td>
+</tr>
+
+<tr>
+<td colspan="1">จำนวน | รายการ</td>
+<td colspan="1"> - </td>
+<td colspan="1">รวม</td>
+
+</tr>
+<tr>
+<td colspan="3"> <hr></td>
+</tr>
+
 <tr  v-for="(item, index) in this.orders">
 <td width="112" valign="top">
   <div align="left" style="font-size:13px;color:#000">{{item.quantity}} {{item.name_list}}<br>
@@ -103,9 +124,9 @@
 </td>
 </tr>
 <tr>
-<td colspan="2" style="font-size:13px;color:#000"><div align="right">ยอดสุทธิ</div>
+<td colspan="2" style="font-size:15px;color:#000"><div align="right">ยอดสุทธิ</div>
 </td>
-<td style="font-size:13px"><div align="right">{{this.total.pricediscount}}.00</div></td>
+<td style="font-size:15px"><div align="right">{{this.total.pricediscount}}.00</div></td>
 </tr>
 <tr>
 <!-- <td colspan="3" style="font-size:15px;color:#000" align="center">Exchange Rate: 1THB / 450LAK | 1USD / 15,000 LAK
@@ -193,6 +214,126 @@ Facebook: Naoki Japanese Restaurant
 <div class="modal-footer">
 </div>
 </div>
+
+            </div>
+            </div>
+          </div>
+      </transition>
+</div>
+
+
+
+<div v-if="Printbill">
+    <transition name="model modal-open">
+          <div class="modal-mask modal fad xtdas">
+            <div class="modal-wrapper">
+            <div class="modal-dialog">
+
+  <div class="modal-content" style="width:320px;">
+
+       <div class="modal-body" id="printbill">
+
+ <table width="290px" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+  <tr>
+<td colspan="3" style="font-size:27px;color:#000" align="center"> <strong></strong></td>
+</tr>
+<tr>
+<td colspan="3" align="center">
+<img src="http://127.0.0.1:8000/cms/images/logo.jpg" width="100px"> </td>
+</tr>
+<tr>
+<td height="20" colspan="3" style="font-size:14px;color:#000">
+<div align="left"><strong></strong> </div></td></tr>
+<tr>
+<td colspan="3" style="font-size:15px;color:#000">&nbsp;</td>
+</tr>
+<tr>
+<td colspan="3" style="font-size:15px;color:#000"><div align="center"><strong>รายการเรียกเก็บเงิน</strong></div></td>
+</tr>
+<tr>
+<td colspan="3"> <hr></td>
+</tr>
+
+<tr>
+<td colspan="3">วันที่ {{ fulldatetime }}</td>
+</tr>
+<tr>
+<td colspan="3">เลขที่บิล {{ this.bill }}</td>
+</tr>
+
+<tr>
+<td colspan="3"> <hr></td>
+</tr>
+
+<tr>
+<td colspan="1">จำนวน | รายการ</td>
+<td colspan="1"> - </td>
+<td colspan="1">รวม</td>
+
+</tr>
+<tr>
+<td colspan="3"> <hr></td>
+</tr>
+
+<tr  v-for="(item, index) in this.orders">
+<td width="112" valign="top">
+  <div align="left" style="font-size:13px;color:#000">{{item.quantity}} {{item.name_list}}<br>
+
+<span v-if="item.type_discount === 'B'">ส่วนลด 1 ฿</span>
+</div>
+</td>
+<td width="53" valign="top">
+  <div align="left" style="font-size:13px;color:#000" v-if="item.type_discount === 'B'">
+    <s>@{{item.price_sell}}.00</s>
+    <br>@{{item.price_sell}}.00
+  </div>
+  <div align="left" style="font-size:13px;color:#000" v-else>
+    @{{item.price_sell}}.00
+  </div>
+  </td>
+<td width="45" valign="top">
+    <div align="right" style="font-size:13px;color:#000"  v-if="item.type_discount === 'B'">
+  <s>@{{item.totalPrice}}.00</s><br>@{{item.totalPrice}}.00
+  </div>
+  <div align="right" style="font-size:13px;color:#000" v-else>
+    @{{item.totalPrice}}.00
+  </div>
+  </td>
+</tr>
+<tr>
+<td colspan="2" style="font-size:13px;color:#000">
+  <div align="right">({{this.total.quantity}})&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;รวมเงิน
+    </div>
+  </td>
+<td style="font-size:13px;color:#000"><div align="right">{{this.total.pricetotal}}.00</div>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="font-size:13px;color:#000"><div align="right">ส่วนลด</div>
+ </td>
+<td style="font-size:13px;color:#000"><div align="right">{{this.discount}}.00</div>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="font-size:15px;color:#000"><div align="right">ยอดสุทธิ</div>
+</td>
+<td style="font-size:15px"><div align="right">{{this.total.pricediscount}}.00</div></td>
+</tr>
+<tr>
+<!-- <td colspan="3" style="font-size:15px;color:#000" align="center">Exchange Rate: 1THB / 450LAK | 1USD / 15,000 LAK
+Facebook: Naoki Japanese Restaurant
+ຂອບໃຈທີ່ມາອຸດໜູນ ໂອກາດໜ້າເຊີນໃໝ່</td> -->
+</tr>
+</tbody></table>
+      </div>
+<div class="modal-footer" id="btfoot">
+<button type="button" class="btn btn-secondary" data-dismiss="modal" @click="Closebill()">ปิด</button>
+
+<button type="button" class="btn btn-primary" id="btnPrintbill" @click="PrintBill()" >พิมพ์</button>
+</div>
+</div>
+
 
             </div>
             </div>
@@ -304,12 +445,14 @@ export default {
         paychange:0,
         myModel:false,
         Checkbill:false,
+        Printbill:false,
 
 form:{
     toe_id:null,
     discount:null,
     typediscount:null
-}
+},
+fulldatetime: ''
       }
     },
     computed: {
@@ -317,9 +460,24 @@ form:{
 
         },
     mounted() {
-
+        this.fulldatetime = this.printFullDate();
         },
         methods: {
+
+            printFullDate: function(){
+
+                this.date = new Date();
+                var strArray=['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+    var d = this.date.getDate();
+    var m = strArray[this.date.getMonth()];
+    var y = this.date.getFullYear() + 543;
+
+    var x = new Date();
+var n = x.toLocaleTimeString();
+
+
+    return '' + (d <= 9 ? '0' + d : d) + ' ' + m + ' ' + y + ' ' + n;
+          },
 
          async onChangeDis() {
 
@@ -335,6 +493,31 @@ let a = this.$store.dispatch(FETCH_DISCOUNT,this.form);
 
         this.paymoney = 0;
         this.paychange = 0;
+
+        },
+        PrintBill(){
+            const modal = document.getElementById("printbill")
+
+const cloned = modal.cloneNode(true)
+let section = document.getElementById("printSection")
+
+if (!section) {
+section  = document.createElement("div")
+section.id = "printSection"
+document.body.appendChild(section)
+}
+
+setTimeout(function(){
+                            window.location.href = '/admin/pos'
+}, 1000);
+
+section.innerHTML = "";
+section.appendChild(cloned);
+window.print();
+section.innerHTML = "";
+
+
+
 
         },
         Print(){
@@ -362,7 +545,7 @@ section.innerHTML = "";
     window.print();
 },
          checkbill(){
-
+            this.fulldatetime = this.printFullDate();
             if(this.toe_id == 0){
 
                               this.$toast.open({
@@ -387,8 +570,16 @@ let orders = this.$store.dispatch(FETCH_ORDER,this.form);
 this.Checkbill = false;
 
         },
+        Closebill(){
+this.Printbill = false;
 
-        checkmoney(){
+setTimeout(function(){
+                            window.location.href = '/admin/pos'
+}, 1000);
+
+        },
+
+       async checkmoney(){
            if(this.total.list == 0){
             this.myModel = false;
 return false;
@@ -406,12 +597,15 @@ return alert('จ่ายเงินไม่ได้');
            this.form.toe_id = this.toe_id;
 
 
-         let checkbill = this.$store.dispatch(CLEAR_BILL,this.form);
+         let checkbill = await this.$store.dispatch(CLEAR_BILL,this.form);
          this.myModel = false;
+         this.Printbill = true;
+        this.bill = checkbill.billnumber;
 
-           setTimeout(function(){
-                            window.location.href = '/admin/pos'
-}, 1000);
+
+//            setTimeout(function(){
+//                             window.location.href = '/admin/pos'
+// }, 1000);
         }
 
         },
@@ -452,6 +646,10 @@ return false;
   Checkimage(){
 
   }
+
+
+
+
 
 
         },

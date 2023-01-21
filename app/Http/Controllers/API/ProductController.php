@@ -70,12 +70,7 @@ $token = Generate::where('qr_code',$toeid->qr_code)->first();
 $checkorder = Order::where('status','N')->where('toe_id',$request->toe_id)->where('res_id',$request->id)->where('ger_id',$token->id)->first();
 
 if($checkorder){
-
-
-
     $totalprice = ($checkorder->quantity + 1) * ($checkorder->orders_price);
-
-
     $updatetor = Order::where('res_id',$request->id)->where('status','N')->where('toe_id',$request->toe_id)->update([
         "res_id" => $request->id,
         "toe_id" => $request->toe_id,
@@ -232,6 +227,7 @@ $updatedata = Order::where('id',$request->order_id)->update([
     public function restoe(Request $request)
     {
 
+
         $gettoe = Toe::where('qr_code',$request->token)->where('status','Y')->first();
 
         return response()->json($gettoe);
@@ -242,7 +238,7 @@ $updatedata = Order::where('id',$request->order_id)->update([
     {
 
 
-\Log::info($request->all());
+
 
 $cart = $request->all();
 
@@ -375,6 +371,9 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
             "token" => $request->token,
             "rating" => $request->stars,
         ]);
+
+        $call = \App\CoreFunction\Line::Linenotifycheckbill($request->token);
+
 
     }
 
@@ -923,7 +922,10 @@ return response()->json($datas);
 
 $datas = [];
 
-$gettoken = Generate::where('toe_id',$request->toe_id)->where('status','Y')->first();
+
+
+
+$gettoken = Generate::where('toe_id',$request->toe_id)->latest('id')->first();
 $toe = Toe::where('id',$request->toe_id)->first();
 
 $max_id = Bill::max('id')+1;
@@ -955,6 +957,7 @@ $updatetor = Toe::where('id',$request->toe_id)->update([
     "orderstatus" => 'idle',
 ]);
 
+\Log::info($gettoken->qr_code);
 $uptoken = Generate::where('qr_code',$gettoken->qr_code)->update([
     "status" => 'S',
 ]);
@@ -964,7 +967,7 @@ $uptoken = Order::where('toe_id',$request->toe_id)->where('status','Y')->update(
     "status" => 'S',
 ]);
 
-
+$datas['billnumber'] = $billnumber;
 return response()->json($datas);
     }
 
@@ -1035,6 +1038,52 @@ return response()->json($datas);
 
 
        return response()->json($datas);
+    }
+
+
+
+    public function showtoe(Request $request)
+    {
+        $datas = [];
+        $toe = Toe::where('orderstatus','idle')->where('status','Y')->get();
+       return response()->json($toe);
+    }
+
+    public function changetoe(Request $request)
+    {
+
+
+
+        $selectold = Toe::where('id',$request->toeold)->first();
+        $selectnew = Toe::where('id',$request->toenew)->first();
+
+        ////อัพเดท โต๊ะ/////
+
+
+            $updatetoenew = Toe::where('id',$request->toenew)->update([
+                'qr_code' => $selectold->qr_code,
+                'images_qrcode' => $selectold->images_qrcode,
+                'orderstatus' => "notidle",
+            ]);
+
+            $updateorder = Order::where('toe_id',$selectold->id)->update([
+                'toe_id' => $selectnew->id,
+            ]);
+            $gen = Generate::where('qr_code',$selectold->qr_code)->where('status','Y')->update([
+                'toe_id' => $selectnew->id,
+            ]);
+
+            $updatetoeold = Toe::where('id',$request->toeold)->update([
+                'qr_code' => "",
+                'images_qrcode' => "",
+                'orderstatus' => "idle",
+            ]);
+
+
+
+        /// ย้าย
+
+
     }
 
 
