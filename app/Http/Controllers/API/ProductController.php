@@ -1072,7 +1072,6 @@ return response()->json($datas);
             $gen = Generate::where('qr_code',$selectold->qr_code)->where('status','Y')->update([
                 'toe_id' => $selectnew->id,
             ]);
-
             $updatetoeold = Toe::where('id',$request->toeold)->update([
                 'qr_code' => "",
                 'images_qrcode' => "",

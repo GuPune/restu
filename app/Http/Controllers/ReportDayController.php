@@ -115,7 +115,29 @@ $pro = $biilall->get();
     public function pay(Request $request)
     {
 
-        return view('pages.report.pay');
+
+
+        $getypebill = Bill::select(\DB::raw('bill.type_pay, SUM(bill.pricetotal) as total'))
+        ->leftJoin('generate', 'bill.token', '=', 'generate.qr_code')
+        ->where('generate.status','S')
+        ->groupBy('bill.type_pay')
+        ->get();
+
+
+        if($request->inputdaterange){
+
+
+
+            $cuts = explode('-',$request->inputdaterange,2);
+            $first = substr($request->inputdaterange, 0, -13);  // เอาหน้า
+            $to = substr($request->inputdaterange, 13);  // returns "abcde"
+
+
+            // $biilall->whereBetween('bill.created_at', [$first, $to]);
+
+          }
+
+        return view('pages.report.pay')->with('typebill',$getypebill);
     }
 
 }

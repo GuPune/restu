@@ -148,7 +148,7 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/reportday', [ReportDayController::class, 'index'])->name('reportday');
     Route::get('/reportproduct', [ReportDayController::class, 'product'])->name('reportproduct');
-    Route::get('/reportpay', [ReportDayController::class, 'pay'])->name('pay');
+    Route::get('/reportpay', [ReportDayController::class, 'pay'])->name('reportpay');
     Route::get('export/{year}/{m}', [ReportDayController::class, 'export']);
 
 });

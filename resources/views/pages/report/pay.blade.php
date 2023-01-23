@@ -4,78 +4,84 @@
 
 
 
+<div class="row">
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-header container-fluid">
+                <div class="row">
+                  <div class="col-md-10">
+                    <h3 class="w-75 p-3">รายงานยอดประเภทชำระเงิน</h3>
+                  </div>
+                </div>
+              </div>
+          <div class="card-body">
+            <form name="search" action="{{ route('reportpay') }}">
+
+              <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">วันที่
+                </label>
+                <div class="col-sm-10">
+                    <input name="inputdaterange" id="inputdaterange" style="width:180px" class="form-control" type="text" value="">
+
+                </div>
+                <div class="col-md-2 float-right">
+                    <button type="submit" class="btn btn-success">
+                        ค้นหา
+                      </button>
+                   </div>
+              </div>
+                </form>
+
+            <div>
+                <table class="table table-bordered yajra-datatable" style="text-align: center;">
+                    <thead>
+                    <tr>
+                        <th>ลำดับ
+                        </th>
+                        <th>ประเภท
+                        </th>
+                        <th>จำนวนเงิน
+                        </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach($typebill as $k => $types)
+                        <tr>
+                            <td>
+                            <div align="left">{{$k + 1}}</div>
+                        </td>
+                        <td>
+                            <div align="left">
+                                @if ($types->type_pay == 1)
+                                {{'เงินสด'}}
+                                @elseif ($types->type_pay == 2)
+                                {{'เงินโอน'}}
+                                @else
+                                {{'พร้อมเพย์'}}
+                                @endif
 
 
-  <div class="row">
-    <div class="card">
-        <div class="card-header card-inverse card-primary">
-        <h5><span style="float: left">สรุปรายรับรายจ่าย (รายวัน)</span> </h5>
-        </div>
-        <div class="card-body" style="padding:5px">
-        <div class="col-sm-12 col-md-12">
-        <div class="card card-accent-primary ">
-        <div class="card-header">
-        <strong> ค้นหา</strong>
-        </div>
-        <div class="row" style="padding:5px">
-        <div class="col-md-5" align="left">
-            <form name="search" action="{{ route('reportday') }}">
+                            </div>
+                        </td>
+                        <td>
+                            <div align="left">{{$types->total}}</div>
+                        </td>
 
-        <div class="card-block">
-        <div class="form-group row">
-        <label class="col-md-3 form-control-label" for="email-input">ปี</label>
-        <div class="col-md-9">
+                        </tr>
+                        @endforeach
 
-        </div>
-        </div>
-        <div class="form-group row">
-        <label class="col-md-3 form-control-label" for="email-input">เดือน</label>
-        <div class="col-md-9">
-        <select name="txtmonth" id="txtmonth" class="form-control" style="width:200px">
+                    </tbody>
+                </table>
 
-     </select>
+            </div>
+          </div>
         </div>
-        </div>
-        </div>
-        <div class="form-group row">
-        <label class="col-md-3 form-control-label"> </label>
-        <div class="col-md-9">
-        <input name="" class="btn btn-primary" id="search" type="submit" value="ค้นหา">
-        </div>
-        </div>
-        </form>
-    </div>
-        </div>
-        </div>
-        </div>
-        {{-- <span style="float: right"><a href="report/733.php?txtyear=&amp;txtmonth=&amp;Shop_id=43" class="btn btn-info"><i class="fa fa-file-excel-o" aria-hidden="true"></i> ดาวน์โหลดข้อมูลไฟล์ Excel</a>&nbsp;&nbsp;&nbsp;&nbsp;</span><br> --}}
-
-        <span style="float: right"><a  href="export/"  class="btn btn-info"><i class="fa fa-file-excel-o" aria-hidden="true"></i> ดาวน์โหลดข้อมูลไฟล์ Excel</a>&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
-        <br>
-        <div id="Thisprint">
-        <strong>สรุปรายรับรายจ่าย (รายวัน)</strong>
-        <table width="100%" class="table table-hover" id="example2" style=" margin-top:10px">
-        <thead>
-        <tr>
-        <th width="885"><div align="left">วันที่</div></th>
-
-        <th width="585" align="center"><div align="right">รายรับ</div></th>
-        </tr>
-        </thead>
-         <tbody>
-
-
-
-        <tr>
-        <td><div align="right" style="font-weight: bold">รวม</div></td>
-        <td><div align="right" style="font-weight: bold"></div></td>
-        </tr>
-        </tbody>
-        <tfoot>
-        </tfoot>
-        </table>
-        </div></div></div>
+      </div>
   </div>
+
 
 
 
@@ -152,7 +158,19 @@ input:checked + .slider:before {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <script>
+
+
+
+$('input[name="inputdaterange"]').daterangepicker({
+    locale: {
+        format: 'YYYY-MM-DD' // --------Here
+    },
+
+});
 
 var $link = "<?php echo url('/public/product/'); ?>";
 $.ajaxSetup({
