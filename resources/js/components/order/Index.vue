@@ -16,8 +16,8 @@
     <div class="card-footer text-muted" v-else>
 <p>ไม่มีข้อมูล</p>
   </div>
-        <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order" :key="index">
-            <div class="row" style="">
+        <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order" :key="index" @click="checkalone(i.id)">
+            <div class="row" style="" >
               <div class="col-3">
                                   <!-- <img src="https://image.makewebeasy.net/noimage.png" width="100%"/> -->
                   <img :src="Checkimage(i.images)" width="100%">
@@ -55,7 +55,7 @@
               </div>
               <div class="col-2 text-right">
                 <div>
-                    <b-form-group>
+
       <b-form-checkbox-group
         id="checkbox-group-2"
         v-model="selected_pad"
@@ -64,7 +64,7 @@
       >
         <b-form-checkbox :value="i.id"></b-form-checkbox>
       </b-form-checkbox-group>
-    </b-form-group>
+
 
 
                 </div>
@@ -208,7 +208,7 @@
         v-model="selected_wait"
         name="flavour-2"
       >
-        <b-form-checkbox :value="i.id"></b-form-checkbox>
+        <b-form-checkbox :value="i.id" @click="child"></b-form-checkbox>
       </b-form-checkbox-group>
     </b-form-group>
                 </div>
@@ -222,7 +222,7 @@
 
   </b-row>
 
-  <div>time: <strong>{{ time }}</strong></div>
+  <div>time: <strong>{{ time }} {{ selected_pad }}</strong></div>
 </b-container>
 
 
@@ -375,7 +375,17 @@ this.order_waiting = ordercus.waiting;
         },
 
 
+        checkalone: function(event) {
+           let found = this.selected_pad.find(product => product == event);
+           if(found){
+            this.selected_pad.splice(event,1);
+            let index = this.selected_pad.indexOf(event);
+            this.selected_pad.splice(index, 1) // remove it from array
+           }else {
+            this.selected_pad.push(event);
+           }
 
+    },
 
 
 

@@ -138,4 +138,36 @@ $pro = $biilall->get();
         return view('pages.report.pay')->with('typebill',$getypebill);
     }
 
+    public function year(Request $request)
+    {
+
+
+
+
+
+$year = DB::select(DB::raw("select YEAR(date) AS year,
+SUM(IF(MONTH(date)=1,`pricetotal`,NULL)) AS `Jan`,
+SUM(IF(MONTH(date)=2,`pricetotal`,NULL)) AS `Feb`,
+SUM(IF(MONTH(date)=3,`pricetotal`,NULL)) AS `Mar`,
+SUM(IF(MONTH(date)=4,`pricetotal`,NULL)) AS `Apr`,
+SUM(IF(MONTH(date)=5,`pricetotal`,NULL)) AS `May`,
+SUM(IF(MONTH(date)=6,`pricetotal`,NULL)) AS `Jun`,
+SUM(IF(MONTH(date)=7,`pricetotal`,NULL)) AS `Jul`,
+SUM(IF(MONTH(date)=8,`pricetotal`,NULL)) AS `Aug`,
+SUM(IF(MONTH(date)=9,`pricetotal`,NULL)) AS `Sep`,
+SUM(IF(MONTH(date)=10,`pricetotal`,NULL)) AS `Oct`,
+SUM(IF(MONTH(date)=11,`pricetotal`,NULL)) AS `Nov`,
+SUM(IF(MONTH(date)=12,`pricetotal`,NULL)) AS `Dec`
+FROM bill
+GROUP BY year"));
+
+
+
+//return view('pages.report.year', array('year' => $data));
+
+      return view('pages.report.year')->with('year',$year);
+    }
+
+
+
 }
