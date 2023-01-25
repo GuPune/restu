@@ -6,6 +6,8 @@ use App\Models\Call;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Generate;
+use App\Models\System;
+use App\Models\SystemRes;
 use App\Models\Toe;
 
 class Line extends Model
@@ -22,7 +24,8 @@ class Line extends Model
         $number = $toe->number_toe;
         $str = "โต๊ะ $number : เรียกเก็บคิดเงิน";
         $message =  $str;
-        $lineapi = 'f66eNz7LuFQ62BMOaGUZ40eFmz8T3WYbozEnKF81uad'; // ใส่ token key ที่ได้มา
+        $line = SystemRes::first();
+        $lineapi = $line->line_notify; // ใส่ token key ที่ได้มา
         $mms =  trim($message); // ข้อความที่ต้องการส่ง
         date_default_timezone_set("Asia/Bangkok");
         $chOne = curl_init();
@@ -81,7 +84,8 @@ if($s){
     $str = "โต๊ะ $number : เรียกพนักงาน ขอเพิ่มเติม $item จำนวน $itemtotal Note: $note";
 
     $message =  $str;
-    $lineapi = 'f66eNz7LuFQ62BMOaGUZ40eFmz8T3WYbozEnKF81uad'; // ใส่ token key ที่ได้มา
+    $line = SystemRes::first();
+    $lineapi = $line->line_notify; // ใส่ token key ที่ได้มา
     $mms =  trim($message); // ข้อความที่ต้องการส่ง
     date_default_timezone_set("Asia/Bangkok");
     $chOne = curl_init();
@@ -110,7 +114,8 @@ if($s){
     $str = "โต๊ะ $number : เรียกพนักงาน $note";
 
     $message =  $str;
-    $lineapi = 'f66eNz7LuFQ62BMOaGUZ40eFmz8T3WYbozEnKF81uad'; // ใส่ token key ที่ได้มา
+    $line = SystemRes::first();
+    $lineapi = $line->line_notify; // ใส่ token key ที่ได้มา
     $mms =  trim($message); // ข้อความที่ต้องการส่ง
     date_default_timezone_set("Asia/Bangkok");
     $chOne = curl_init();

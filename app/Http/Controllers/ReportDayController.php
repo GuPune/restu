@@ -126,8 +126,6 @@ $pro = $biilall->get();
 
         if($request->inputdaterange){
 
-
-
             $cuts = explode('-',$request->inputdaterange,2);
             $first = substr($request->inputdaterange, 0, -13);  // เอาหน้า
             $to = substr($request->inputdaterange, 13);  // returns "abcde"
