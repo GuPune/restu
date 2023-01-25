@@ -167,7 +167,7 @@
      <div class="card-footer text-muted" v-else>
 <p>ไม่มีข้อมูล</p>
   </div>
-            <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_waiting" :key="index">
+            <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_waiting" :key="index"  @click="checkaloneend(i.id)">
             <div class="row" style="">
               <div class="col-3">
                                   <!-- <img src="https://image.makewebeasy.net/noimage.png" width="100%"/> -->
@@ -208,7 +208,7 @@
         v-model="selected_wait"
         name="flavour-2"
       >
-        <b-form-checkbox :value="i.id" @click="child"></b-form-checkbox>
+        <b-form-checkbox :value="i.id"></b-form-checkbox>
       </b-form-checkbox-group>
     </b-form-group>
                 </div>
@@ -222,7 +222,7 @@
 
   </b-row>
 
-  <div>time: <strong>{{ time }} {{ selected_pad }}</strong></div>
+  <div>time: <strong>{{ time }} {{ selected_pad }} {{ selected_wait }}</strong></div>
 </b-container>
 
 
@@ -386,6 +386,20 @@ this.order_waiting = ordercus.waiting;
            }
 
     },
+
+    checkaloneend: function(event) {
+           let found = this.selected_wait.find(product => product == event);
+           if(found){
+            this.selected_wait.splice(event,1);
+            let index = this.selected_wait.indexOf(event);
+            this.selected_wait.splice(index, 1) // remove it from array
+           }else {
+            this.selected_wait.push(event);
+           }
+
+    },
+
+
 
 
 
