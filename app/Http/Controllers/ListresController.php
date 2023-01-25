@@ -19,10 +19,19 @@ class ListresController extends Controller
 
 
 
-$checktoken = Generate::where('qr_code',$token)->where('status','Y')->first();
+$checktoken = Generate::where('qr_code',$token)->first();
 
 if($checktoken){
-    return view("welcome");
+
+    if($checktoken->status == 'Y'){
+
+return view("welcome");
+    }elseif($checktoken->status == 'S'){
+        return view("thank");
+    }else{
+        abort(404);
+    }
+
 }else{
     abort(404);
 }
