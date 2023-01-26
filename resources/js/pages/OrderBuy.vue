@@ -24,7 +24,7 @@
                 <h4 class="card-title" style="margin-top: 1.5rem;">{{i.name_list}}</h4>
             </div>
             <div class="col-12">
-                <p class="card-text" style="margin-top: 1rem;font-size: 15px;">นาทีที่แล้ว {{i}}</p>
+                <p class="card-text" style="margin-top: 1rem;font-size: 15px;">{{i.created_at}}</p>
 
             </div>
             <div class="col-12" style="margin-top: 0.5rem;">
