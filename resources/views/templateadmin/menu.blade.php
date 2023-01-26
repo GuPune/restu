@@ -27,13 +27,13 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/admin/dashboard">
-          <i class="typcn typcn-device-desktop menu-icon"></i>
+          <i class="fa fa-area-chart menu-icon"></i>
           <span class="menu-title">ภาพรวม</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/admin/pos">
-          <i class="typcn typcn-device-desktop menu-icon"></i>
+          <i class="fa fa-shopping-basket menu-icon"></i>
           <span class="menu-title">หน้าขาย</span>
         </a>
       </li>
@@ -41,21 +41,21 @@
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#form-salesorderx" aria-expanded="false" aria-controls="form-salesorderx">
-            <i class="typcn typcn-globe-outline menu-icon"></i>
+            <i class="fa fa-credit-card menu-icon"></i>
           <span class="menu-title">จัดการขาย</span>
           <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="form-salesorderx">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item">
-                <a class="nav-link" href="/admin/salesorder">S01 รายการงานทั้งหมด</a></li>
+                <a class="nav-link" href="/admin/salesorder">S01 รายการขายทั้งหมด</a></li>
             </ul>
           </div>
       </li>
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#form-report" aria-expanded="false" aria-controls="form-report">
-            <i class="typcn typcn-globe-outline menu-icon"></i>
+            <i class="fa fa-area-chart menu-icon"></i>
           <span class="menu-title">รายงาน</span>
           <i class="menu-arrow"></i>
         </a>
@@ -73,7 +73,7 @@
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#form-slid" aria-expanded="false" aria-controls="form-slid">
-            <i class="typcn typcn-globe-outline menu-icon"></i>
+            <i class="fa fa-user menu-icon"></i>
           <span class="menu-title">ตั้งค่าผู้ใช้งาน</span>
           <i class="menu-arrow"></i>
         </a>
@@ -88,7 +88,7 @@
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#form-ord" aria-expanded="false" aria-controls="form-ord">
-            <i class="typcn typcn-globe-outline menu-icon"></i>
+            <i class="fa fa-database menu-icon"></i>
           <span class="menu-title">รายการอาหาร</span>
           <i class="menu-arrow"></i>
         </a>
@@ -117,7 +117,7 @@
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#form-order" aria-expanded="false" aria-controls="form-order">
-            <i class="typcn typcn-globe-outline menu-icon"></i>
+            <i class="fa fa-folder-open-o menu-icon"></i>
           <span class="menu-title">รายการครัว</span>
           <i class="menu-arrow"></i>
         </a>
@@ -135,7 +135,7 @@
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#form-rating" aria-expanded="false" aria-controls="form-rating">
-            <i class="typcn typcn-globe-outline menu-icon"></i>
+            <i class="fa fa-tags menu-icon"></i>
           <span class="menu-title">คะแนน</span>
           <i class="menu-arrow"></i>
         </a>
