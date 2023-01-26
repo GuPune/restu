@@ -196,13 +196,7 @@
     height: 520px;
 }
 
-.myBox {
-    border: none;
-    padding: 5px;
-    height: 350px;
-    overflow: scroll;
-    overflow-x: hidden;
-}
+
 
 @media print {
     .container-scroller{
