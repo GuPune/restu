@@ -150,7 +150,7 @@
 
     </b-col> -->
 
-    <b-col  sm="12" md="5" lg="5"  xl="5">
+    <b-col  sm="12" md="6" lg="6"  xl="6">
         <div class="card" v-if="order_waiting">
             <ul class="list-group list-group-flush">
     <li class="list-group-item" style="text-align: center;">  <button type="button" class="btn btn-sm"

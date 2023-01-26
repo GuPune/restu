@@ -8,6 +8,13 @@
     <li class="list-group-item" style="text-align: center;">
          <button type="button" class="btn btn-sm" style="background-color: #DEDA0D;">รอดำเนินการ</button></li>
   </ul>
+  <div class="card-footer text-muted" v-if="order.length > 0">
+<button type="button" class="btn btn-secondary btn-sm"  @click="checkall('O')">เลือกทั้งหมด</button>
+<button type="button" class="btn btn-primary btn-sm" @click="updateorder()">รับออเดอร์</button>
+  </div>
+    <div class="card-footer text-muted" v-else>
+<p>ไม่มีข้อมูล</p>
+  </div>
         <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order" :key="index"  @click="checkalone(i.id)">
             <div class="row" style="">
               <div class="col-3">
@@ -57,14 +64,7 @@
               </div>
             </div>
           </div>
-          <div class="card-footer text-muted" v-if="order.length > 0">
-<button type="button" class="btn btn-secondary btn-sm"  @click="checkall('O')">เลือกทั้งหมด</button>
-<button type="button" class="btn btn-primary btn-sm" @click="updateorder()">รับออเดอร์</button>
-  </div>
 
-    <div class="card-footer text-muted" v-else>
-<p>ไม่มีข้อมูล</p>
-  </div>
         </div>
 
 
@@ -150,6 +150,15 @@
     background-color: #16CE64;"
     >รอเสริฟ </button></li>
   </ul>
+  <div class="card-footer text-muted" v-if="order_waiting.length > 0">
+<button type="button" class="btn btn-secondary btn-sm" @click="checkall('S')">เลือกทั้งหมด</button>
+<button type="button" class="btn btn-primary btn-sm" @click="updatewait()">เสริฟ</button>
+  </div>
+
+
+     <div class="card-footer text-muted" v-else>
+<p>ไม่มีข้อมูล</p>
+  </div>
             <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_waiting" :key="index" @click="checkaloneend(i.id)">
             <div class="row" style="">
               <div class="col-3">
@@ -196,15 +205,7 @@
               </div>
             </div>
           </div>
-          <div class="card-footer text-muted" v-if="order_waiting.length > 0">
-<button type="button" class="btn btn-secondary btn-sm" @click="checkall('S')">เลือกทั้งหมด</button>
-<button type="button" class="btn btn-primary btn-sm" @click="updatewait()">เสริฟ</button>
-  </div>
 
-
-     <div class="card-footer text-muted" v-else>
-<p>ไม่มีข้อมูล</p>
-  </div>
         </div>
 
     </b-col>
