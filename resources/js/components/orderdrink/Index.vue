@@ -8,7 +8,7 @@
     <li class="list-group-item" style="text-align: center;">
          <button type="button" class="btn btn-sm" style="background-color: #DEDA0D;">รอดำเนินการ</button></li>
   </ul>
-        <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order" :key="index">
+        <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order" :key="index"  @click="checkalone(i.id)">
             <div class="row" style="">
               <div class="col-3">
                                   <!-- <img src="https://image.makewebeasy.net/noimage.png" width="100%"/> -->
@@ -150,7 +150,7 @@
     background-color: #16CE64;"
     >รอเสริฟ </button></li>
   </ul>
-            <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_waiting" :key="index">
+            <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order_waiting" :key="index" @click="checkaloneend(i.id)">
             <div class="row" style="">
               <div class="col-3">
                                   <!-- <img src="https://image.makewebeasy.net/noimage.png" width="100%"/> -->
@@ -346,6 +346,32 @@ this.selected = [];
 
 
         },
+
+
+        checkalone: function(event) {
+           let found = this.selected_pad.find(product => product == event);
+           if(found){
+            this.selected_pad.splice(event,1);
+            let index = this.selected_pad.indexOf(event);
+            this.selected_pad.splice(index, 1) // remove it from array
+           }else {
+            this.selected_pad.push(event);
+           }
+
+    },
+
+    checkaloneend: function(event) {
+           let found = this.selected_wait.find(product => product == event);
+           if(found){
+            this.selected_wait.splice(event,1);
+            let index = this.selected_wait.indexOf(event);
+            this.selected_wait.splice(index, 1) // remove it from array
+           }else {
+            this.selected_wait.push(event);
+           }
+
+    },
+
 
 
 

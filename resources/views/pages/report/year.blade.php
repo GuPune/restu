@@ -7,6 +7,13 @@
 
 <div class="card">
     <div>
+        <div class="card-header container-fluid">
+            <div class="row">
+              <div class="col-md-10">
+                <h3 class="w-75 p-3">รายงานยอดประจำปี</h3>
+              </div>
+            </div>
+          </div>
         <div class="card-body">
         <table class="table table-bordered yajra-datatable" style="text-align: center;">
             <thead>
