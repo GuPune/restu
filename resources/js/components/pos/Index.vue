@@ -489,7 +489,7 @@ async fetchdata(){
 
 let qrcode = await this.$store.dispatch(FETCH_QRCODE,this.form);
 
-            this.formtoe.images_qrcode = qrcode.images_qrcode;
+this.formtoe.images_qrcode = qrcode.images_qrcode;
 this.formtoe.number_sit = qrcode.number_sit;
 this.formtoe.number_toe = qrcode.number_toe;
 
