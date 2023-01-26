@@ -8,7 +8,7 @@
 <br>
 <select class="form-control-sm" id="discount_id" name="discount_id" style="width:110px; height:25px; font-size: 0.9rem; padding:2px;" v-model="typediscount">
 <option value="1">ส่วนลด (บาท)</option>
-<option value="2">ส่วนลด (%)</option>
+
 </select>
 <input id="inputdiscount" name="inputdiscount" type="number" size="15" class="form-control-sm" style="width:80px; height:25px; font-size: 0.9rem; padding:2px;  text-align:right " placeholder="0.00"  @change="onChangeDis()" v-model="discount" min="0" @keypress="(e) => onKeypress(e, 'max')">
 </div>
