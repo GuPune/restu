@@ -188,7 +188,21 @@
 
 <style>
 
+#div1 {
+    border: none;
+    padding: 5px;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 520px;
+}
 
+.myBox {
+    border: none;
+    padding: 5px;
+    height: 350px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
 
 @media print {
     .container-scroller{

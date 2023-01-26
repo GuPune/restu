@@ -18,6 +18,12 @@
 
 </template>
 
+<style>
+
+
+
+</style>
+
 
 <script>
 import { mapGetters } from "vuex";

@@ -150,6 +150,17 @@
 </div>
 </template>
 
+<style>
+.myBox {
+    border: none;
+    padding: 5px;
+    height: 350px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+</style>
+
 
 <script>
 import { mapGetters,mapState } from "vuex";
