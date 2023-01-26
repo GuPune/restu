@@ -299,7 +299,8 @@ $gen = Generate::where('qr_code',$request->token)->first();
                 $datas[$index]['total_price'] = $re->total_price;
                 $datas[$index]['quantity'] = $re->quantity;
                 $datas[$index]['status'] = $re->status;
-                $datas[$index]['created_at'] = $re->created_at;
+                $datas[$index]['created_at'] = $re->created_at->diffForHumans;
+
 
                     }
         }
