@@ -32,7 +32,13 @@
         >
             <div class="card-body">
                 <div class="text-muted text-right mb-2">
-                    <i class="fa fa-home fa-3x"></i>
+
+
+                    @if ($toes->orderstatus == 'idle')
+                    <i class="fa fa-users fa-3x"></i>
+                    @else
+                    <i class="fa fa-cutlery fa-3x"></i>
+                    @endif
                 </div>
               <h1 class="card-title">{{$toes->number_toe}}</h1>
               <p class="card-text">จำนวนที่นั้ง {{$toes->number_sit}} </p>
