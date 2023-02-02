@@ -971,7 +971,6 @@ $.ajaxSetup({
 
  $('body').on('click', '.btn-show-modal', function (e) {
 
-
     var id = $(this).attr("data-id");
 
 
@@ -987,7 +986,9 @@ $.ajaxSetup({
                     type: "GET",
                     url: "/admin/restu/" + id +"/edit",
                     success: function(datas){
-console.log(datas);
+
+                        document.getElementById('file-res-edit').value= null;
+
 var id = $('#editid').val(datas.id);
 var name_list = $('#editname_list').val(datas.name_list);
 var price_sell = $('#editprice_sell').val(datas.price_sell);
