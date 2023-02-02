@@ -51,6 +51,7 @@ Auth::routes();
 //Route::view('/{any}/{id}','welcome');
 
 Route::get('/app/order/list/{token}', [ListresController::class, 'index']);
+Route::get('/app/restlist/{token}/{id}', [ListresController::class, 'view']);
 
 
 

@@ -1,10 +1,10 @@
 
 import { FrontProductService } from "@services/frontproduct.service";
 import {
-    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE,GET_TOKEN,CALL_STAFF,GET_ORDER_TOE_AND_CHECKBILL,PAYMENT,OPENTOE,FETCH_TYPERES_GROUP
+    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE,GET_TOKEN,CALL_STAFF,GET_ORDER_TOE_AND_CHECKBILL,PAYMENT,OPENTOE,FETCH_TYPERES_GROUP,DEL_CART
 } from "@store/actions.type";
 import {
-    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT,SET_TOKEN,SET_STATUS_CHECKBILL
+    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT,SET_TOKEN,SET_STATUS_CHECKBILL,SET_DEL_CART
 } from "@store/mutations.type";
 
 
@@ -92,6 +92,13 @@ const actions = {
           context.commit(SET_UPDATE_CART,payload);
           //  return data;
     },
+
+    async [DEL_CART](context,payload) {
+
+        context.commit(SET_DEL_CART,payload);
+        //  return data;
+  },
+
     async [GET_ORDER_TOE](context,payload) {
         const { data } = await FrontProductService.getordertoe(payload);
        // context.commit(SET_UPDATE_CART,payload);
@@ -188,6 +195,26 @@ const mutations = {
 
     },
 
+    [SET_DEL_CART](state,item){
+
+
+
+        const idxObj = state.cart.findIndex(object => {
+            return object.id === item.id;
+          });
+          let x = state.cart.splice(idxObj, 1);
+          state.cartALLPrice = 0;
+
+        //  let found = state.cart.find(product => product.id == item.id);
+         let a = localStorage.setItem("cart", JSON.stringify(state.cart));
+         for(let i = 0; i < state.cart.length; i++){
+          state.cartALLPrice += state.cart[i].total_res;
+        }
+
+state.cartTotal = this.cart.length;
+
+    },
+
     [SET_UPDATE_CART](state,item){
 
         let found = state.cart.find(product => product.id == item.id);
@@ -203,9 +230,7 @@ const mutations = {
 
            }
            let a = localStorage.setItem("cart", JSON.stringify(state.cart));
-
            for(let i = 0; i < state.cart.length; i++){
-
             state.cartALLPrice += state.cart[i].total_res;
           }
     },

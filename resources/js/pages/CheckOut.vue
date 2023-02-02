@@ -68,6 +68,7 @@
                   <div class="text-center">
 
                     <input class="btn btn-warning btn-block btn-lg" name="button"  value="เพิ่มไปยังตะกร้า" @click="Addcart()" >
+                    <input class="btn btn-danger btn-block btn-lg" name="button"  value="ลบ"  @click="Delcart()">
                   </div>
                 </div>
               </div>
@@ -101,7 +102,7 @@
 
 <script>
 import { mapGetters,mapState } from "vuex";
-import { FETCH_RES,FETCH_RES_CART,CHECKOUT,UPDATE_CART,GET_TOKEN } from "@store/actions.type";
+import { FETCH_RES,FETCH_RES_CART,CHECKOUT,UPDATE_CART,GET_TOKEN,DEL_CART} from "@store/actions.type";
 export default {
   name: 'checkout',
   data: () => ({
@@ -129,8 +130,6 @@ export default {
 
 
         async created(){
-
-            console.log('this.form.route orderbuy',this.$route)
             this.form.token = this.$route.params.token
             let gettoken = await this.$store.dispatch(GET_TOKEN,this.form);
 
@@ -140,8 +139,17 @@ mounted() {
 },
 methods: {
 
+    Delcart(){
+        this.myModel = false;
+
+
+        this.formupdate.id = this.id;
+
+          let del =  this.$store.dispatch(DEL_CART,this.formupdate);
+    },
+
     scrollToTop(i) {
-        console.log(i);
+
       //  alert('scrollToTop')
     this.myModel = true;
 
@@ -164,12 +172,11 @@ this.myModel = false;
             this.formupdate.note = this.note;
             this.formupdate.token = this.$route.params.token;
             this.formupdate.total_res = null;
-            console.log('i',this.formupdate);
           let befres =  this.$store.dispatch(UPDATE_CART,this.formupdate);
     },
     downper(){
 
-        if(this.qty == 1){
+        if(this.qty == 0){
 
         }else {
 

@@ -58,6 +58,7 @@
                   <div class="text-center">
 
                     <input class="btn btn-warning btn-block btn-lg" name="button"  value="เพิ่มไปยังตะกร้า" @click="Addcart()" >
+                    <input class="btn btn-danger btn-block btn-lg" name="button"  value="ปิด" @click="Close()">
                   </div>
                 </div>
               </div>
@@ -169,10 +170,13 @@ this.typegroup = gettypegroup;
 
         methods: {
 
+            Close(){
+                this.myModel = false;
+            },
+
             Addcart(){
 
                 this.myModel = false;
-                console.log('i',this.id);
             this.formadd.id = this.id;
             this.formadd.name_list = this.name;
             this.formadd.price_sell = this.price;

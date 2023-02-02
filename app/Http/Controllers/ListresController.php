@@ -105,4 +105,33 @@ return view("welcome");
     {
         //
     }
+
+
+    public function view(Request $request,$token)
+    {
+        //
+
+
+
+
+$checktoken = Generate::where('qr_code',$token)->first();
+
+if($checktoken){
+
+    if($checktoken->status == 'Y'){
+
+return view("welcome");
+    }elseif($checktoken->status == 'S'){
+        return view("thank");
+    }else{
+        abort(404);
+    }
+
+}else{
+    abort(404);
+}
+
+
+
+    }
 }
