@@ -176,7 +176,7 @@ this.myModel = false;
     },
     downper(){
 
-        if(this.qty == 0){
+        if(this.qty == 1){
 
         }else {
 
