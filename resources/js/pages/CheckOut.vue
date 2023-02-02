@@ -2,7 +2,7 @@
   <div class="checkout" v-if="(this.cart.length > 0)">
     <div class="row">
         <div class="col-6">
-            <button type="button" class="btn btn-danger btn-sm btn-block">ยกเลิกรายการทั้งหมด</button>
+            <button type="button" class="btn btn-danger btn-sm btn-block" @click="CancelOrder()">ยกเลิกรายการทั้งหมด</button>
         </div>
         <div class="col-6">
             <button type="button" class="btn btn-success btn-sm btn-block"  @click="Checkout()">ยืนยันรายการทั้งหมด</button>
@@ -102,7 +102,7 @@
 
 <script>
 import { mapGetters,mapState } from "vuex";
-import { FETCH_RES,FETCH_RES_CART,CHECKOUT,UPDATE_CART,GET_TOKEN,DEL_CART,FETCT_PRICE} from "@store/actions.type";
+import { FETCH_RES,FETCH_RES_CART,CHECKOUT,UPDATE_CART,GET_TOKEN,DEL_CART,FETCT_PRICE,CANCEL_ORDER} from "@store/actions.type";
 export default {
   name: 'checkout',
   data: () => ({
@@ -140,6 +140,10 @@ mounted() {
 
 },
 methods: {
+
+    CancelOrder(){
+        let cancel =  this.$store.dispatch(CANCEL_ORDER);
+    },
 
     Delcart(){
         this.myModel = false;

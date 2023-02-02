@@ -1,10 +1,10 @@
 
 import { FrontProductService } from "@services/frontproduct.service";
 import {
-    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE,GET_TOKEN,CALL_STAFF,GET_ORDER_TOE_AND_CHECKBILL,PAYMENT,OPENTOE,FETCH_TYPERES_GROUP,DEL_CART,FETCT_PRICE
+    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE,GET_TOKEN,CALL_STAFF,GET_ORDER_TOE_AND_CHECKBILL,PAYMENT,OPENTOE,FETCH_TYPERES_GROUP,DEL_CART,FETCT_PRICE,CANCEL_ORDER
 } from "@store/actions.type";
 import {
-    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT,SET_TOKEN,SET_STATUS_CHECKBILL,SET_DEL_CART
+    SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT,SET_TOKEN,SET_STATUS_CHECKBILL,SET_DEL_CART,SET_CANCEL_CART
 } from "@store/mutations.type";
 
 
@@ -99,8 +99,12 @@ const actions = {
         //  return data;
   },
   async [FETCT_PRICE](context) {
-
     context.commit(SET_GET_CART);
+    //  return data;
+},
+
+async [CANCEL_ORDER](context) {
+    context.commit(SET_CANCEL_CART);
     //  return data;
 },
 
@@ -176,9 +180,12 @@ const mutations = {
         state.cart = [];
         localStorage.removeItem("cart");
     },
-    // [SET_PRICE_CART](state) {
-
-    // },
+    [SET_CANCEL_CART](state) {
+        state.cartALLPrice = 0;
+        state.cartTotal = 0;
+        state.cart = [];
+        localStorage.removeItem("cart");
+    },
 
 
 

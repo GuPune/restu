@@ -13,6 +13,7 @@ export const SET_GET_CART = "set_get_cart";
 export const SET_UPDATE_CART = "set_update_cart";
 export const SET_DEL_CART = "set_del_cart";
 export const SET_PRICE_CART = "set_price_cart";
+export const SET_CANCEL_CART = "set_cancel_cart";
 
 export const SET_CHECKOUT = "set_checkout";
 export const SET_TOKEN = "set_token";
