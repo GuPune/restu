@@ -1,7 +1,7 @@
 
 import { FrontProductService } from "@services/frontproduct.service";
 import {
-    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE,GET_TOKEN,CALL_STAFF,GET_ORDER_TOE_AND_CHECKBILL,PAYMENT,OPENTOE,FETCH_TYPERES_GROUP,DEL_CART
+    FETCH_TYPERES,FETCH_RES,FETCH_TOE_FRONT,FETCH_RES_CART,GET_CART,CHECKOUT,UPDATE_CART,GET_ORDER_TOE,GET_TOKEN,CALL_STAFF,GET_ORDER_TOE_AND_CHECKBILL,PAYMENT,OPENTOE,FETCH_TYPERES_GROUP,DEL_CART,FETCT_PRICE
 } from "@store/actions.type";
 import {
     SET_TYPE_LIST,SET_TOE_FRONT,SET_ADD_REST,SET_GET_CART,SET_UPDATE_CART,SET_CHECKOUT,SET_TOKEN,SET_STATUS_CHECKBILL,SET_DEL_CART
@@ -98,6 +98,13 @@ const actions = {
         context.commit(SET_DEL_CART,payload);
         //  return data;
   },
+  async [FETCT_PRICE](context) {
+
+    context.commit(SET_GET_CART);
+    //  return data;
+},
+
+
 
     async [GET_ORDER_TOE](context,payload) {
         const { data } = await FrontProductService.getordertoe(payload);
@@ -169,6 +176,11 @@ const mutations = {
         state.cart = [];
         localStorage.removeItem("cart");
     },
+    // [SET_PRICE_CART](state) {
+
+    // },
+
+
 
     [SET_GET_CART](state) {
         this.cart = JSON.parse(localStorage.getItem("cart"));
@@ -269,6 +281,8 @@ if (found) {
 
    this.cart = JSON.parse(localStorage.getItem("cart"));
    state.cartTotal = this.cart.length;
+
+
 
     },
     [SET_STATUS_CHECKBILL](state,item){

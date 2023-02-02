@@ -102,7 +102,7 @@
 
 <script>
 import { mapGetters,mapState } from "vuex";
-import { FETCH_RES,FETCH_RES_CART,CHECKOUT,UPDATE_CART,GET_TOKEN,DEL_CART} from "@store/actions.type";
+import { FETCH_RES,FETCH_RES_CART,CHECKOUT,UPDATE_CART,GET_TOKEN,DEL_CART,FETCT_PRICE} from "@store/actions.type";
 export default {
   name: 'checkout',
   data: () => ({
@@ -132,6 +132,8 @@ export default {
         async created(){
             this.form.token = this.$route.params.token
             let gettoken = await this.$store.dispatch(GET_TOKEN,this.form);
+
+            let ferchtotal = await this.$store.dispatch(FETCT_PRICE);
 
 },
 mounted() {
