@@ -338,25 +338,36 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
     $datas = [];
     $datas['status'] = $getorder->status;
     $totalCost = 0;
+    $totalfullCost = 0;
+    $disc = 0;
         if($getorder){
-    $ord = Order::select(\DB::raw('product_res.name_list, SUM(fact_order.total_price) as total,SUM(fact_order.quantity) as qty'))
+    $ord = Order::select('product_res.name_list','fact_order.orders_price','fact_order.quantity','fact_order.discount','fact_order.type_discount','fact_order.total_price')
          ->leftJoin('product_res', 'product_res.id', '=', 'fact_order.res_id')
          ->where('fact_order.toe_id',$getorder->toe_id)
          ->where('fact_order.ger_id',$getorder->id)
-         ->groupBy('fact_order.res_id')
          ->get();
+
 
                  foreach ($ord as $index => $ords) {
                 $datas['data'][$index]['name_list'] = $ords->name_list;
-                $datas['data'][$index]['qty'] = $ords->qty;
-                $datas['data'][$index]['total'] = $ords->total;
+                $datas['data'][$index]['qty'] = $ords->quantity;
+                $datas['data'][$index]['total'] = $ords->total_price;
+                $datas['data'][$index]['orders_price'] = $ords->orders_price;
+                $datas['data'][$index]['discount'] = $ords->discount;
+                $datas['data'][$index]['type_discount'] = $ords->type_discount;
+                $datas['data'][$index]['full_total'] = ($ords->quantity) * ($ords->orders_price);
 
+                $totalfullCost += $datas['data'][$index]['full_total'];
+                $totalCost += $ords->total_price;
+                $disc += $ords->discount;
 
-                $totalCost += $ords->total;
                     }
 
         }
+        $datas['disc'] = $disc;
         $datas['total'] = $totalCost;
+        $datas['full_total'] = $totalfullCost;
+       // $datas['total'] = 0;
 
 
 

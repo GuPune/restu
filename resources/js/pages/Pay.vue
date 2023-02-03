@@ -8,6 +8,7 @@
   <thead>
     <tr>
       <th scope="col-6">จำนวน / รายการ</th>
+      <th scope="col-6">ลด</th>
       <th scope="col-6">ราคา</th>
 
     </tr>
@@ -15,11 +16,18 @@
   <tbody>
     <tr  v-for="i in this.orders">
       <th scope="row">{{i.qty}} {{i.name_list}}</th>
-      <td>{{i.total}}.00</td>
+      <td>{{i.discount}}.00</td>
+      <td>{{i.full_total}}.00</td>
     </tr>
 
     <tr>
+      <th scope="row">รวม</th>
+      <td>{{this.disc}}.00</td>
+      <td>{{this.full_total}}.00</td>
+    </tr>
+    <tr>
       <th scope="row">รวมทั้งสิน</th>
+      <td></td>
       <td>{{this.total}}.00</td>
     </tr>
   </tbody>
@@ -110,6 +118,9 @@ export default {
    this.orders = order.data;
    this.status = order.status;
    this.total = order.total;
+   this.disc = order.disc;
+   this.full_total = order.full_total;
+
 },
 
 mounted() {
