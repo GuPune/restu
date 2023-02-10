@@ -180,7 +180,7 @@ $updatedata = Order::where('id',$request->order_id)->update([
     public function transaction_ordersdelete(Request $request)
     {
 
-      $delorder = Order::where('id',$request->order_id)->where('toe_id',$request->toe_id)->delete();
+ $delorder = Order::where('id',$request->key['order_id'])->delete();
         return response()->json('delete');
     }
 

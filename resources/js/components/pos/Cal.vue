@@ -7,8 +7,9 @@
 
         <td width="36" style=" font-weight:bold; font-size:14px">
             <div>{{index+1}}. </div>
-            <div>
-                <button class="btn btn-danger" style="width:30px; height:15px; font-size: 12px; padding:2px;cursor:pointer;  " type="button" name="dellist" id="4822"> ลบ </button> </div>
+            <div @click="Del(item.id,item)">
+                <button class="btn btn-danger" style="width:30px; height:15px; font-size: 12px; padding:2px;cursor:pointer;  " type="button" name="dellist" id="4822"> ลบ </button>
+            </div>
         </td>
         <td width="150">
             <span style=" font-weight:bold; font-size:14px">{{item.code}}</span>
@@ -220,6 +221,9 @@ Discount(i){
     this.name = i.name_list;
     this.id = i.order_id;
 
+},
+async DelOrder(){
+alert('ok');
 },
 Canc(){
 
