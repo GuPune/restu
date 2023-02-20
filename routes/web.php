@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\ExportHtmlNewController;
 use App\Http\Controllers\MultiController;
 use App\Http\Controllers\FrontNewController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ReportDayController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SettingController;
+
 
 
 
@@ -145,6 +147,9 @@ Route::prefix('admin')->group(function () {
     Route::resource('rating', RatingController::class);
 
     Route::resource('setting', SettingController::class);
+
+
+    Route::resource('bank', BankController::class);
 
 
     Route::get('/reportday', [ReportDayController::class, 'index'])->name('reportday');

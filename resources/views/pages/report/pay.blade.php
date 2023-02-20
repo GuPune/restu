@@ -17,7 +17,6 @@
               </div>
           <div class="card-body">
             <form name="search" action="{{ route('reportpay') }}">
-
               <div class="form-group row">
                 <label for="inputPassword3" class="col-sm-2 col-form-label">วันที่
                 </label>
@@ -39,7 +38,9 @@
                     <tr>
                         <th>ลำดับ
                         </th>
-                        <th>ประเภท
+                        <th>ชื่อ
+                        </th>
+                        <th>รูป
                         </th>
                         <th>จำนวนเงิน
                         </th>
@@ -55,16 +56,13 @@
                         </td>
                         <td>
                             <div align="left">
-                                @if ($types->type_pay == 1)
-                                {{'เงินสด'}}
-                                @elseif ($types->type_pay == 2)
-                                {{'เงินโอน'}}
-                                @else
-                                {{'พร้อมเพย์'}}
-                                @endif
-
+                             {{$types->name}}
 
                             </div>
+                        </td>
+                        <td class="text-center">
+                            <img class="img-profile"
+                            src="/public/product/{{$types->images}}" width="150" height="100">
                         </td>
                         <td>
                             <div align="left">{{$types->total}}</div>

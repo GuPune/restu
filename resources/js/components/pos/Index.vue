@@ -82,9 +82,9 @@
 </div>
 </div>
 </div>
-<div class="col-sm-12 col-lg-12 alert alert-info" style="margin-top:20px">
+<!-- <div class="col-sm-12 col-lg-12 alert alert-info" style="margin-top:20px">
 <SumP/>
-</div>
+</div> -->
 
 
 
@@ -257,7 +257,7 @@ import Product from "../pos/Product.vue";
 import Cal from "../pos/Cal.vue";
 import SumP from "../pos/SumPos.vue";
 import Bill from "../pos/Bill.vue";
-import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,FETCH_ORDER,FETCH_TOE,OPENTOE,CANCELTOE,FETCH_QRCODE,SEND_ORDER_TO_CHEF,SHOWTOE,CHANGETOESUSS } from "@store/actions.type";
+import { FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,FETCH_ORDER,FETCH_TOE,OPENTOE,CANCELTOE,FETCH_QRCODE,SEND_ORDER_TO_CHEF,SHOWTOE,CHANGETOESUSS,FETCH_PAY } from "@store/actions.type";
 export default {
     components: {
         Product,Cal,SumP,Bill
@@ -296,6 +296,8 @@ toenew:null
 
 let typeres = await this.$store.dispatch(FETCH_TYPEPRODUCT);
 let toe = await this.$store.dispatch(FETCH_TOE);
+let typepay = await this.$store.dispatch(FETCH_PAY);
+
 
 this.typerest = typeres;
 this.toeall = toe;

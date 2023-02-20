@@ -1,10 +1,10 @@
 
 import { ProductService } from "@services/product.service";
 import {
-    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS,UPDATE_ORDER_PENDING,UPDATE_ORDER_WAIT,UPDATE_ORDER_DOING,OPENTOE,CANCELTOE,FETCH_QRCODE,CLEAR_BILL,FETCH_ORDER_CUS_DRINK,UPDATE_ORDER_DISC,SEND_ORDER_TO_CHEF,SHOWTOE,CHANGETOESUSS
+    FETCH_PRODUCT,FETCH_TYPEPRODUCT,FETCH_PRODUCT_FITTER,ADD_PRODUCT,UPDATE_ORDER,FETCH_ORDER,DELTLE_ORDER,FETCH_DISCOUNT,FETCH_TOE,FETCH_ORDER_CUS,UPDATE_ORDER_PENDING,UPDATE_ORDER_WAIT,UPDATE_ORDER_DOING,OPENTOE,CANCELTOE,FETCH_QRCODE,CLEAR_BILL,FETCH_ORDER_CUS_DRINK,UPDATE_ORDER_DISC,SEND_ORDER_TO_CHEF,SHOWTOE,CHANGETOESUSS,FETCH_PAY
 } from "@store/actions.type";
 import {
-    SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT,SET_TOE_ID,SET_TOE_STATUS,SET_TOE_STATUS_OPEN,SET_TOE_STATUS_CANCEL
+    SET_PRODUCT,SET_ORDERS,SET_UPDATEORDERS,SET_ORDERS_TOE,SET_ORDERS_TOTAL,SET_ORDERS_DELETE,SET_DISCOUNT,SET_TOE_ID,SET_TOE_STATUS,SET_TOE_STATUS_OPEN,SET_TOE_STATUS_CANCEL,SET_TYPEPAY
 } from "@store/mutations.type";
 
 
@@ -23,7 +23,8 @@ const state = {
         pricetotal:null,
         quantity:null,
         pricediscount:null,
-    }
+    },
+    typepay:[]
 };
 const getters = {
     product(state) {
@@ -47,6 +48,10 @@ const getters = {
     ToeStatus(state) {
         return state.ToeStatus;
     },
+    typepay(state) {
+        return state.typepay;
+    },
+
 };
 
 
@@ -182,7 +187,11 @@ context.commit(SET_DISCOUNT,payload);
         const { data } = await ProductService.changetoe(payload);
     },
 
-
+    async [FETCH_PAY](context) {
+        const { data } = await ProductService.typepay();
+        await context.commit(SET_TYPEPAY,data);
+        return data;
+    },
 
 
 
@@ -295,6 +304,11 @@ state.total.pricediscount = 0;
         }
 
      },
+
+     [SET_TYPEPAY](state, data) {
+        state.typepay = data;
+        console.log('state.typepay',state.typepay);
+    },
 
 
 

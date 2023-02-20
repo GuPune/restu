@@ -39,6 +39,10 @@ export const CANCELTOE = "cancel_toe";
 export const SHOWTOE = "show_toe";
 export const CHANGETOESUSS = "change_toe";
 
+export const FETCH_PAY = "fetch_pay";
+
+
+
 
 export const FETCH_QRCODE = "fecth_qrcode";
 export const CLEAR_BILL = "clear_bill";

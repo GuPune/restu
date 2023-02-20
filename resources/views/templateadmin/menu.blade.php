@@ -142,7 +142,6 @@
         <div class="collapse" id="form-rating">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/admin/rating">คะแนนที่ลูกค้าให้</a></li>
-
             </ul>
           </div>
       </li>
@@ -156,11 +155,23 @@
         </a>
         <div class="collapse" id="form-setting">
             <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="/admin/bank">บัญชี</a></li>
+            </ul>
+        </div>
+        <div class="collapse" id="form-setting">
+            <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/admin/setting">ตั้งค่า</a></li>
             </ul>
           </div>
       </li>
 
+
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/logout">
+          <i class="fa fa-long-arrow-left"></i>
+          <span class="menu-title">ออกจากระบบ</span>
+        </a>
+      </li>
 
 
 

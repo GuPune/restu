@@ -1,6 +1,7 @@
 <template>
 
 <div style="border:#666666 1px solid ; padding:10px">
+
 <div class="row">
 <div class="col-lg-6">
 <div style="bottom: 40px;">
@@ -158,8 +159,8 @@ Facebook: Naoki Japanese Restaurant
                 <div class="modal-content">
 <div class="modal-header">
 <h5 class="modal-title" id="exampleModalLabel">ชำระเงิน</h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true"></span>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="Close()">
+<span aria-hidden="true">x</span>
 </button>
 </div>
 <div class="modal-body" id="resultdetail">
@@ -169,10 +170,8 @@ Facebook: Naoki Japanese Restaurant
 <td width="26%" align="left" style="padding-left:15px">ทั่วไป</td>
 <td width="15%" align="left" class="bg-success p-1 px-2 font-1xl">การชำระ</td>
 <td width="32%" align="left"><span style="padding-left:15px">
-<select name="Ref_type_payment_id" class="bg-warning p-1 px-2 font-1xl" id="Ref_type_payment_id" style=" width:150px;"  v-model="typepay">
-<option value="1" style="text-align:right" selected="">เงินสด</option>
-<option value="2" style="text-align:right" selected="">พร้อมเพย์</option>
-<option value="3" style="text-align:right" selected="">เงินโอน</option>
+<select name="Ref_type_payment_id" class="bg-warning p-1 px-2 font-1xl" id="Ref_type_payment_id" style=" width:150px;" v-model="paytype" >
+<option  style="text-align:right" selected=""  v-for="(pay, x) in this.typepay" :value="pay.id" :key="x">{{pay.name}}</option>
 </select>
 </span></td>
 </tr>
@@ -440,13 +439,12 @@ export default {
       return {
         discount:0,
         typediscount:1,
-        typepay:1,
         paymoney:0,
         paychange:0,
         myModel:false,
         Checkbill:false,
         Printbill:false,
-
+        paytype:null,
 form:{
     toe_id:null,
     discount:null,
@@ -456,14 +454,22 @@ fulldatetime: ''
       }
     },
     computed: {
-   ...mapGetters(["total","orders","toe_id"]),
+   ...mapGetters(["total","orders","toe_id","typepay"]),
+
 
         },
+
+
+
+
     mounted() {
         this.fulldatetime = this.printFullDate();
+
+
+
+
         },
         methods: {
-
             printFullDate: function(){
 
                 this.date = new Date();
@@ -568,6 +574,8 @@ let orders = this.$store.dispatch(FETCH_ORDER,this.form);
         },
         Close(){
 this.Checkbill = false;
+this.myModel = false;
+
 
         },
         Closebill(){
@@ -589,10 +597,13 @@ return false;
             this.form.paymoney = this.paymoney;
             this.form.pricetotal = this.total.pricetotal;
             this.form.pricediscount = this.total.pricediscount;
-            this.form.type_pay = this.typepay;
+            this.form.type_pay = this.paytype;
            if(this.total.pricediscount > this.paymoney){
-
 return alert('จ่ายเงินไม่ได้');
+           }
+
+           if(this.paytype == null){
+return alert('เลือกประเภทจ่ายเงิน');
            }
            this.form.toe_id = this.toe_id;
 

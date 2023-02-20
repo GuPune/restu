@@ -217,6 +217,12 @@ class ProductController extends Controller
             $files->move($destinationPath, $profileImage);
         }
 
+        if ($files = $request->file('bank_img')) {
+            $destinationPath = 'public/product/'; // upload path
+            $profileImage = date('YmdHis').$random. "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $profileImage);
+        }
+
 
 
 

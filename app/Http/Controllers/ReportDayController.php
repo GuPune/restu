@@ -117,15 +117,17 @@ $pro = $biilall->get();
 
 
 
-        $getypebill = Bill::select(\DB::raw('bill.type_pay, SUM(bill.pricetotal) as total'))
+        $getypebill = Bill::select(\DB::raw('bill.type_pay,bank.name,bank.images, SUM(bill.pricetotal) as total'))
         ->leftJoin('generate', 'bill.token', '=', 'generate.qr_code')
+        ->leftJoin('bank', 'bank.id', '=', 'bill.type_pay')
         ->where('generate.status','S')
         ->groupBy('bill.type_pay')
         ->get();
 
 
-        if($request->inputdaterange){
 
+
+        if($request->inputdaterange){
             $cuts = explode('-',$request->inputdaterange,2);
             $first = substr($request->inputdaterange, 0, -13);  // เอาหน้า
             $to = substr($request->inputdaterange, 13);  // returns "abcde"

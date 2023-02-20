@@ -10,6 +10,7 @@ use App\Models\Toe;
 use App\Models\Typeoffoods;
 use Illuminate\Http\Request;
 use App\CoreFunction\Line;
+use App\Models\Bank;
 use App\Models\Bill;
 use App\Models\Call;
 use App\Models\Group;
@@ -1096,6 +1097,21 @@ return response()->json($datas);
         /// ย้าย
 
 
+    }
+    public function typepay(Request $request)
+    {
+
+
+        $datas = [];
+
+        $typebank = Bank::where('type','Y')->get();
+       foreach ($typebank as $index => $typebanks) {
+           $datas[$index]['id'] = $typebanks->id;
+           $datas[$index]['name'] = $typebanks->name;
+           $datas[$index]['credit'] = $typebanks->credit;
+           $datas[$index]['des'] = $typebanks->des;
+        }
+       return response()->json($datas);
     }
 
 

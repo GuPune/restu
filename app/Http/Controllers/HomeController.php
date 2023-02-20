@@ -74,6 +74,6 @@ $data = $users->values();
 
      //   return redirect('/admin/login');
 
-        return redirect('/admin/login');
+        return redirect('/login');
     }
 }

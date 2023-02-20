@@ -75,5 +75,11 @@ export const ProductService = {
         return ApiService.post("clearbill",param);
     },
 
+    typepay() {
+        return ApiService.get("typepay");
+    },
+
+
+
 
 };
