@@ -66,7 +66,7 @@
 </div>
 
 
-<div class="row">
+<div class="row sellmobile">
     <div class="col-sm-12 col-lg-7" id="div1">
     <div>
     <div id="listproduct_tran">
@@ -248,6 +248,18 @@
     border: 0px solid #e8eff9;
 
 }
+
+
+    .sellmobile{
+        display: inline-flex;
+    }
+
+@media (min-width:320px)  {
+
+    .sellmobile{
+        display: inline-flex;
+    }
+ }
 
 </style>
 <script>
