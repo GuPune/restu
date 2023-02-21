@@ -357,7 +357,7 @@ $.ajaxSetup({
                         var btnPrint = '<button type="button" class="btn btn-outline-warning btn-sm save-print" data-toggle="modal" data-id="'+dataid+'"  data-image="'+images_qrcode+'"  class="btn-modal">พิมพ์</button>';
 
 
-                         return btnEdit + btnDel + btnPrint;
+                         return btnEdit + btnDel;
                     }
                 },
         ]
