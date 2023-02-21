@@ -12,18 +12,18 @@ class OrderResController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //  function __construct()
-    //  {
-    //       $this->middleware('permission:orderres-list|orderres-create|orderres-edit|orderres-delete', ['only' => ['index','store']]);
-    //       $this->middleware('permission:orderres-create', ['only' => ['create','store']]);
-    //       $this->middleware('permission:orderres-edit', ['only' => ['edit','update']]);
-    //       $this->middleware('permission:orderres-delete', ['only' => ['destroy']]);
-    //  }
+     function __construct()
+     {
+          $this->middleware('permission:orderres-list|orderres-create|orderres-edit|orderres-delete', ['only' => ['index','store']]);
+          $this->middleware('permission:orderres-create', ['only' => ['create','store']]);
+          $this->middleware('permission:orderres-edit', ['only' => ['edit','update']]);
+          $this->middleware('permission:orderres-delete', ['only' => ['destroy']]);
+     }
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     public function index()
     {
         return view("pages.order.orderlist");

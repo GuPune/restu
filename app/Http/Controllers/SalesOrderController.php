@@ -17,10 +17,15 @@ class SalesOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
+     function __construct()
+     {
+          $this->middleware('permission:salesorder-list|salesorder-create|salesorder-edit|salesorder-delete', ['only' => ['index','store']]);
+          $this->middleware('permission:salesorder-create', ['only' => ['create','store']]);
+          $this->middleware('permission:salesorder-edit', ['only' => ['edit','update']]);
+          $this->middleware('permission:salesorder-delete', ['only' => ['destroy']]);
+     }
+
     public function index()
     {
         //

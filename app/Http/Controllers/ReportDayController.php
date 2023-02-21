@@ -11,9 +11,14 @@ use App\Models\Bill;
 class ReportDayController extends Controller
 {
     //
-    public function __construct()
+
+
+    function __construct()
     {
-        $this->middleware('auth');
+         $this->middleware('permission:reportday-list|reportproduct-product|reportpay-pay|reportyear-year', ['only' => ['index','store']]);
+         $this->middleware('permission:reportproduct-product', ['only' => ['create','store','product']]);
+         $this->middleware('permission:reportpay-pay', ['only' => ['edit','update','pay']]);
+         $this->middleware('permission:reportyear-year', ['only' => ['year']]);
     }
     public function index(Request $request)
     {
@@ -85,7 +90,7 @@ $request->txtmonth = $m;
     public function product(Request $request)
     {
 
-\Log::info($request->all());
+
 
         $biilall =  Bill::select('bill.bill_number','bill.created_at','bill.total','bill.pricetotal','bill.qty','bill.pricediscount','bill.discount_all_order','generate.status')
         ->leftJoin('generate', 'bill.token', '=', 'generate.qr_code')->where('generate.status','S');

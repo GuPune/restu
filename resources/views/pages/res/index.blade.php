@@ -152,7 +152,7 @@
                     <div class="input-group">
                     <input type="text" name="code" id="code" class="form-control" style="width:100px">
 
-                <button type="button" class="btn btn-primary" id="gencode">สร้าง</button>
+
             </div>
             <div class="help-block-code">กรุณากรอก Code</div>
                 <input type="hidden" name="action" value="add">
@@ -241,7 +241,7 @@
 
         <!-- Modal footer -->
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+            <button type="button" class="btn btn-secondary save-add-cancel" data-dismiss="modal">ยกเลิก</button>
             <button type="button" class="btn btn-primary save-add" id="save_group">บันทึก</button>
             </div>
 
@@ -282,7 +282,7 @@
                     <div class="input-group">
                     <input type="text" name="editcode" id="editcode" class="form-control" style="width:100px">
 
-                <button type="button" class="btn btn-primary" id="gencode">สร้าง</button>
+
             </div>
             <div class="help-block-code">กรุณากรอก Code</div>
                 <input type="hidden" name="action" value="add">
@@ -370,7 +370,7 @@
 
         <!-- Modal footer -->
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+            <button type="button" class="btn btn-secondary save-cancel" data-dismiss="modal">ยกเลิก</button>
             <button type="button" class="btn btn-primary save-update" id="save_group">บันทึก</button>
             </div>
 
@@ -455,6 +455,7 @@ input:checked + .slider:before {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script>
 
 function onlyNumberKey(evt) {
@@ -927,6 +928,12 @@ function hideModal() {
 }
 
 
+$('body').on('click', '.save-cancel', function (e) {
+    $('#editmyModal').modal('hide');
+});
+$('body').on('click', '.save-add-cancel', function (e) {
+    $('#myModal').modal('hide');
+});
 $('body').on('click', '.save-delete', function (e) {
 
 

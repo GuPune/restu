@@ -15,10 +15,14 @@ class TypeResController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
+     function __construct()
      {
-         $this->middleware('auth');
+          $this->middleware('permission:typeres-list|typeres-create|typeres-edit|typeres-delete', ['only' => ['index','store']]);
+          $this->middleware('permission:typeres-create', ['only' => ['create','store']]);
+          $this->middleware('permission:typeres-edit', ['only' => ['edit','update']]);
+          $this->middleware('permission:typeres-delete', ['only' => ['destroy']]);
      }
+
     public function index()
     {
         //
