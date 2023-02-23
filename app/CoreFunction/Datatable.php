@@ -80,8 +80,9 @@ class Datatable extends Model
     public static function saleorder($request = null)
     {
 
-        $data =  Bill::select('bill.id','bill.bill_number','bill.pricetotal','bill.pricediscount','bill.type_pay','bill.get_paid','bill.accept_change','bill.qty','bill.discount_all_order','bill.total','generate.status','bill.created_at',DB::raw("DATE_FORMAT(bill.created_at, '%d-%b-%Y %H:%i:%s') as day_fort"))
-        ->leftJoin('generate', 'bill.token', '=', 'generate.qr_code');
+        $data =  Bill::select('bill.id','bill.bill_number','bill.pricetotal','bill.pricediscount','bill.type_pay','bill.get_paid','bill.accept_change','bill.qty','bill.discount_all_order','bill.total','generate.status','bill.created_at','bank.name',DB::raw("DATE_FORMAT(bill.created_at, '%d-%b-%Y %H:%i:%s') as day_fort"))
+        ->leftJoin('generate', 'bill.token', '=', 'generate.qr_code')
+        ->leftJoin('bank', 'bank.id', '=', 'bill.type_pay');
 
         if($request['typepay']){
             $data->where('bill.type_pay',$request['typepay']);

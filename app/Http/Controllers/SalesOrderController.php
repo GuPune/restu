@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CoreFunction\Datatable;
+use App\Models\Bank;
 use App\Models\Bill;
 use App\Models\Generate;
 use App\Models\Order;
@@ -30,8 +31,9 @@ class SalesOrderController extends Controller
     {
         //
 
+        $pay = Bank::where('type','Y')->get();
 
-        return view('pages.salesorder.index');
+        return view('pages.salesorder.index')->with('bank',$pay);
     }
 
     /**

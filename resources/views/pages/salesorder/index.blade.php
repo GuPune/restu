@@ -44,7 +44,11 @@
                     <div class="col-md-2">
                     <select name="type_pay" class="form-control" id="type_pay" style="width:180px">
                     <option value="">ทั้งหมด</option>
-                    <option value="1">เงินสด </option><option value="2">พร้อมเพย์ </option><option value="3">เงินโอน </option> </select>
+
+                    @foreach($bank as $banks)
+                    <option value="{{$banks->id}}">{{$banks->name}} </option>
+                    @endforeach
+                    </select>
                     </div>
                 <label class="col-md-3 form-control-label"> </label>
                 <div class="col-md-9">
@@ -385,14 +389,10 @@ columnDefs: [{
                     searchable: false,
                     render: function (data, type, row) {
 
-                        if(row.type_pay == '1'){
-                            var btnDetail = 'เงินสด'
-
-                        }else if(row.type_pay == '2'){
-                            var btnDetail = 'พร้อมเพย์'
-
-                        }else if(row.type_pay == '3'){
-                            var btnDetail = 'โอนเงิน'
+                        // bank.name
+                        if(row.type_pay){
+                            console.log('มี');
+                            var btnDetail = row.name
 
                         }else{
                             var btnDetail = '-'
