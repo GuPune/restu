@@ -1,7 +1,7 @@
 <template>
   <div class="pay">
     <div class="card">
-  <h6 class="text-center" style="padding-top: 5px;">โต๊ะ ห้องแอร์ 8</h6>
+  <h6 class="text-center" style="padding-top: 5px;"></h6>
   <p style="font-size: 12px;text-align: center;"><i> {{ fulldatetime }}</i></p>
   <div class="card-body">
     <table class="table">
@@ -16,7 +16,8 @@
   <tbody>
     <tr  v-for="i in this.orders">
       <th scope="row">{{i.qty}} {{i.name_list}}</th>
-      <td>{{i.discount}}.00</td>
+      <td v-if="i.discount">{{i.discount}}.00</td>
+      <td v-else="i.discount">0.00</td>
       <td>{{i.full_total}}.00</td>
     </tr>
 
