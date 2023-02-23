@@ -16,6 +16,7 @@
     <div class="card-footer text-muted" v-else>
 <p>ไม่มีข้อมูล</p>
   </div>
+
         <div class="bg-white p-3 mb-1"  data-target="#exampleModal31126" v-for="(i, key, index) in order" :key="index" @click="checkalone(i.id)">
             <div class="row" style="" >
               <div class="col-3">
@@ -190,6 +191,11 @@
                   <span style="font-size:0.6em;">โต๊ะ:{{i.toe_id}}</span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
+                <div>
+                  <br>
+                  <span style="font-size:0.6em;">เวลา:{{i.created_at}}</span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
 
 
               </div>
@@ -222,7 +228,7 @@
 
   </b-row>
 
-  <div>time: <strong>{{ time }} {{ selected_pad }} {{ selected_wait }}</strong></div>
+  <div>time: <strong>{{ time }}</strong></div>
 </b-container>
 
 
@@ -266,7 +272,7 @@ statusorder:'Y',
     async created(){
 
         let ordercus = await this.$store.dispatch(FETCH_ORDER_CUS,this.form);
-        console.log('this.selected_pad',JSON.stringify(ordercus.pending));
+
 this.order = ordercus.pending;
 this.order_doing = ordercus.doing;
 this.order_waiting = ordercus.waiting;

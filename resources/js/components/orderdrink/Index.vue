@@ -38,6 +38,11 @@
                   <span style="font-size:0.6em;">โต๊ะ:{{i.toe_id}}</span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
+                <div>
+                  <br>
+                  <span style="font-size:0.6em;">เวลา:{{i.created_at}}</span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
               </div>
               <div class="col-1">
                 <div>
@@ -182,6 +187,11 @@
                   <span style="font-size:0.6em;">โต๊ะ:{{i.toe_id}}</span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
+                <div>
+                  <br>
+                  <span style="font-size:0.6em;">เวลา:{{i.created_at}}</span><br>
+                  <!-- <span style="font-size:0.8em;"></span> -->
+                </div>
               </div>
               <div class="col-1">
                 <div>
@@ -211,7 +221,7 @@
     </b-col>
 
   </b-row>
-  <div>Selected: <strong>{{ selected_pad }} {{ selected_wait }} {{ selected_do }}</strong></div>
+  <div>Selected: <strong></strong></div>
   <div>time: <strong>{{ time }}</strong></div>
 </b-container>
 
@@ -278,23 +288,44 @@ setInterval(() => {
 
         checkall(e){
 
-if(e == 'O'){
-console.log('o');
-}
-if(e == 'I'){
-console.log('i');
-}
-if(e == 'S'){
-console.log('s');
-}
-
-            this.selected_pad = [];
+            if(e == 'O'){
+    this.selected_pad = [];
             if (!this.allSelected) {
                  this.order.forEach((select) => {
              this.selected_pad.push(select.id)
             })
 
             }
+}
+if(e == 'I'){
+    this.selected_do = [];
+    if (!this.allSelected) {
+                 this.order_doing.forEach((select) => {
+             this.selected_do.push(select.id)
+            })
+
+            }
+
+
+}
+if(e == 'S'){
+    this.selected_wait = [];
+    if (!this.allSelected) {
+                 this.order_waiting.forEach((select) => {
+             this.selected_wait.push(select.id)
+            })
+
+    }
+}
+
+
+            // this.selected_pad = [];
+            // if (!this.allSelected) {
+            //      this.order.forEach((select) => {
+            //  this.selected_pad.push(select.id)
+            // })
+
+            // }
           //  console.log('this.selected_pad',this.selected_pad);
         },
 

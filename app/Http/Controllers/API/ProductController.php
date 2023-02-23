@@ -404,13 +404,13 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
           $datas['waiting'] = [];
 
 
-          $orderPending =  Order::select('fact_order.id','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
+          $orderPending =  Order::select('fact_order.id','fact_order.created_at','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
           ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','S')->where('fact_order.status','Y')->get();
 
-          $orderDoing =  Order::select('fact_order.id','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
+          $orderDoing =  Order::select('fact_order.id','fact_order.created_at','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
           ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','S')->where('fact_order.status','O')->get();
 
-          $orderWait =  Order::select('fact_order.id','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
+          $orderWait =  Order::select('fact_order.id','fact_order.created_at','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
           ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','S')->where('fact_order.status','I')->get();
 
 
@@ -425,6 +425,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
                   $datas['pending'][$key]['qty'] = $ords->quantity;
                   $datas['pending'][$key]['status'] = $ords->status;
                   $datas['pending'][$key]['note'] = $ords->note;
+                  $datas['pending'][$key]['created_at'] = $ords->created_at->diffForHumans(null, true).' ที่แล้ว';;
               }
           }
 
@@ -439,6 +440,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
                   $datas['doing'][$key]['qty'] = $ordsdo->quantity;
                   $datas['doing'][$key]['status'] = $ordsdo->status;
                   $datas['doing'][$key]['note'] = $ordsdo->note;
+                  $datas['doing'][$key]['created_at'] = $ordsdo->created_at->diffForHumans(null, true).' ที่แล้ว';;
               }
           }
 
@@ -453,6 +455,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
                   $datas['waiting'][$key]['qty'] = $ordswait->quantity;
                   $datas['waiting'][$key]['status'] = $ordswait->status;
                   $datas['waiting'][$key]['note'] = $ordswait->note;
+                  $datas['waiting'][$key]['created_at'] = $ordswait->created_at->diffForHumans(null, true).' ที่แล้ว';;
               }
           }
 
@@ -563,13 +566,13 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
           $datas['waiting'] = [];
 
 
-          $orderPending =  Order::select('fact_order.id','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
+          $orderPending =  Order::select('fact_order.id','fact_order.created_at','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
           ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','R')->where('fact_order.status','Y')->get();
 
-          $orderDoing =  Order::select('fact_order.id','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
+          $orderDoing =  Order::select('fact_order.id','fact_order.created_at','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
           ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','R')->where('fact_order.status','O')->get();
 
-          $orderWait =  Order::select('fact_order.id','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
+          $orderWait =  Order::select('fact_order.id','fact_order.created_at','fact_order.res_id','fact_order.toe_id','fact_order.bill_id','fact_order.quantity','fact_order.total_price','fact_order.orders_price','fact_order.status','fact_order.note','product_res.res_kit','product_res.res_kit')
           ->leftJoin('product_res', 'fact_order.res_id', '=', 'product_res.id')->where('product_res.res_kit','R')->where('fact_order.status','I')->get();
 
 
@@ -584,6 +587,9 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
                   $datas['pending'][$key]['qty'] = $ords->quantity;
                   $datas['pending'][$key]['status'] = $ords->status;
                   $datas['pending'][$key]['note'] = $ords->note;
+                  $datas['pending'][$key]['created_at'] = $ords->created_at->diffForHumans(null, true).' ที่แล้ว';
+
+
               }
           }
 
@@ -598,6 +604,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
                   $datas['doing'][$key]['qty'] = $ordsdo->quantity;
                   $datas['doing'][$key]['status'] = $ordsdo->status;
                   $datas['doing'][$key]['note'] = $ordsdo->note;
+                  $datas['doing'][$key]['created_at'] = $ordsdo->created_at->diffForHumans(null, true).' ที่แล้ว';;
               }
           }
 
@@ -612,6 +619,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
                   $datas['waiting'][$key]['qty'] = $ordswait->quantity;
                   $datas['waiting'][$key]['status'] = $ordswait->status;
                   $datas['waiting'][$key]['note'] = $ordswait->note;
+                  $datas['waiting'][$key]['created_at'] = $ordswait->created_at->diffForHumans(null, true).' ที่แล้ว';;
               }
           }
 
@@ -666,7 +674,7 @@ $generatepackage = \App\CoreFunction\Line::Linenotify($request->all());
                   $datas['pending'][$key]['qty'] = $ords->quantity;
                   $datas['pending'][$key]['status'] = $ords->status;
                   $datas['pending'][$key]['note'] = $ords->note;
-                  $datas['pending'][$key]['created_at'] = $ords->created_at;
+                  $datas['pending'][$key]['created_at'] = $ords->created_at->diffForHumans(null, true).' ที่แล้ว';;
 
 
 
