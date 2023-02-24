@@ -88,7 +88,6 @@ export default {
 
         let typeres = await this.$store.dispatch(FETCH_TYPERES,this.form);
         this.typerest = typeres;
-        console.log('typeres',typeres);
 
 
 

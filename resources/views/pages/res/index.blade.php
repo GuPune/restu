@@ -585,7 +585,7 @@ function RefreshTable(data) {
             data.serachcode = $('input[name=serachcode]').val();
             data.searchtype = $('select[name=searchtype]').val();
 
-console.log(data.searchtype);
+
             return data;
 
 }

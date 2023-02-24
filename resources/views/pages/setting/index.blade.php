@@ -192,7 +192,7 @@ $('body').on('click', '.save', function (e) {
 
 
 if(line_notify == ''){
-    console.log('if');
+
     return false;
 }else{
     $.ajaxSetup({

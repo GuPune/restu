@@ -308,7 +308,7 @@ $('#reload').click(function () {
             type: 'GET',
             url: 'reload-captcha',
             success: function (data) {
-console.log(data)
+
 
 var answer = $('#answer').val(data.answer);
             $(".captcha span").html(data.ask);

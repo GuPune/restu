@@ -217,7 +217,7 @@ $.ajaxSetup({
 
 
 function choose(id) {
-console.log('id',id);
+
 
     localStorage.setItem("toe_id",1);
 location.href = "orderlist";

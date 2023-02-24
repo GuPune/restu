@@ -208,7 +208,7 @@ const mutations = {
         //     sum += item.total_res;
         //     console.log(sum);
         //  });
-        console.log(state.cartALLPrice);
+
       //  state.cartALLPrice = 0;
 
 
@@ -255,10 +255,10 @@ state.cartTotal = this.cart.length;
     },
     [SET_ADD_REST](state,item){
 
-      console.log('item',item);
+
     let found = state.cart.find(product => product.id == item.id);
      //   state.cart.push(item);
-     console.log('found',found);
+
   //  let a = localStorage.setItem("cart", JSON.stringify(state.cart));
 
 
@@ -272,8 +272,7 @@ if (found) {
     var total = bbbb * parseInt(item.price_sell);
     found.qty = bbbb;
     found.total_res = total;
-    console.log('found total',total);
-    console.log('found if',found);
+
    } else {
     var obj = {};
     obj["id"] = item.id;

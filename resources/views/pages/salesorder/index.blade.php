@@ -391,7 +391,7 @@ columnDefs: [{
 
                         // bank.name
                         if(row.type_pay){
-                            console.log('มี');
+
                             var btnDetail = row.name
 
                         }else{
@@ -434,7 +434,7 @@ data._token = "{{ csrf_token() }}";
 data.typepay = $('select[name=type_pay]').val();
 data.id = $('input[name=id]').val();
 
-console.log(data);
+
 
 return data;
 }

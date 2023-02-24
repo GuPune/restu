@@ -241,7 +241,7 @@ const mutations = {
     },
     [SET_TOE_STATUS](state, item) {
         state.ToeStatus = item;
-        console.log('state.ToeStatus',item);
+
     },
 
     [SET_TOE_STATUS_OPEN](state, item) {
