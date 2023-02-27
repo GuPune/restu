@@ -1,7 +1,7 @@
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
 
-      <a class="brand-logo" href="/">
+      <a class="brand-logo" href="/admin/dashboard">
         <img src="/cms/images/logo2.jpg" alt="logo" width="100" height="50"/></a>
 
       <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">

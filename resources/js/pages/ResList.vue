@@ -204,7 +204,7 @@ this.typegroup = gettypegroup;
         async scrollFind(x){
 
             this.form.typeres = x
-            console.log(this.form);
+
       let befres = await this.$store.dispatch(FETCH_RES,this.form);
 this.res = befres;
 
