@@ -179,17 +179,17 @@
                 </div>
                 <div>
                   <br>
-                  <span style="font-size:0.6em;">Note:{{i.note}}</span><br>
+                  <span style="font-size:1.0em;">Note:{{i.note}}</span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
                 <div>
                   <br>
-                  <span style="font-size:0.6em;">โต๊ะ:{{i.toe_id}}</span><br>
+                  <span style="font-size:1.0em;">โต๊ะ:{{i.toe_id}}</span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
                 <div>
                   <br>
-                  <span style="font-size:0.6em;">เวลา:{{i.created_at}}</span><br>
+                  <span style="font-size:1.0em;">เวลา:{{i.created_at}}</span><br>
                   <!-- <span style="font-size:0.8em;"></span> -->
                 </div>
               </div>

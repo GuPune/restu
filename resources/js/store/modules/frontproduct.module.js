@@ -171,7 +171,7 @@ const mutations = {
     },
     [SET_TOE_FRONT](state, data) {
         state.toe = data;
-        console.log('state.toe',data);
+     
 
     },
     [SET_CHECKOUT](state) {
