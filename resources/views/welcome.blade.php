@@ -18,8 +18,8 @@
         {{-- <link rel="stylesheet" href="https://dinovery.app/app/assets/css/custom.css?v1">
         <link rel="stylesheet" href="https://dinovery.app/app/assets/css/sidebar.css?v1"> --}}
 
-        <link rel="stylesheet" href="https://restu.idtest.work/css/sidebar.css">
-        <link rel="stylesheet" href="https://restu.idtest.work/css/custom.css">
+        <link rel="stylesheet" href="https://tarabeach-ud.com/css/sidebar.css">
+        <link rel="stylesheet" href="https://tarabeach-ud.com/css/custom.css">
 
 {{--
         <link rel="stylesheet" href="http://restau.test/css/sidebar.css">
